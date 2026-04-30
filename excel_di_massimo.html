@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Excel di Massimo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f5;
+    --paper:#ffffff;
+    --ink:#1f1e1c;
+    --ink-soft:#3d3a35;
+    --muted:#6b675e;
+    --line:#e8e4d8;
+    --line-soft:#f1ede1;
+    --accent:#cc785c;
+    --accent-deep:#a85a40;
+    --accent-soft:#f4e4dc;
+    --warm:#f5f1e6;
+    --warm-deeper:#ede6d3;
+    --gold:#c8a951;
+    --gold-soft:#fbf4dc;
+    --readonly:#f5f1e6;
+    --editable:#ffffff;
+    --shadow-sm:0 1px 2px rgba(31,30,28,.04);
+    --shadow-md:0 4px 16px -4px rgba(31,30,28,.08), 0 1px 3px rgba(31,30,28,.04);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;}
+  .serif{font-family:'Fraunces',Georgia,"Times New Roman",serif;font-weight:500;letter-spacing:-.01em}
+
+  /* ============ HEADER ============ */
+  header{padding:28px 22px 22px;background:linear-gradient(180deg,#fdfcf7 0%,#faf9f5 100%);
+    border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;
+    backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:saturate(1.2) blur(8px);
+    background-color:rgba(250,249,245,.92)}
+  header .wrap{max-width:780px;margin:0 auto}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;
+    text-transform:uppercase;letter-spacing:.14em;color:var(--accent-deep);font-weight:600;margin-bottom:8px}
+  .eyebrow::before{content:"";width:18px;height:1.5px;background:var(--accent);border-radius:2px}
+  header h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(26px,6vw,34px);line-height:1.1;letter-spacing:-.02em;
+    margin:0 0 6px;color:var(--ink)}
+  header h1 em{font-style:italic;color:var(--accent);font-weight:500}
+  header p{margin:0;color:var(--muted);font-size:13.5px;max-width:62ch}
+  nav{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px}
+  nav a{flex:1 1 auto;text-align:center;text-decoration:none;color:var(--ink-soft);
+    font-size:12.5px;font-weight:500;padding:9px 12px;border:1px solid var(--line);
+    border-radius:999px;background:var(--paper);transition:all .15s ease;
+    display:flex;align-items:center;justify-content:center;gap:6px}
+  nav a:hover{border-color:var(--accent);color:var(--accent-deep);background:#fffaf6}
+  nav a .num{font-family:'Fraunces',serif;font-style:italic;color:var(--accent);font-weight:600}
+
+  /* ============ MAIN ============ */
+  main{padding:24px 18px 80px;max-width:780px;margin:0 auto}
+
+  section{background:var(--paper);border:1px solid var(--line);border-radius:18px;
+    padding:24px 22px;margin-bottom:18px;box-shadow:var(--shadow-sm)}
+  section .head{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px;
+    padding-bottom:16px;border-bottom:1px solid var(--line-soft)}
+  section .head .badge{flex-shrink:0;width:38px;height:38px;border-radius:50%;
+    background:var(--accent-soft);color:var(--accent-deep);
+    font-family:'Fraunces',serif;font-weight:600;font-size:18px;
+    display:flex;align-items:center;justify-content:center;line-height:1}
+  section .head .titles{flex:1;min-width:0}
+  section h2{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:21px;line-height:1.2;margin:0 0 4px;letter-spacing:-.01em;color:var(--ink)}
+  section .sub{color:var(--muted);font-size:13px;margin:0;line-height:1.4}
+  section h3{font-family:'Fraunces',serif;font-weight:600;font-size:14.5px;
+    margin:22px 0 10px;color:var(--ink);letter-spacing:.01em;
+    display:flex;align-items:center;gap:8px}
+  section h3::before{content:"";width:4px;height:14px;background:var(--accent);border-radius:2px}
+
+  /* ============ NORMA ============ */
+  .norma{font-size:13.5px;line-height:1.62;color:var(--ink-soft)}
+  .norma .blk{padding:16px 18px;background:var(--warm);border-radius:12px;
+    margin-bottom:12px;border-left:3px solid var(--accent);position:relative}
+  .norma .blk:last-child{margin-bottom:0}
+  .norma .blk-title{font-family:'Fraunces',serif;font-weight:600;font-size:14px;
+    color:var(--accent-deep);margin:0 0 8px;display:block}
+  .norma blockquote{margin:0;font-style:italic;color:var(--ink);
+    font-family:'Fraunces',Georgia,serif;font-size:14px;line-height:1.55;font-weight:400}
+  .norma p{margin:6px 0}
+  .norma ul{margin:8px 0 0 0;padding-left:18px}
+  .norma li{margin-bottom:4px}
+  .norma b{color:var(--ink);font-weight:600}
+
+  /* ============ TABLE / CALC ============ */
+  .calc-wrap{border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    background:var(--paper)}
+  .calc{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
+  .calc th,.calc td{padding:10px 12px;vertical-align:middle;
+    border-bottom:1px solid var(--line-soft)}
+  .calc tr:last-child td{border-bottom:0}
+  .calc th{background:var(--warm-deeper);font-weight:600;text-align:center;
+    font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-soft);
+    font-family:'Inter',sans-serif;border-bottom:1px solid var(--line)}
+  .calc td.lbl{font-size:13px;line-height:1.32;color:var(--ink-soft)}
+  .calc td.lbl small{color:var(--muted);font-size:11.5px;display:block;margin-top:2px;font-style:italic}
+  .calc td.num{text-align:right;font-variant-numeric:tabular-nums;
+    background:var(--readonly);font-weight:500;color:var(--ink);
+    font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:12.5px}
+  .calc td.input{background:var(--editable);padding:0}
+  .calc td.input input{width:100%;border:0;background:transparent;
+    text-align:right;font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    font-size:13px;font-weight:600;color:var(--accent-deep);
+    padding:10px 12px;font-variant-numeric:tabular-nums}
+  .calc td.input input:focus{outline:0;background:#fffaf6;
+    box-shadow:inset 0 0 0 2px var(--accent)}
+  .calc td.num.empty{color:var(--muted);font-weight:400}
+  .calc tr.section td{background:linear-gradient(90deg,#f5ebe2 0%,var(--warm) 100%);
+    font-family:'Fraunces',serif;font-weight:600;font-size:12px;color:var(--accent-deep);
+    text-transform:uppercase;letter-spacing:.1em;padding:9px 14px;
+    border-bottom:1px solid var(--line)}
+  .calc tr.subtotal td{background:#fbf8ec;font-weight:600;color:var(--ink)}
+  .calc tr.subtotal td.num{color:var(--ink);font-weight:700}
+  .calc tr.total td{background:linear-gradient(90deg,#f9efd6 0%,var(--gold-soft) 100%);
+    font-family:'Fraunces',serif;font-weight:700}
+  .calc tr.total td.num{color:var(--ink);font-size:14px;letter-spacing:.01em}
+
+  /* ============ LEGEND ============ */
+  .legend{font-size:11px;color:var(--muted);margin:14px 0 0;display:flex;gap:16px;flex-wrap:wrap;
+    padding:10px 14px;background:var(--warm);border-radius:10px;align-items:center}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .legend span::before{content:"";display:inline-block;width:11px;height:11px;
+    border:1px solid var(--line);border-radius:3px}
+  .legend .l-in::before{background:var(--editable);border-color:var(--accent)}
+  .legend .l-ro::before{background:var(--readonly)}
+  .legend .l-tot::before{background:var(--gold-soft);border-color:var(--gold)}
+
+  /* ============ DETAILS / IPOTESI ============ */
+  details{margin-top:14px;border:1px solid var(--line);border-radius:12px;
+    background:var(--paper);overflow:hidden}
+  details[open]{box-shadow:var(--shadow-sm)}
+  details summary{cursor:pointer;color:var(--ink);font-weight:500;padding:12px 16px;
+    list-style:none;display:flex;justify-content:space-between;align-items:center;
+    font-family:'Fraunces',serif;font-size:14px}
+  details summary::-webkit-details-marker{display:none}
+  details summary::after{content:"+";color:var(--accent);font-size:18px;
+    font-weight:400;transition:transform .2s ease}
+  details[open] summary::after{transform:rotate(45deg)}
+  details summary:hover{background:var(--warm)}
+  details .formulas{padding:14px 18px;background:var(--warm);border-top:1px solid var(--line);
+    font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:11.5px;
+    line-height:1.85;color:var(--ink-soft)}
+  details .formulas code{color:var(--accent-deep);font-weight:500}
+  details .formulas .note{color:var(--muted);font-style:italic;font-family:'Fraunces',serif;font-size:11.5px}
+
+  .ipotesi{margin-top:16px;padding:16px 18px;
+    background:linear-gradient(135deg,var(--gold-soft) 0%,#fdf7e3 100%);
+    border-radius:12px;border:1px solid #ecdfb7}
+  .ipotesi .t{font-family:'Fraunces',serif;font-weight:600;font-size:14px;
+    color:#85691a;margin-bottom:10px;display:block}
+  .ipotesi-row{display:flex;justify-content:space-between;align-items:baseline;
+    padding:6px 0;border-bottom:1px dashed #e0cf95;font-size:12.5px;color:var(--ink-soft);gap:12px}
+  .ipotesi-row:last-child{border:0}
+  .ipotesi-row span:last-child{font-family:'JetBrains Mono',monospace;
+    font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);flex-shrink:0}
+
+  .reset{margin-top:14px;width:100%;padding:13px;border:1px solid var(--line);
+    background:var(--paper);border-radius:12px;color:var(--accent-deep);
+    font-weight:600;font-size:13.5px;cursor:pointer;
+    font-family:'Inter',sans-serif;transition:all .15s ease;
+    display:flex;align-items:center;justify-content:center;gap:8px}
+  .reset:hover{background:var(--warm);border-color:var(--accent)}
+  .reset:active{transform:scale(.99)}
+  .reset svg{width:14px;height:14px}
+
+  footer{text-align:center;padding:24px 16px 8px;color:var(--muted);font-size:11.5px;
+    font-style:italic;font-family:'Fraunces',serif}
+
+  /* ============ MOBILE ============ */
+  @media (max-width:480px){
+    header{padding:22px 16px 18px}
+    main{padding:16px 12px 60px}
+    section{padding:18px 16px;border-radius:14px}
+    section .head{gap:10px;margin-bottom:14px;padding-bottom:12px}
+    section .head .badge{width:32px;height:32px;font-size:15px}
+    section h2{font-size:18px}
+    .calc{font-size:12px}
+    .calc th,.calc td{padding:8px 8px}
+    .calc td.input input{padding:8px 8px;font-size:12.5px}
+    .calc td.lbl{font-size:11.5px}
+    .calc td.lbl small{font-size:10.5px}
+    .calc td.num{font-size:11.5px}
+    .calc tr.section td{padding:7px 10px;font-size:10.5px}
+    .ipotesi-row{flex-direction:column;gap:2px;padding:8px 0}
+    .ipotesi-row span:last-child{align-self:flex-end}
+    nav a{font-size:11.5px;padding:8px 10px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="eyebrow">Acconti IRES &middot; LdB 2025–2026</span>
+    <h1 class="serif">Excel di <em>Massimo</em></h1>
+    <p>Quadro normativo e meccanismo di calcolo del saldo 2025 e dell'acconto 2026, con esempio numerico modificabile.</p>
+    <nav>
+      <a href="#s1"><span class="num">01</span> LdB 2025</a>
+      <a href="#s2"><span class="num">02</span> LdB 2026</a>
+      <a href="#s3"><span class="num">03</span> Calcolo</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ SEZIONE 1 - LdB 2025 ============ -->
+<section id="s1">
+  <div class="head">
+    <div class="badge">I</div>
+    <div class="titles">
+      <h2>Legge di Bilancio 2025</h2>
+      <p class="sub">L. 30 dicembre 2024, n.&nbsp;207 &mdash; Determinazione degli acconti 2026 (IRES e IRAP) e divieto di compensazione</p>
+    </div>
+  </div>
+
+  <div class="norma">
+    <div class="blk">
+      <span class="blk-title">Art. 1, comma 19</span>
+      <blockquote>&laquo;Nella determinazione degli acconti dovuti per il periodo d'imposta in corso: [&hellip;]&raquo;</blockquote>
+      <ul>
+        <li>b) <b>al 31 dicembre 2026</b> si assume, <b>quale imposta del periodo precedente</b>, quella che si sarebbe determinata <b>non applicando l'articolo 16, commi 4 e 9, del decreto-legge 27 giugno 2015, n. 83</b>, convertito, con modificazioni, dalla legge 6 agosto 2015, n. 132, l'articolo 1, comma 1079, della legge 30 dicembre 2018, n. 145, nonch&eacute; l'articolo 1, commi 1067 e 1068, della medesima legge 30 dicembre 2018, n. 145 <b>e, inoltre, non si tiene conto delle quote differite ai sensi dei commi da 14 a 17 del presente articolo</b> [&hellip;].</li>
+      </ul>
+    </div>
+
+    <div class="blk">
+      <span class="blk-title">Art. 1, comma 20</span>
+      <blockquote>&laquo;Sull'importo corrispondente alla parte dei <b>maggiori acconti</b> dovuti per effetto delle disposizioni dei commi da 14 a 19 del presente articolo, <b>per il periodo d'imposta in corso al 31 dicembre 2025 e per quello successivo</b>, <b>non si applicano</b> le disposizioni dell'articolo 17 del decreto legislativo 9 luglio 1997, n. 241, n&eacute; quelle dell'articolo 4, comma 3, del decreto-legge 2 marzo 1989, n. 69, convertito, con modificazioni, dalla legge 27 aprile 1989, n. 154.&raquo;</blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SEZIONE 2 - LdB 2026 ============ -->
+<section id="s2">
+  <div class="head">
+    <div class="badge">II</div>
+    <div class="titles">
+      <h2>Legge di Bilancio 2026</h2>
+      <p class="sub">L. 30 dicembre 2025, n.&nbsp;199 &mdash; Scomputo delle perdite e delle eccedenze ACE dal saldo e dagli acconti IRES 2026 (Art. 1, commi 79–81)</p>
+    </div>
+  </div>
+
+  <div class="norma">
+    <div class="blk">
+      <span class="blk-title">Comma 79 &mdash; saldo IRES 2026</span>
+      <p>Il computo delle perdite e delle eccedenze ACE in diminuzione del reddito:</p>
+      <ul>
+        <li>&laquo;a) del periodo <b>d'imposta in corso al 31 dicembre 2026</b> &egrave; effettuato limitatamente al <b>maggior reddito imponibile</b> del medesimo periodo d'imposta determinato per effetto delle disposizioni di cui all'articolo 1, commi da 14 a 17, della legge 30 dicembre 2024, n. 207, <b>in misura non superiore al 35 per cento</b> dello stesso maggior reddito imponibile [&hellip;]&raquo;</li>
+      </ul>
+    </div>
+
+    <div class="blk">
+      <span class="blk-title">Comma 80 &mdash; Consolidato</span>
+      <p>Le disposizioni di cui al comma 79 si applicano anche ai fini della determinazione del reddito dei soggetti partecipanti al <b>consolidato nazionale e mondiale</b> di cui agli articoli 117 e seguenti del TUIR (DPR 22 dicembre 1986, n. 917). Il reddito complessivo globale dei periodi d'imposta in corso al 31 dicembre 2026 e al 31 dicembre 2027 si considera prioritariamente formato dal maggior reddito imponibile che si determina, rispettivamente, ai sensi dell'art. 1, commi da 14 a 17, della L. 207/2024 e delle disposizioni del comma 79, lett. a), nonch&eacute; ai sensi dei commi 76, 77, 78 e 79, lett. b).</p>
+    </div>
+
+    <div class="blk">
+      <span class="blk-title">Comma 81 &mdash; acconti IRES 2026</span>
+      <p>Nella determinazione degli acconti dovuti per il periodo d'imposta in corso:</p>
+      <ul>
+        <li>&laquo;a) <b>al 31 dicembre 2026</b>, si assume, <b>quale imposta del periodo precedente</b>, quella che si sarebbe determinata applicando le disposizioni di cui ai commi 79, lettera a), e 80 del presente articolo [&hellip;]&raquo;</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SEZIONE 3 - CALCOLO ============ -->
+<section id="s3">
+  <div class="head">
+    <div class="badge">III</div>
+    <div class="titles">
+      <h2>Calcolo Saldo e Acconto</h2>
+      <p class="sub">Esempio numerico tratto dal foglio &laquo;Calcolo Saldo e Acconto&raquo;. I campi <b>bianchi</b> sono modificabili: il calcolo si aggiorna in tempo reale.</p>
+    </div>
+  </div>
+
+  <h3>Parametri</h3>
+  <div class="calc-wrap">
+  <table class="calc">
+    <tr>
+      <td class="lbl">ACE disponibile</td>
+      <td class="num input"><input type="number" id="ace" value="1" step="any"></td>
+      <td class="lbl">Perdite fiscali</td>
+      <td class="num input"><input type="number" id="perdite" value="100" step="any"></td>
+    </tr>
+    <tr>
+      <td class="lbl">Reversal bloccati<br><small>maggior reddito RS544</small></td>
+      <td class="num input"><input type="number" id="reversal" value="50" step="any"></td>
+      <td class="lbl">Aliquota IRES</td>
+      <td class="num input"><input type="number" id="aliq" value="0.24" step="0.01"></td>
+    </tr>
+    <tr>
+      <td class="lbl">Limite perdite/ACE<br><small>Saldo 2025 (LdB&apos;25)</small></td>
+      <td class="num input"><input type="number" id="lim_saldo" value="0.54" step="0.01"></td>
+      <td class="lbl">Limite perdite/ACE<br><small>Acconto 2026 (LdB&apos;26)</small></td>
+      <td class="num input"><input type="number" id="lim_acc" value="0.35" step="0.01"></td>
+    </tr>
+  </table>
+  </div>
+
+  <h3>Determinazione Saldo 2025 / Acconto 2026</h3>
+  <div class="calc-wrap">
+  <table class="calc">
+    <colgroup>
+      <col style="width:54%"><col style="width:23%"><col style="width:23%">
+    </colgroup>
+    <tr><th>Voce</th><th>Saldo 2025</th><th>Acconto 2026</th></tr>
+
+    <tr class="section"><td colspan="3">Componenti di reddito</td></tr>
+    <tr>
+      <td class="lbl">Utile</td>
+      <td class="num input"><input type="number" id="utile_s" value="100" step="any"></td>
+      <td class="num input"><input type="number" id="utile_a" value="100" step="any"></td>
+    </tr>
+    <tr>
+      <td class="lbl">Var+</td>
+      <td class="num input"><input type="number" id="varp_s" value="10" step="any"></td>
+      <td class="num input"><input type="number" id="varp_a" value="10" step="any"></td>
+    </tr>
+    <tr>
+      <td class="lbl">Var&minus;</td>
+      <td class="num input"><input type="number" id="varm_s" value="-30" step="any"></td>
+      <td class="num input"><input type="number" id="varm_a" value="-30" step="any"></td>
+    </tr>
+    <tr>
+      <td class="lbl">Rettifiche di valore ECL<br><small>solo Acconto 2026</small></td>
+      <td class="num empty">&mdash;</td>
+      <td class="num input"><input type="number" id="ecl_a" value="19" step="any"></td>
+    </tr>
+    <tr class="subtotal">
+      <td class="lbl">Base imponibile lorda</td>
+      <td class="num" id="bil_s"></td>
+      <td class="num" id="bil_a"></td>
+    </tr>
+
+    <tr class="section"><td colspan="3">Maggior reddito (Reversal RS544)</td></tr>
+    <tr>
+      <td class="lbl">Maggior reddito imponibile RS544</td>
+      <td class="num" id="mrr_s"></td>
+      <td class="num" id="mrr_a"></td>
+    </tr>
+    <tr>
+      <td class="lbl">Utilizzo Perdite/ACE su maggior reddito<br><small>= &minus;MIN(Mag.&times;limite%; ACE+Perdite)</small></td>
+      <td class="num" id="upm_s"></td>
+      <td class="num" id="upm_a"></td>
+    </tr>
+    <tr class="subtotal">
+      <td class="lbl">Maggior reddito netto (a)</td>
+      <td class="num" id="mrn_s"></td>
+      <td class="num" id="mrn_a"></td>
+    </tr>
+
+    <tr class="section"><td colspan="3">Reddito ordinario</td></tr>
+    <tr>
+      <td class="lbl">Reddito ordinario<br><small>= Base lorda &minus; maggior reddito</small></td>
+      <td class="num" id="ord_s"></td>
+      <td class="num" id="ord_a"></td>
+    </tr>
+    <tr>
+      <td class="lbl">Limite perdite 80% sul reddito ordinario<br><small>= &minus;MIN(ord.&times;80%; perdite residue)</small></td>
+      <td class="num" id="lp_s"></td>
+      <td class="num" id="lp_a"></td>
+    </tr>
+    <tr>
+      <td class="lbl">Utilizzo ACE residua</td>
+      <td class="num" id="ua_s"></td>
+      <td class="num" id="ua_a"></td>
+    </tr>
+    <tr class="subtotal">
+      <td class="lbl">Reddito netto ordinario (b)</td>
+      <td class="num" id="rno_s"></td>
+      <td class="num" id="rno_a"></td>
+    </tr>
+
+    <tr class="section"><td colspan="3">Imposta</td></tr>
+    <tr class="total">
+      <td class="lbl">Base imponibile netta (a + b)</td>
+      <td class="num" id="bn_s"></td>
+      <td class="num" id="bn_a"></td>
+    </tr>
+    <tr class="total">
+      <td class="lbl">IRES dovuta</td>
+      <td class="num" id="ires_s"></td>
+      <td class="num" id="ires_a"></td>
+    </tr>
+
+    <tr class="section"><td colspan="3">Residui post imposte</td></tr>
+    <tr>
+      <td class="lbl">Perdite residue</td>
+      <td class="num" id="pr_s"></td>
+      <td class="num" id="pr_a"></td>
+    </tr>
+    <tr>
+      <td class="lbl">ACE residua</td>
+      <td class="num" id="ar_s"></td>
+      <td class="num" id="ar_a"></td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="ipotesi">
+    <span class="t">Scomposizione IRES Acconto 2026</span>
+    <div class="ipotesi-row"><span>Ipotesi 1 &mdash; IRES su maggior reddito (utilizzo perdite 35%)</span><span id="ip1a"></span></div>
+    <div class="ipotesi-row"><span>Ipotesi 1 &mdash; IRES su reddito ordinario</span><span id="ip1b"></span></div>
+    <div class="ipotesi-row"><span>Ipotesi 2 &mdash; IRES su maggior reddito (utilizzo perdite 54%)</span><span id="ip2a"></span></div>
+    <div class="ipotesi-row"><span>Ipotesi 2 &mdash; IRES su reddito ordinario</span><span id="ip2b"></span></div>
+  </div>
+
+  <div class="legend">
+    <span class="l-in">campo modificabile</span>
+    <span class="l-ro">valore calcolato</span>
+    <span class="l-tot">totale</span>
+  </div>
+
+  <details>
+    <summary>Formule applicate</summary>
+    <div class="formulas">
+      <code>Base imponibile lorda = Utile + Var+ + Var&minus; (+ ECL solo Acconto)</code><br>
+      <code>Maggior reddito = Reversal bloccati</code><br>
+      <code>Utilizzo P/ACE su maggior reddito = &minus;MIN(maggior &times; limite%; ACE + Perdite)</code><br>
+      <span class="note">&nbsp;&nbsp;&middot; limite Saldo 2025 = 54% &nbsp; &middot; limite Acconto 2026 = 35% (LdB 2026 c.79)</span><br>
+      <code>Reddito ordinario = Base lorda &minus; maggior reddito</code><br>
+      <code>Limite perdite 80% = &minus;MIN(ordinario &times; 80%; perdite residue)</code><br>
+      <code>Utilizzo ACE = &minus;MIN(ordinario + limite perdite 80%; ACE residua)</code><br>
+      <code>Reddito netto ordinario = ordinario + limite perdite 80% + utilizzo ACE</code><br>
+      <code>Base netta = (a) maggior reddito netto + (b) reddito netto ordinario</code><br>
+      <code>IRES = Base netta &times; aliquota</code>
+    </div>
+  </details>
+
+  <button class="reset" onclick="resetVals()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.4 2.6L3 8"/><path d="M3 3v5h5"/></svg>
+    Ripristina valori d'esempio
+  </button>
+</section>
+
+<footer>Excel di Massimo &middot; calcolo lato client, nessun dato inviato</footer>
+
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const fmt = n => (Math.round(n*100)/100).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
+const num = id => parseFloat($(id).value)||0;
+
+const defaults = {
+  ace:1, perdite:100, reversal:50, aliq:0.24, lim_saldo:0.54, lim_acc:0.35,
+  utile_s:100, utile_a:100, varp_s:10, varp_a:10, varm_s:-30, varm_a:-30, ecl_a:19
+};
+
+function resetVals(){
+  for(const k in defaults) $(k).value = defaults[k];
+  calc();
+}
+
+function calc(){
+  const ACE = num('ace'), PERD = num('perdite'), REV = num('reversal');
+  const ALIQ = num('aliq'), LS = num('lim_saldo'), LA = num('lim_acc');
+
+  // Saldo 2025
+  const bil_s = num('utile_s')+num('varp_s')+num('varm_s');
+  const mrr_s = REV;
+  const upm_s = -Math.min(mrr_s*LS, ACE+PERD);
+  const mrn_s = mrr_s + upm_s;
+  const ord_s = bil_s - mrr_s;
+  const perdite_dopo_s = PERD + upm_s;
+  const lp_s  = -Math.min(ord_s*0.8, perdite_dopo_s);
+  const ua_s  = -Math.min(ord_s + lp_s, ACE);
+  const rno_s = ord_s + lp_s + ua_s;
+  const bn_s  = mrn_s + rno_s;
+  const ires_s = bn_s * ALIQ;
+  const pr_s = PERD + upm_s + lp_s;
+  const ar_s = ACE + ua_s;
+
+  // Acconto 2026
+  const bil_a = num('utile_a')+num('varp_a')+num('varm_a')+num('ecl_a');
+  const mrr_a = REV;
+  const upm_a = -Math.min(mrr_a*LA, ACE+PERD);
+  const mrn_a = mrr_a + upm_a;
+  const ord_a = bil_a - mrr_a;
+  const perdite_dopo_a = PERD + upm_a;
+  const lp_a  = -Math.min(ord_a*0.8, perdite_dopo_a);
+  const ua_a  = -Math.min(ord_a + lp_a, ACE);
+  const rno_a = ord_a + lp_a + ua_a;
+  const bn_a  = mrn_a + rno_a;
+  const ires_a = bn_a * ALIQ;
+  const pr_a = PERD + upm_a + lp_a;
+  const ar_a = ACE + ua_a;
+
+  const ip1a = mrn_a * ALIQ;
+  const ip1b = ires_a - ip1a;
+  const ip2a = mrn_s * ALIQ;
+  const ip2b = ires_a - ip2a;
+
+  const set = (id,v)=>$(id).textContent = fmt(v);
+  set('bil_s',bil_s); set('bil_a',bil_a);
+  set('mrr_s',mrr_s); set('mrr_a',mrr_a);
+  set('upm_s',upm_s); set('upm_a',upm_a);
+  set('mrn_s',mrn_s); set('mrn_a',mrn_a);
+  set('ord_s',ord_s); set('ord_a',ord_a);
+  set('lp_s',lp_s);   set('lp_a',lp_a);
+  set('ua_s',ua_s);   set('ua_a',ua_a);
+  set('rno_s',rno_s); set('rno_a',rno_a);
+  set('bn_s',bn_s);   set('bn_a',bn_a);
+  set('ires_s',ires_s); set('ires_a',ires_a);
+  set('pr_s',pr_s);   set('pr_a',pr_a);
+  set('ar_s',ar_s);   set('ar_a',ar_a);
+  set('ip1a',ip1a); set('ip1b',ip1b); set('ip2a',ip2a); set('ip2b',ip2b);
+}
+
+document.querySelectorAll('input[type=number]').forEach(i=>i.addEventListener('input',calc));
+calc();
+</script>
+
+</body>
+</html>
