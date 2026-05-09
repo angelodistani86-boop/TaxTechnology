@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dashboard Dichiarazione CNM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#faf9f5;
+    --paper:#ffffff;
+    --ink:#1f1e1c;
+    --ink-soft:#3d3a35;
+    --muted:#6b675e;
+    --line:#e8e4d8;
+    --line-soft:#f1ede1;
+    --accent:#cc785c;
+    --accent-deep:#a85a40;
+    --accent-soft:#f4e4dc;
+    --warm:#f5f1e6;
+    --warm-deeper:#ede6d3;
+    --gold:#c8a951;
+    --gold-soft:#fbf4dc;
+    --green:#5a8f6b;
+    --green-soft:#e4ede2;
+    --red:#b85a5a;
+    --red-soft:#f5e1de;
+    --blue:#5a7a9f;
+    --blue-soft:#e1e8ef;
+    --shadow-sm:0 1px 2px rgba(31,30,28,.04);
+    --shadow-md:0 4px 16px -4px rgba(31,30,28,.08), 0 1px 3px rgba(31,30,28,.04);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .serif{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.01em}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+
+  /* HEADER */
+  header{padding:32px 24px 24px;background:linear-gradient(180deg,#fdfcf7 0%,#faf9f5 100%);
+    border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;
+    backdrop-filter:saturate(1.2) blur(8px);background-color:rgba(250,249,245,.92)}
+  header .wrap{max-width:1200px;margin:0 auto}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;
+    text-transform:uppercase;letter-spacing:.14em;color:var(--accent-deep);
+    font-weight:600;margin-bottom:10px}
+  .eyebrow::before{content:"";width:18px;height:1.5px;background:var(--accent);border-radius:2px}
+  header h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(28px,4vw,38px);line-height:1.1;letter-spacing:-.02em;
+    margin:0 0 8px;color:var(--ink)}
+  header h1 em{font-style:italic;color:var(--accent);font-weight:500}
+  header p{margin:0;color:var(--muted);font-size:14px;max-width:72ch}
+  .meta-bar{display:flex;flex-wrap:wrap;gap:18px;margin-top:18px;font-size:12.5px;color:var(--ink-soft)}
+  .meta-bar span{display:inline-flex;align-items:center;gap:6px}
+  .meta-bar b{color:var(--accent-deep);font-weight:600}
+  .pulse{width:8px;height:8px;border-radius:50%;background:var(--green);
+    box-shadow:0 0 0 0 rgba(90,143,107,.6);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(90,143,107,.5)}
+    70%{box-shadow:0 0 0 8px rgba(90,143,107,0)}
+    100%{box-shadow:0 0 0 0 rgba(90,143,107,0)}}
+
+  /* MAIN */
+  main{padding:28px 22px 80px;max-width:1200px;margin:0 auto}
+
+  /* KPI CARDS */
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:14px;margin-bottom:22px}
+  .kpi{background:var(--paper);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px;box-shadow:var(--shadow-sm);transition:transform .15s ease, box-shadow .15s ease;position:relative;overflow:hidden}
+  .kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+  .kpi .label{font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;
+    color:var(--muted);font-weight:600;margin-bottom:8px}
+  .kpi .value{font-family:'Fraunces',serif;font-size:28px;font-weight:600;
+    line-height:1.1;color:var(--ink);letter-spacing:-.01em}
+  .kpi .value .unit{font-size:14px;color:var(--muted);font-weight:400;margin-left:4px}
+  .kpi .delta{font-size:12px;margin-top:8px;display:inline-flex;align-items:center;
+    gap:5px;padding:3px 9px;border-radius:999px;font-weight:600}
+  .kpi .delta.up{color:var(--green);background:var(--green-soft)}
+  .kpi .delta.down{color:var(--red);background:var(--red-soft)}
+  .kpi .delta.neutral{color:var(--muted);background:var(--warm)}
+  .kpi::after{content:"";position:absolute;top:0;right:0;width:60px;height:60px;
+    background:radial-gradient(circle at top right, var(--accent-soft) 0%, transparent 70%);
+    opacity:.6;pointer-events:none}
+
+  /* SECTIONS */
+  section{background:var(--paper);border:1px solid var(--line);border-radius:18px;
+    padding:24px 24px;margin-bottom:18px;box-shadow:var(--shadow-sm)}
+  section .head{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;
+    padding-bottom:14px;border-bottom:1px solid var(--line-soft);
+    flex-wrap:wrap;justify-content:space-between}
+  section .head .left{display:flex;gap:14px;align-items:flex-start;flex:1;min-width:240px}
+  section .head .badge{flex-shrink:0;width:40px;height:40px;border-radius:50%;
+    background:var(--accent-soft);color:var(--accent-deep);
+    font-family:'Fraunces',serif;font-weight:600;font-size:18px;
+    display:flex;align-items:center;justify-content:center;line-height:1}
+  section h2{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:22px;line-height:1.2;margin:0 0 4px;letter-spacing:-.01em;color:var(--ink)}
+  section .sub{color:var(--muted);font-size:13px;margin:0;line-height:1.4}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:820px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+  /* CHARTS */
+  .chart-wrap{position:relative;height:280px;width:100%}
+  .chart-wrap.tall{height:340px}
+
+  /* TABLE */
+  .tbl-wrap{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--paper)}
+  table.data{width:100%;border-collapse:collapse;font-size:13.5px}
+  table.data th{background:var(--warm);text-align:left;padding:11px 14px;
+    font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;
+    color:var(--muted);font-weight:600;border-bottom:1px solid var(--line)}
+  table.data td{padding:11px 14px;border-bottom:1px solid var(--line-soft);
+    color:var(--ink-soft)}
+  table.data tr:last-child td{border-bottom:0}
+  table.data tr:hover td{background:#fcfaf3}
+  table.data td.num{font-family:'JetBrains Mono',monospace;text-align:right;color:var(--ink)}
+  table.data .pos{color:var(--green);font-weight:600}
+  table.data .neg{color:var(--red);font-weight:600}
+  table.data .pill{display:inline-flex;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:600}
+  table.data .pill.ok{background:var(--green-soft);color:var(--green)}
+  table.data .pill.warn{background:var(--gold-soft);color:#8a6f1f}
+  table.data .pill.err{background:var(--red-soft);color:var(--red)}
+
+  /* TIMELINE */
+  .timeline{position:relative;padding-left:24px;margin:0;list-style:none}
+  .timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;
+    width:2px;background:var(--line)}
+  .tl-item{position:relative;padding:0 0 18px 4px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{content:"";position:absolute;left:-21px;top:5px;width:14px;height:14px;
+    border-radius:50%;background:var(--paper);border:2.5px solid var(--accent)}
+  .tl-item.done::before{background:var(--accent);border-color:var(--accent)}
+  .tl-item.todo::before{border-color:var(--line);background:var(--paper)}
+  .tl-date{font-size:11.5px;color:var(--muted);font-weight:600;
+    text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+  .tl-title{font-family:'Fraunces',serif;font-size:15px;font-weight:600;color:var(--ink);margin:0 0 3px}
+  .tl-desc{font-size:13px;color:var(--ink-soft);margin:0}
+
+  /* FOOT */
+  footer{text-align:center;padding:36px 20px;color:var(--muted);font-size:12.5px}
+  footer a{color:var(--accent-deep);text-decoration:none;font-weight:600}
+  footer a:hover{text-decoration:underline}
+
+  /* TOGGLE */
+  .toggle-row{display:flex;gap:6px;flex-wrap:wrap}
+  .toggle-row button{font-family:inherit;font-size:12px;padding:6px 12px;
+    border:1px solid var(--line);background:var(--paper);color:var(--ink-soft);
+    border-radius:999px;cursor:pointer;transition:all .15s ease;font-weight:500}
+  .toggle-row button:hover{border-color:var(--accent);color:var(--accent-deep)}
+  .toggle-row button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:12.5px;color:var(--ink-soft)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="eyebrow">Tax Technology &middot; Periodo d'imposta 2025</span>
+    <h1>Dashboard <em>Dichiarazione CNM</em></h1>
+    <p>Consolidato Nazionale Mondiale &mdash; quadro di sintesi del consolidamento fiscale,
+       redditi imponibili delle controllate, ACE, ROL e crediti d'imposta esteri della consolidante.</p>
+    <div class="meta-bar">
+      <span><span class="pulse"></span> Stato modulo: <b>In compilazione</b></span>
+      <span>Consolidante: <b>Alpha Holding S.p.A.</b></span>
+      <span>Codice fiscale: <b class="mono">01234567890</b></span>
+      <span>Periodo: <b>01/01/2025 &ndash; 31/12/2025</b></span>
+      <span>Aggiornato: <b id="updateTs">&mdash;</b></span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- KPI -->
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="label">Reddito complessivo globale</div>
+      <div class="value">€ 48,72<span class="unit">M</span></div>
+      <span class="delta up">&uarr; +6,4% vs 2024</span>
+    </div>
+    <div class="kpi">
+      <div class="label">IRES dovuta dal gruppo</div>
+      <div class="value">€ 11,69<span class="unit">M</span></div>
+      <span class="delta up">&uarr; +5,1% vs 2024</span>
+    </div>
+    <div class="kpi">
+      <div class="label">Eccedenza ACE riportabile</div>
+      <div class="value">€ 1,84<span class="unit">M</span></div>
+      <span class="delta down">&darr; -12,3%</span>
+    </div>
+    <div class="kpi">
+      <div class="label">ROL fiscale residuo</div>
+      <div class="value">€ 4,20<span class="unit">M</span></div>
+      <span class="delta neutral">&mdash; stabile</span>
+    </div>
+    <div class="kpi">
+      <div class="label">Crediti d'imposta esteri</div>
+      <div class="value">€ 2,15<span class="unit">M</span></div>
+      <span class="delta up">&uarr; +18,7%</span>
+    </div>
+    <div class="kpi">
+      <div class="label">Saldo a debito</div>
+      <div class="value">€ 3,42<span class="unit">M</span></div>
+      <span class="delta down">&darr; -8,9%</span>
+    </div>
+  </div>
+
+  <!-- 1. CONTROLLATE ESTERE -->
+  <section>
+    <div class="head">
+      <div class="left">
+        <div class="badge">1</div>
+        <div>
+          <h2>Controllate estere consolidate</h2>
+          <p class="sub">Imputazione pro-quota dei redditi/perdite delle controllate non residenti aderenti al CNM.</p>
+        </div>
+      </div>
+      <div class="toggle-row">
+        <button class="active" data-view="reddito">Reddito imputato</button>
+        <button data-view="quota">Quota partecipazione</button>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <div class="chart-wrap"><canvas id="chartControllate"></canvas></div>
+        <div class="legend">
+          <span><i style="background:#cc785c"></i> Reddito imputato (€ M)</span>
+          <span><i style="background:#5a7a9f"></i> Imposta estera</span>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Controllata</th>
+              <th>Paese</th>
+              <th style="text-align:right">Quota %</th>
+              <th style="text-align:right">Reddito</th>
+              <th>Stato</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Alpha Iberia S.A.</td><td>Spagna</td><td class="num">100%</td><td class="num pos">+12,40 M</td><td><span class="pill ok">Conforme</span></td></tr>
+            <tr><td>Alpha France SAS</td><td>Francia</td><td class="num">98%</td><td class="num pos">+8,60 M</td><td><span class="pill ok">Conforme</span></td></tr>
+            <tr><td>Alpha Deutschland GmbH</td><td>Germania</td><td class="num">100%</td><td class="num pos">+15,20 M</td><td><span class="pill ok">Conforme</span></td></tr>
+            <tr><td>Alpha LATAM Ltda</td><td>Brasile</td><td class="num">95%</td><td class="num neg">-2,10 M</td><td><span class="pill warn">Da verificare</span></td></tr>
+            <tr><td>Alpha Asia Pte Ltd</td><td>Singapore</td><td class="num">100%</td><td class="num pos">+6,80 M</td><td><span class="pill ok">Conforme</span></td></tr>
+            <tr><td>Alpha US Corp</td><td>USA</td><td class="num">100%</td><td class="num pos">+9,15 M</td><td><span class="pill err">Mancante CbCR</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. RICONCILIAZIONE -->
+  <section>
+    <div class="head">
+      <div class="left">
+        <div class="badge">2</div>
+        <div>
+          <h2>Riconciliazione dell'imponibile</h2>
+          <p class="sub">Dal risultato civilistico aggregato all'imponibile fiscale CNM, con le principali rettifiche.</p>
+        </div>
+      </div>
+    </div>
+    <div class="chart-wrap tall"><canvas id="chartWaterfall"></canvas></div>
+  </section>
+
+  <!-- 3. RIPARTIZIONE & ROL -->
+  <div class="grid-2">
+    <section>
+      <div class="head"><div class="left">
+        <div class="badge">3</div>
+        <div><h2>Composizione IRES</h2><p class="sub">Ripartizione tra consolidante e controllate.</p></div>
+      </div></div>
+      <div class="chart-wrap"><canvas id="chartDoughnut"></canvas></div>
+    </section>
+
+    <section>
+      <div class="head"><div class="left">
+        <div class="badge">4</div>
+        <div><h2>ROL fiscale &mdash; trend</h2><p class="sub">Andamento del ROL del gruppo (ultimi 5 anni).</p></div>
+      </div></div>
+      <div class="chart-wrap"><canvas id="chartRol"></canvas></div>
+    </section>
+  </div>
+
+  <!-- 4. SCADENZE -->
+  <section>
+    <div class="head">
+      <div class="left">
+        <div class="badge">5</div>
+        <div>
+          <h2>Scadenzario adempimenti CNM</h2>
+          <p class="sub">Calendario degli obblighi dichiarativi e dei versamenti per il periodo d'imposta in corso.</p>
+        </div>
+      </div>
+    </div>
+    <ul class="timeline">
+      <li class="tl-item done">
+        <div class="tl-date">30 Giugno 2025 &middot; Completato</div>
+        <p class="tl-title">Versamento saldo IRES 2024 e 1<sup>a</sup> rata acconto 2025</p>
+        <p class="tl-desc">Modello F24 &mdash; codice tributo 2003 (saldo) e 2001 (acconto). Importo: € 4,12M.</p>
+      </li>
+      <li class="tl-item done">
+        <div class="tl-date">31 Luglio 2025 &middot; Completato</div>
+        <p class="tl-title">Comunicazione opzioni CNM per il triennio 2025-2027</p>
+        <p class="tl-desc">Trasmissione telematica del modello di comunicazione opzioni con allegati delle controllate estere.</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-date">30 Novembre 2025 &middot; In corso</div>
+        <p class="tl-title">Versamento 2<sup>a</sup> rata acconto IRES 2025</p>
+        <p class="tl-desc">Calcolo previsionale gi&agrave; effettuato &mdash; importo previsto: € 5,80M.</p>
+      </li>
+      <li class="tl-item todo">
+        <div class="tl-date">31 Ottobre 2026 &middot; Da fare</div>
+        <p class="tl-title">Trasmissione telematica modello CNM 2026 (PI 2025)</p>
+        <p class="tl-desc">Termine ordinario per la presentazione della dichiarazione del Consolidato Nazionale Mondiale.</p>
+      </li>
+      <li class="tl-item todo">
+        <div class="tl-date">31 Dicembre 2026 &middot; Da fare</div>
+        <p class="tl-title">Country-by-Country Reporting (CbCR)</p>
+        <p class="tl-desc">Comunicazione D.M. 23/02/2017 per gruppi con ricavi consolidati &gt; €750M.</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 5. CHECKLIST -->
+  <section>
+    <div class="head"><div class="left">
+      <div class="badge">6</div>
+      <div><h2>Checklist quadri compilati</h2><p class="sub">Stato di avanzamento dei quadri del modello CNM.</p></div>
+    </div></div>
+    <div class="tbl-wrap">
+      <table class="data">
+        <thead>
+          <tr><th>Quadro</th><th>Descrizione</th><th>Compilatore</th><th style="text-align:right">Avanzamento</th><th>Stato</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>NF</b></td><td>Determinazione del reddito complessivo globale</td><td>M. Rossi</td><td class="num">100%</td><td><span class="pill ok">Completo</span></td></tr>
+          <tr><td><b>NX</b></td><td>Crediti d'imposta esteri (art. 165 TUIR)</td><td>L. Bianchi</td><td class="num">85%</td><td><span class="pill warn">In corso</span></td></tr>
+          <tr><td><b>NI</b></td><td>Interessi passivi e ROL di gruppo</td><td>F. Verdi</td><td class="num">100%</td><td><span class="pill ok">Completo</span></td></tr>
+          <tr><td><b>NE</b></td><td>Eccedenze ACE</td><td>M. Rossi</td><td class="num">70%</td><td><span class="pill warn">In corso</span></td></tr>
+          <tr><td><b>NR</b></td><td>Rettifiche di consolidamento</td><td>L. Bianchi</td><td class="num">40%</td><td><span class="pill warn">In corso</span></td></tr>
+          <tr><td><b>NC</b></td><td>Compensazioni e acconti</td><td>F. Verdi</td><td class="num">0%</td><td><span class="pill err">Non avviato</span></td></tr>
+          <tr><td><b>CS</b></td><td>Contributo di solidariet&agrave;</td><td>&mdash;</td><td class="num">0%</td><td><span class="pill err">N/A</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Esempio dimostrativo &mdash; i dati sono fittizi a solo scopo illustrativo.<br>
+  &copy; 2026 Tax Technology &middot; <a href="./index.html">Torna alla home</a>
+</footer>
+
+<script>
+  document.getElementById('updateTs').textContent = new Date().toLocaleString('it-IT', {
+    day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit'
+  });
+
+  Chart.defaults.font.family = "'Inter', sans-serif";
+  Chart.defaults.font.size = 12;
+  Chart.defaults.color = '#3d3a35';
+  Chart.defaults.borderColor = '#e8e4d8';
+
+  const accent = '#cc785c', accentDeep = '#a85a40';
+  const blue = '#5a7a9f', green = '#5a8f6b', red = '#b85a5a', gold = '#c8a951';
+
+  const ctxC = document.getElementById('chartControllate');
+  const labelsC = ['Iberia','France','Deutschland','LATAM','Asia','US Corp'];
+  const dataReddito = [12.4, 8.6, 15.2, -2.1, 6.8, 9.15];
+  const dataImposta = [3.10, 2.15, 4.56, 0, 1.36, 1.92];
+  const dataQuota = [100, 98, 100, 95, 100, 100];
+
+  let chartC = new Chart(ctxC, {
+    type: 'bar',
+    data: {
+      labels: labelsC,
+      datasets: [
+        { label:'Reddito imputato (€ M)', data: dataReddito, backgroundColor: accent, borderRadius:6 },
+        { label:'Imposta estera (€ M)', data: dataImposta, backgroundColor: blue, borderRadius:6 }
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:false } },
+      scales:{
+        y:{ grid:{ color:'#f1ede1' }, ticks:{ callback:v=>v+' M' } },
+        x:{ grid:{ display:false } }
+      }
+    }
+  });
+
+  document.querySelectorAll('.toggle-row button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.toggle-row button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const view = btn.dataset.view;
+      if(view==='reddito'){
+        chartC.data.datasets[0].data = dataReddito;
+        chartC.data.datasets[0].label = 'Reddito imputato (€ M)';
+        chartC.data.datasets[1].data = dataImposta;
+        chartC.data.datasets[1].hidden = false;
+        chartC.options.scales.y.ticks.callback = v=>v+' M';
+      } else {
+        chartC.data.datasets[0].data = dataQuota;
+        chartC.data.datasets[0].label = 'Quota di partecipazione %';
+        chartC.data.datasets[1].hidden = true;
+        chartC.options.scales.y.ticks.callback = v=>v+'%';
+      }
+      chartC.update();
+    });
+  });
+
+  const wLabels = ['Risultato civilistico','Variazioni in +','Variazioni in -','Imputazione estere','ACE','Imponibile CNM'];
+  const colors  = [accent, green, red, blue, gold, accentDeep];
+
+  const waterfallData = {
+    labels: wLabels,
+    datasets: [{
+      label:'Riconciliazione',
+      data: [
+        [0, 42.5],
+        [42.5, 50.0],
+        [50.0, 46.8],
+        [46.8, 48.2],
+        [48.2, 48.7],
+        [0, 48.7]
+      ],
+      backgroundColor: colors,
+      borderRadius: 6,
+      borderSkipped: false
+    }]
+  };
+
+  new Chart(document.getElementById('chartWaterfall'), {
+    type:'bar',
+    data: waterfallData,
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          callbacks:{
+            label: ctx => {
+              const v = ctx.raw;
+              const delta = v[1]-v[0];
+              return ` ${delta>0?'+':''}${delta.toFixed(2)} M  (a € ${v[1].toFixed(2)} M)`;
+            }
+          }
+        }
+      },
+      scales:{
+        y:{ grid:{color:'#f1ede1'}, ticks:{ callback:v=>'€ '+v+' M'}, beginAtZero:true },
+        x:{ grid:{display:false}, ticks:{ font:{size:11} } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('chartDoughnut'), {
+    type:'doughnut',
+    data:{
+      labels:['Consolidante (Italia)','Controllate UE','Controllate extra-UE','Quota minoritaria'],
+      datasets:[{
+        data:[5.20, 4.10, 2.05, 0.34],
+        backgroundColor:[accent, blue, gold, '#b8a98a'],
+        borderColor:'#fff', borderWidth:3
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false, cutout:'62%',
+      plugins:{
+        legend:{position:'bottom', labels:{ padding:14, boxWidth:12, font:{size:12}}},
+        tooltip:{ callbacks:{ label: c=>` ${c.label}: € ${c.parsed.toFixed(2)} M`}}
+      }
+    }
+  });
+
+  new Chart(document.getElementById('chartRol'), {
+    type:'line',
+    data:{
+      labels:['2021','2022','2023','2024','2025'],
+      datasets:[
+        { label:'ROL fiscale', data:[3.2, 3.8, 4.1, 4.0, 4.2],
+          borderColor:accent, backgroundColor:'rgba(204,120,92,.12)',
+          tension:.35, fill:true, pointBackgroundColor:accent, pointRadius:5, borderWidth:2.5 },
+        { label:'Interessi deducibili', data:[2.6, 3.1, 3.5, 3.4, 3.6],
+          borderColor:blue, backgroundColor:'transparent',
+          tension:.35, borderDash:[5,5], pointBackgroundColor:blue, pointRadius:4, borderWidth:2 }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{position:'bottom', labels:{boxWidth:12, padding:12}} },
+      scales:{
+        y:{ grid:{color:'#f1ede1'}, ticks:{ callback:v=>'€ '+v+' M'} },
+        x:{ grid:{display:false} }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
