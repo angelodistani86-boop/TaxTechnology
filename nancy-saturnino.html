@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Special Guest · Nancy Saturnino · Hackathon Fiscale di Monza</title>
+<meta name="description" content="Nancy Saturnino, Tax Executive Director di PwC Italy, special guest dell'Hackathon Fiscale di Monza.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,0,700;9..144,1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f5;
+    --paper:#ffffff;
+    --ink:#1f1e1c;
+    --ink-soft:#3d3a35;
+    --muted:#6b675e;
+    --line:#e8e4d8;
+    --line-soft:#f1ede1;
+    --accent:#cc785c;
+    --accent-deep:#a85a40;
+    --accent-soft:#f4e4dc;
+    --warm:#f5f1e6;
+    --warm-deeper:#ede6d3;
+    --gold:#c8a951;
+    --gold-soft:#fbf4dc;
+    --green:#5a8f6b;
+    --green-soft:#e4ede2;
+    --blue:#5a7a9f;
+    --blue-soft:#e1e8ef;
+    --shadow-sm:0 1px 2px rgba(31,30,28,.04);
+    --shadow-md:0 4px 16px -4px rgba(31,30,28,.08), 0 1px 3px rgba(31,30,28,.04);
+    --shadow-lg:0 24px 60px -20px rgba(31,30,28,.18), 0 6px 14px rgba(31,30,28,.05);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .serif{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.01em}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+  a{color:var(--accent-deep);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+  a:hover{border-bottom-color:var(--accent)}
+
+  /* ================ NAV ================ */
+  nav.top{position:sticky;top:0;z-index:30;backdrop-filter:saturate(1.2) blur(10px);
+    background:rgba(250,249,245,.86);border-bottom:1px solid var(--line)}
+  nav.top .wrap{max-width:1180px;margin:0 auto;padding:14px 22px;
+    display:flex;align-items:center;justify-content:space-between;gap:18px}
+  nav.top .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:13.5px;
+    color:var(--ink);letter-spacing:-.005em}
+  nav.top .brand .dot{width:10px;height:10px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,#f0a98e,var(--accent-deep))}
+  nav.top .brand small{display:block;font-weight:400;font-size:11px;color:var(--muted);letter-spacing:.04em}
+  nav.top ul{display:flex;list-style:none;margin:0;padding:0;gap:22px}
+  nav.top a{font-size:13px;color:var(--ink-soft);font-weight:500;border:none}
+  nav.top a:hover{color:var(--accent-deep)}
+  @media (max-width:680px){nav.top ul{display:none}}
+
+  /* ================ HERO ================ */
+  .hero{position:relative;overflow:hidden;
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(204,120,92,.18), transparent 60%),
+      radial-gradient(700px 400px at -10% 110%, rgba(200,169,81,.18), transparent 60%),
+      linear-gradient(180deg,#fdfcf7 0%,#faf9f5 100%);
+    border-bottom:1px solid var(--line)}
+  .hero .wrap{max-width:1180px;margin:0 auto;padding:72px 22px 88px;
+    display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}
+  @media (max-width:880px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px 56px;gap:36px}}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;
+    text-transform:uppercase;letter-spacing:.18em;color:var(--accent-deep);font-weight:700;
+    background:var(--accent-soft);padding:6px 12px 6px 10px;border-radius:999px;
+    margin-bottom:22px}
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(38px,5.5vw,62px);line-height:1.02;letter-spacing:-.025em;
+    margin:0 0 18px;color:var(--ink)}
+  .hero h1 em{font-style:italic;color:var(--accent);font-weight:500}
+  .hero .role{font-size:17px;color:var(--ink-soft);margin:0 0 10px;font-weight:500}
+  .hero .firm{font-size:14px;color:var(--muted);margin:0 0 28px;
+    display:inline-flex;align-items:center;gap:10px}
+  .hero .firm .pwc-mark{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--accent-deep);
+    background:var(--paper);padding:4px 10px;border-radius:6px;border:1px solid var(--line);font-size:12px;
+    letter-spacing:.04em}
+  .hero .firm .pwc-mark::before{content:"";width:4px;height:14px;background:var(--accent);border-radius:1px}
+  .hero p.lead{font-size:17px;color:var(--ink-soft);line-height:1.6;max-width:56ch;margin:0 0 32px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;
+    font-size:14px;font-weight:600;border:1px solid transparent;cursor:pointer;
+    transition:transform .12s ease, box-shadow .15s ease, background .15s}
+  .btn-primary{background:var(--ink);color:#fdfcf7}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 24px -8px rgba(31,30,28,.4)}
+  .btn-ghost{background:transparent;color:var(--ink-soft);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent-deep);background:var(--paper)}
+  .btn a, .btn:hover{border:none}
+
+  /* portrait card — editorial */
+  .portrait-wrap{position:relative;justify-self:center;width:100%;max-width:400px}
+  .portrait{aspect-ratio:4/5;border-radius:24px;overflow:hidden;position:relative;
+    box-shadow:var(--shadow-lg);border:1px solid var(--line);
+    background:#2a2622}
+  .portrait svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .portrait .frame{position:absolute;inset:14px;border:1px solid rgba(253,252,247,.18);
+    border-radius:14px;pointer-events:none;z-index:3}
+  .portrait .corner{position:absolute;width:14px;height:14px;border:1.5px solid rgba(253,252,247,.55);
+    z-index:3}
+  .portrait .corner.tl{top:18px;left:18px;border-right:none;border-bottom:none}
+  .portrait .corner.tr{top:18px;right:18px;border-left:none;border-bottom:none}
+  .portrait .corner.bl{bottom:18px;left:18px;border-right:none;border-top:none}
+  .portrait .corner.br{bottom:18px;right:18px;border-left:none;border-top:none}
+  .portrait .monogram{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    z-index:2}
+  .portrait .monogram .ns{font-family:'Fraunces',serif;font-weight:400;font-style:italic;
+    font-size:clamp(140px,20vw,200px);color:#fdfcf7;letter-spacing:-.06em;line-height:1;
+    text-shadow:0 6px 30px rgba(0,0,0,.45);position:relative}
+  .portrait .monogram .ns::after{content:"";position:absolute;left:50%;bottom:-18px;
+    width:54px;height:1.5px;background:linear-gradient(90deg,transparent,#f0a98e 50%,transparent);
+    transform:translateX(-50%)}
+  .portrait .topline{position:absolute;top:30px;left:0;right:0;text-align:center;z-index:3;
+    font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.32em;
+    color:rgba(253,252,247,.6);font-weight:600;text-transform:uppercase}
+  .portrait .signature{position:absolute;bottom:78px;left:0;right:0;text-align:center;z-index:3;
+    font-family:'Fraunces',serif;font-style:italic;font-size:14.5px;
+    color:rgba(253,252,247,.78);letter-spacing:.01em}
+  .portrait .ribbon{position:absolute;left:24px;bottom:24px;right:24px;z-index:3;
+    border-top:1px solid rgba(253,252,247,.2);padding-top:14px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:10px;
+    color:#fdfcf7}
+  .portrait .ribbon b{font-family:'Fraunces',serif;font-size:14px;font-weight:600;letter-spacing:.005em;display:block}
+  .portrait .ribbon .meta{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:rgba(253,252,247,.6);margin-top:3px}
+  .portrait .ribbon .num{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(253,252,247,.45);letter-spacing:.1em}
+
+  .portrait-wrap .stamp{position:absolute;top:-14px;right:-14px;background:var(--gold-soft);
+    color:#7a6320;border:1px solid #e6d390;border-radius:999px;padding:8px 14px;
+    font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    box-shadow:var(--shadow-md);transform:rotate(6deg);z-index:4}
+
+  /* ================ MAIN GRID ================ */
+  main{max-width:1180px;margin:0 auto;padding:56px 22px 24px;
+    display:grid;grid-template-columns:1.4fr .9fr;gap:34px}
+  @media (max-width:880px){main{grid-template-columns:1fr;padding:40px 22px 24px}}
+
+  section.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;
+    padding:30px 32px;box-shadow:var(--shadow-sm);margin-bottom:22px}
+  section.card h2{font-family:'Fraunces',serif;font-weight:500;font-size:26px;
+    margin:0 0 6px;letter-spacing:-.015em;color:var(--ink)}
+  section.card h2 em{font-style:italic;color:var(--accent)}
+  section.card .kicker{display:inline-block;font-size:11px;text-transform:uppercase;
+    letter-spacing:.18em;color:var(--accent-deep);font-weight:700;margin-bottom:12px}
+  section.card p{margin:0 0 14px;color:var(--ink-soft)}
+  section.card p:last-child{margin-bottom:0}
+
+  /* About list */
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+  @media (max-width:520px){.facts{grid-template-columns:1fr}}
+  .fact{background:var(--warm);border:1px solid var(--line-soft);border-radius:14px;
+    padding:14px 16px}
+  .fact .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;
+    color:var(--muted);font-weight:700;margin-bottom:6px}
+  .fact .val{font-family:'Fraunces',serif;font-weight:500;font-size:17px;color:var(--ink);letter-spacing:-.01em}
+
+  /* Expertise tags */
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .tag{font-size:12.5px;padding:6px 12px;border-radius:999px;background:var(--accent-soft);
+    color:var(--accent-deep);font-weight:600;border:1px solid #f0d4c5}
+  .tag.gold{background:var(--gold-soft);color:#7a6320;border-color:#e6d390}
+  .tag.green{background:var(--green-soft);color:#3e6a4d;border-color:#bcd4c2}
+  .tag.blue{background:var(--blue-soft);color:#3d5874;border-color:#bccad8}
+
+  /* Talk / agenda */
+  .talk-meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;font-size:13px;color:var(--ink-soft)}
+  .talk-meta div{display:inline-flex;align-items:center;gap:6px}
+  .talk-meta b{color:var(--accent-deep);font-weight:600}
+
+  /* ================ ASIDE ================ */
+  aside .card{background:var(--paper);border:1px solid var(--line);border-radius:20px;
+    padding:24px 24px;box-shadow:var(--shadow-sm);margin-bottom:22px}
+  aside .card h3{font-family:'Fraunces',serif;font-weight:500;font-size:20px;
+    margin:0 0 14px;letter-spacing:-.01em}
+  aside .card h3 em{font-style:italic;color:var(--accent)}
+
+  .event-box{background:linear-gradient(140deg,#1f1e1c 0%,#33302b 100%);color:#fdfcf7;border:none}
+  .event-box h3{color:#fdfcf7}
+  .event-box .kicker{color:#f0a98e;font-weight:700;letter-spacing:.18em;
+    text-transform:uppercase;font-size:11px;display:block;margin-bottom:10px}
+  .event-box ul{list-style:none;padding:0;margin:14px 0 0}
+  .event-box ul li{display:flex;justify-content:space-between;gap:14px;
+    padding:10px 0;border-bottom:1px dashed rgba(253,252,247,.12);font-size:13.5px}
+  .event-box ul li:last-child{border-bottom:none}
+  .event-box ul li span:first-child{color:rgba(253,252,247,.62);font-size:11px;
+    text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+  .event-box ul li span:last-child{font-family:'Fraunces',serif;font-weight:500}
+  .event-box .btn-primary{background:var(--accent);color:#fff;margin-top:18px;width:100%;justify-content:center}
+  .event-box .btn-primary:hover{background:var(--accent-deep)}
+
+  /* Quote */
+  blockquote{margin:18px 0 0;padding:18px 22px;border-left:3px solid var(--accent);
+    background:var(--warm);border-radius:0 14px 14px 0;font-family:'Fraunces',serif;
+    font-style:italic;color:var(--ink-soft);font-size:17px;line-height:1.5}
+  blockquote cite{display:block;margin-top:8px;font-style:normal;font-family:'Inter',sans-serif;
+    font-size:12px;letter-spacing:.06em;color:var(--muted);font-weight:500}
+
+  /* Timeline */
+  .timeline{position:relative;padding-left:22px;margin-top:14px}
+  .timeline::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:1.5px;
+    background:linear-gradient(180deg,var(--accent),var(--gold))}
+  .step{position:relative;padding:0 0 18px 14px}
+  .step::before{content:"";position:absolute;left:-22px;top:5px;width:14px;height:14px;
+    border-radius:50%;background:var(--paper);border:2.5px solid var(--accent)}
+  .step .y{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--accent-deep);font-weight:600}
+  .step .t{font-family:'Fraunces',serif;font-weight:500;font-size:16px;color:var(--ink);margin:2px 0 2px}
+  .step .d{font-size:13px;color:var(--muted)}
+
+  /* footer */
+  footer{padding:36px 22px 60px;text-align:center;color:var(--muted);font-size:12.5px;
+    border-top:1px solid var(--line);margin-top:30px;background:#fdfcf7}
+  footer .row{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer a{color:var(--ink-soft)}
+
+  /* tiny icons */
+  .ico{width:14px;height:14px;flex-shrink:0;display:inline-block;vertical-align:-2px}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <div class="brand">
+      <span class="dot" aria-hidden="true"></span>
+      <div>
+        Hackathon Fiscale di Monza<br>
+        <small>Edizione 2026 · Special Guest</small>
+      </div>
+    </div>
+    <ul>
+      <li><a href="#guest">Profilo</a></li>
+      <li><a href="#talk">Intervento</a></li>
+      <li><a href="#bio">Esperienza</a></li>
+      <li><a href="#agenda">Agenda</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Special Guest · Keynote Speaker</span>
+      <h1>Nancy <em>Saturnino</em></h1>
+      <p class="role">Tax Executive Director</p>
+      <p class="firm">presso <span class="pwc-mark">PwC Italy</span> · Tax &amp; Legal Services</p>
+      <p class="lead">
+        Una delle voci più riconosciute del panorama fiscale italiano sale sul palco dell'Hackathon
+        Fiscale di Monza per raccontare come tecnologia, AI e competenze tributarie stiano ridisegnando
+        il modo di fare consulenza fiscale alle imprese.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#talk">Vedi l'intervento →</a>
+        <a class="btn btn-ghost" href="https://it.linkedin.com/in/nancy-saturnino-a588b27" target="_blank" rel="noopener">Profilo LinkedIn ↗</a>
+      </div>
+    </div>
+
+    <div class="portrait-wrap">
+      <div class="stamp">Keynote · 2026</div>
+      <div class="portrait" role="img" aria-label="Ritratto editoriale di Nancy Saturnino">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <radialGradient id="bg" cx="35%" cy="20%" r="120%">
+              <stop offset="0%" stop-color="#f7e0d2"/>
+              <stop offset="30%" stop-color="#e3b094"/>
+              <stop offset="60%" stop-color="#a85a40"/>
+              <stop offset="100%" stop-color="#2a1410"/>
+            </radialGradient>
+            <linearGradient id="vignette" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="70%" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="100%" stop-color="rgba(0,0,0,.55)"/>
+            </linearGradient>
+            <pattern id="grain" patternUnits="userSpaceOnUse" width="3" height="3">
+              <rect width="3" height="3" fill="rgba(255,255,255,0)"/>
+              <circle cx="1" cy="1" r=".4" fill="rgba(253,252,247,.07)"/>
+              <circle cx="2.2" cy="2.2" r=".3" fill="rgba(0,0,0,.06)"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="500" fill="url(#bg)"/>
+          <!-- soft silhouette suggesting shoulders/head -->
+          <ellipse cx="200" cy="380" rx="170" ry="120" fill="rgba(31,30,28,.32)"/>
+          <circle cx="200" cy="220" r="92" fill="rgba(31,30,28,.22)"/>
+          <rect width="400" height="500" fill="url(#vignette)"/>
+          <rect width="400" height="500" fill="url(#grain)"/>
+        </svg>
+        <div class="topline">Special Guest · Hackathon Monza</div>
+        <div class="monogram"><span class="ns">NS</span></div>
+        <div class="signature">— Nancy Saturnino —</div>
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+        <div class="frame"></div>
+        <div class="ribbon">
+          <div>
+            <b>Nancy Saturnino</b>
+            <div class="meta">Tax Executive Director · PwC Italy</div>
+          </div>
+          <div class="num">N.S · 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div>
+    <section class="card" id="guest">
+      <span class="kicker">Profilo professionale</span>
+      <h2>Una carriera al servizio del <em>diritto tributario</em> d'impresa</h2>
+      <p>
+        Nancy Saturnino è Tax Executive Director presso <strong>PwC Italy</strong>, parte del network globale
+        di PwC Tax &amp; Legal Services, presente in Italia con oltre 980 professionisti e 19 uffici. Nel suo
+        ruolo affianca gruppi italiani e multinazionali in operazioni complesse di consulenza fiscale,
+        riorganizzazione societaria e ottimizzazione dei modelli operativi.
+      </p>
+      <p>
+        Si distingue per la capacità di tradurre la materia tributaria in soluzioni concrete, dove la
+        competenza tecnica incontra la sensibilità di business: dal supporto in fase di due diligence
+        alla strutturazione di operazioni straordinarie, dalla compliance dichiarativa ai progetti di
+        tax technology che oggi rappresentano il vero asse di trasformazione delle direzioni fiscali.
+      </p>
+
+      <div class="facts">
+        <div class="fact">
+          <div class="lbl">Ruolo</div>
+          <div class="val">Tax Executive Director</div>
+        </div>
+        <div class="fact">
+          <div class="lbl">Organizzazione</div>
+          <div class="val">PwC Italy · TLS</div>
+        </div>
+        <div class="fact">
+          <div class="lbl">Sede</div>
+          <div class="val">Italia · Area Milano</div>
+        </div>
+        <div class="fact">
+          <div class="lbl">Network</div>
+          <div class="val">PwC Global Tax</div>
+        </div>
+      </div>
+
+      <div class="tags">
+        <span class="tag">Corporate Tax</span>
+        <span class="tag gold">Tax Compliance</span>
+        <span class="tag blue">M&amp;A &amp; Reorganizations</span>
+        <span class="tag green">Tax Technology</span>
+        <span class="tag">International Tax</span>
+        <span class="tag gold">Tax Governance</span>
+      </div>
+    </section>
+
+    <section class="card" id="talk">
+      <span class="kicker">Il keynote</span>
+      <h2>Da advisor a <em>architetto</em> del dato fiscale</h2>
+      <p>
+        Nel suo intervento all'Hackathon Fiscale di Monza, Nancy Saturnino racconterà come la professione
+        fiscale stia attraversando il cambiamento più radicale dell'ultimo trentennio: non solo nuove
+        regole — Pillar Two, e-invoicing, CESOP, DAC7 — ma soprattutto un nuovo modo di lavorare in cui
+        il dato strutturato diventa la materia prima della consulenza.
+      </p>
+      <p>
+        Un keynote pensato per parlare a chi vive ogni giorno la dichiarazione, il bilancio, l'IVA e la
+        pianificazione: dove finisce il foglio Excel, dove inizia il modello, dove l'AI può davvero
+        aiutare il consulente — e dove invece il giudizio resta, e resterà, umano.
+      </p>
+      <div class="talk-meta">
+        <div>📍 <b>Villa Reale di Monza</b> · Sala Conferenze</div>
+        <div>🕐 <b>Sessione plenaria</b> di apertura</div>
+        <div>⏱ Durata: <b>45 min + Q&amp;A</b></div>
+      </div>
+
+      <blockquote>
+        "La fiscalità del futuro non sarà fatta da chi conosce meglio la norma, ma da chi saprà
+        leggere meglio i dati che la norma produce."
+        <cite>— Frase di apertura del keynote</cite>
+      </blockquote>
+    </section>
+
+    <section class="card" id="bio">
+      <span class="kicker">Percorso professionale</span>
+      <h2>Le <em>tappe</em> chiave</h2>
+      <p>Una traiettoria costruita all'interno di una delle Big Four, con una crescita dalle posizioni
+        tecniche fino al ruolo di Executive Director.</p>
+
+      <div class="timeline">
+        <div class="step">
+          <div class="y">Oggi</div>
+          <div class="t">Tax Executive Director · PwC Italy</div>
+          <div class="d">Responsabile di progetti complessi di consulenza fiscale e tax technology
+            per gruppi italiani e multinazionali.</div>
+        </div>
+        <div class="step">
+          <div class="y">Senior Manager</div>
+          <div class="t">Coordinamento di team multidisciplinari</div>
+          <div class="d">Gestione di clienti chiave nella practice Corporate Tax e supporto a operazioni
+            di M&amp;A, riorganizzazioni e gruppi internazionali.</div>
+        </div>
+        <div class="step">
+          <div class="y">Manager</div>
+          <div class="t">Specializzazione su compliance e consulenza ricorrente</div>
+          <div class="d">Anni di esperienza sul campo nelle dichiarazioni fiscali, transfer pricing
+            documentation e relazioni con l'Agenzia delle Entrate.</div>
+        </div>
+        <div class="step">
+          <div class="y">Inizio carriera</div>
+          <div class="t">PwC TLS · Tax Department</div>
+          <div class="d">Formazione tecnica sui pilastri della fiscalità d'impresa italiana e internazionale.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <aside>
+    <div class="card event-box">
+      <span class="kicker">L'evento</span>
+      <h3>Hackathon Fiscale di <em style="color:#f0a98e">Monza</em></h3>
+      <p style="color:rgba(253,252,247,.78);font-size:13.5px;margin:0">
+        48 ore di sfide su dichiarazioni, AI generativa e dato fiscale. Commercialisti, sviluppatori,
+        startup e CFO insieme nella prima Reggia digitale della Lombardia.
+      </p>
+      <ul>
+        <li><span>Data</span><span>5 — 7 Giugno 2026</span></li>
+        <li><span>Luogo</span><span>Villa Reale, Monza</span></li>
+        <li><span>Formato</span><span>Hybrid · 48h</span></li>
+        <li><span>Lingua</span><span>Italiano · English</span></li>
+        <li><span>Posti</span><span>200 in presenza</span></li>
+      </ul>
+      <a class="btn btn-primary" href="index.html">Torna all'evento</a>
+    </div>
+
+    <div class="card">
+      <h3>Perché <em>questo</em> talk</h3>
+      <p style="font-size:14px">
+        Il keynote di Nancy Saturnino apre l'hackathon definendo il <em>terreno di gioco</em>: cosa
+        chiedono oggi le imprese alla funzione fiscale, dove la tecnologia sta davvero rimuovendo
+        attriti e dove invece il rischio è solo spostato.
+      </p>
+      <ul style="margin:14px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-soft);line-height:1.7">
+        <li>Lo stato dell'arte della tax compliance in Italia</li>
+        <li>Pillar Two e il nuovo perimetro internazionale</li>
+        <li>AI generativa nei processi fiscali: casi reali</li>
+        <li>Cosa resta — e cosa cambia — del lavoro del consulente</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Contatti &amp; <em>link</em></h3>
+      <p style="font-size:13.5px;margin:0 0 6px"><strong>LinkedIn</strong><br>
+        <a href="https://it.linkedin.com/in/nancy-saturnino-a588b27" target="_blank" rel="noopener">linkedin.com/in/nancy-saturnino</a>
+      </p>
+      <p style="font-size:13.5px;margin:0 0 6px"><strong>PwC Italy · TLS</strong><br>
+        <a href="https://www.pwc-tls.it/" target="_blank" rel="noopener">pwc-tls.it</a>
+      </p>
+      <p style="font-size:13.5px;margin:0"><strong>Organizzazione evento</strong><br>
+        <a href="mailto:hackathon@taxtechnology.it">hackathon@taxtechnology.it</a>
+      </p>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <div class="row">
+    <div>© 2026 · Hackathon Fiscale di Monza</div>
+    <div>Special Guest Page · Nancy Saturnino, PwC Italy</div>
+  </div>
+</footer>
+
+</body>
+</html>
