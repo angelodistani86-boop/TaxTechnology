@@ -93,31 +93,46 @@
   .btn-ghost:hover{border-color:var(--accent);color:var(--accent-deep);background:var(--paper)}
   .btn a, .btn:hover{border:none}
 
-  /* portrait card */
-  .portrait-wrap{position:relative;justify-self:center;width:100%;max-width:380px}
-  .portrait{aspect-ratio:4/5;border-radius:24px;overflow:hidden;
-    background:
-      radial-gradient(120% 80% at 30% 20%, #f7e0d2 0%, #ecc4ad 40%, #d39376 70%, #a85a40 100%);
-    box-shadow:var(--shadow-lg);position:relative;border:1px solid var(--line)}
-  .portrait::before{content:"";position:absolute;inset:0;
-    background:
-      radial-gradient(circle at 70% 80%, rgba(255,255,255,.18), transparent 50%),
-      radial-gradient(circle at 20% 30%, rgba(255,255,255,.22), transparent 45%);
-    mix-blend-mode:screen}
-  .portrait .initials{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    font-family:'Fraunces',serif;font-weight:500;font-style:italic;
-    font-size:clamp(120px,18vw,180px);color:rgba(255,253,247,.92);letter-spacing:-.04em;
-    text-shadow:0 4px 24px rgba(120,40,20,.35)}
-  .portrait .ribbon{position:absolute;left:18px;bottom:18px;right:18px;
-    background:rgba(31,30,28,.78);backdrop-filter:blur(8px);
-    color:#fdfcf7;padding:14px 16px;border-radius:14px;font-size:12.5px;
-    display:flex;justify-content:space-between;align-items:center;gap:10px}
-  .portrait .ribbon b{font-family:'Fraunces',serif;font-size:13.5px;font-weight:600;letter-spacing:.01em}
-  .portrait .ribbon span{font-size:11px;text-transform:uppercase;letter-spacing:.14em;opacity:.75}
+  /* portrait card — editorial */
+  .portrait-wrap{position:relative;justify-self:center;width:100%;max-width:400px}
+  .portrait{aspect-ratio:4/5;border-radius:24px;overflow:hidden;position:relative;
+    box-shadow:var(--shadow-lg);border:1px solid var(--line);
+    background:#2a2622}
+  .portrait svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .portrait .frame{position:absolute;inset:14px;border:1px solid rgba(253,252,247,.18);
+    border-radius:14px;pointer-events:none;z-index:3}
+  .portrait .corner{position:absolute;width:14px;height:14px;border:1.5px solid rgba(253,252,247,.55);
+    z-index:3}
+  .portrait .corner.tl{top:18px;left:18px;border-right:none;border-bottom:none}
+  .portrait .corner.tr{top:18px;right:18px;border-left:none;border-bottom:none}
+  .portrait .corner.bl{bottom:18px;left:18px;border-right:none;border-top:none}
+  .portrait .corner.br{bottom:18px;right:18px;border-left:none;border-top:none}
+  .portrait .monogram{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    z-index:2}
+  .portrait .monogram .ns{font-family:'Fraunces',serif;font-weight:400;font-style:italic;
+    font-size:clamp(140px,20vw,200px);color:#fdfcf7;letter-spacing:-.06em;line-height:1;
+    text-shadow:0 6px 30px rgba(0,0,0,.45);position:relative}
+  .portrait .monogram .ns::after{content:"";position:absolute;left:50%;bottom:-18px;
+    width:54px;height:1.5px;background:linear-gradient(90deg,transparent,#f0a98e 50%,transparent);
+    transform:translateX(-50%)}
+  .portrait .topline{position:absolute;top:30px;left:0;right:0;text-align:center;z-index:3;
+    font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.32em;
+    color:rgba(253,252,247,.6);font-weight:600;text-transform:uppercase}
+  .portrait .signature{position:absolute;bottom:78px;left:0;right:0;text-align:center;z-index:3;
+    font-family:'Fraunces',serif;font-style:italic;font-size:14.5px;
+    color:rgba(253,252,247,.78);letter-spacing:.01em}
+  .portrait .ribbon{position:absolute;left:24px;bottom:24px;right:24px;z-index:3;
+    border-top:1px solid rgba(253,252,247,.2);padding-top:14px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:10px;
+    color:#fdfcf7}
+  .portrait .ribbon b{font-family:'Fraunces',serif;font-size:14px;font-weight:600;letter-spacing:.005em;display:block}
+  .portrait .ribbon .meta{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:rgba(253,252,247,.6);margin-top:3px}
+  .portrait .ribbon .num{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(253,252,247,.45);letter-spacing:.1em}
+
   .portrait-wrap .stamp{position:absolute;top:-14px;right:-14px;background:var(--gold-soft);
     color:#7a6320;border:1px solid #e6d390;border-radius:999px;padding:8px 14px;
     font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-    box-shadow:var(--shadow-md);transform:rotate(6deg)}
+    box-shadow:var(--shadow-md);transform:rotate(6deg);z-index:4}
 
   /* ================ MAIN GRID ================ */
   main{max-width:1180px;margin:0 auto;padding:56px 22px 24px;
@@ -245,13 +260,47 @@
 
     <div class="portrait-wrap">
       <div class="stamp">Keynote · 2026</div>
-      <div class="portrait" role="img" aria-label="Ritratto stilizzato di Nancy Saturnino">
-        <div class="initials">NS</div>
+      <div class="portrait" role="img" aria-label="Ritratto editoriale di Nancy Saturnino">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <radialGradient id="bg" cx="35%" cy="20%" r="120%">
+              <stop offset="0%" stop-color="#f7e0d2"/>
+              <stop offset="30%" stop-color="#e3b094"/>
+              <stop offset="60%" stop-color="#a85a40"/>
+              <stop offset="100%" stop-color="#2a1410"/>
+            </radialGradient>
+            <linearGradient id="vignette" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="70%" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="100%" stop-color="rgba(0,0,0,.55)"/>
+            </linearGradient>
+            <pattern id="grain" patternUnits="userSpaceOnUse" width="3" height="3">
+              <rect width="3" height="3" fill="rgba(255,255,255,0)"/>
+              <circle cx="1" cy="1" r=".4" fill="rgba(253,252,247,.07)"/>
+              <circle cx="2.2" cy="2.2" r=".3" fill="rgba(0,0,0,.06)"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="500" fill="url(#bg)"/>
+          <!-- soft silhouette suggesting shoulders/head -->
+          <ellipse cx="200" cy="380" rx="170" ry="120" fill="rgba(31,30,28,.32)"/>
+          <circle cx="200" cy="220" r="92" fill="rgba(31,30,28,.22)"/>
+          <rect width="400" height="500" fill="url(#vignette)"/>
+          <rect width="400" height="500" fill="url(#grain)"/>
+        </svg>
+        <div class="topline">Special Guest · Hackathon Monza</div>
+        <div class="monogram"><span class="ns">NS</span></div>
+        <div class="signature">— Nancy Saturnino —</div>
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+        <div class="frame"></div>
         <div class="ribbon">
           <div>
-            <b>Nancy Saturnino</b><br>
-            <span>Tax Executive Director · PwC</span>
+            <b>Nancy Saturnino</b>
+            <div class="meta">Tax Executive Director · PwC Italy</div>
           </div>
+          <div class="num">N.S · 2026</div>
         </div>
       </div>
     </div>
