@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Quanto è stupenda la Banca CSR · Hackathon Fiscale di Monza</title>
+<meta name="description" content="Un omaggio editoriale alla Banca CSR — Cassa di Sovvenzioni e Risparmio fra il Personale della Banca d'Italia: cento anni di mutualità, fiducia e cura del risparmio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,0,700;9..144,1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f5;
+    --paper:#ffffff;
+    --ink:#1f1e1c;
+    --ink-soft:#3d3a35;
+    --muted:#6b675e;
+    --line:#e8e4d8;
+    --line-soft:#f1ede1;
+    --accent:#cc785c;
+    --accent-deep:#a85a40;
+    --accent-soft:#f4e4dc;
+    --warm:#f5f1e6;
+    --warm-deeper:#ede6d3;
+    --gold:#c8a951;
+    --gold-soft:#fbf4dc;
+    --green:#5a8f6b;
+    --green-soft:#e4ede2;
+    --blue:#5a7a9f;
+    --blue-soft:#e1e8ef;
+    --shadow-sm:0 1px 2px rgba(31,30,28,.04);
+    --shadow-md:0 4px 16px -4px rgba(31,30,28,.08), 0 1px 3px rgba(31,30,28,.04);
+    --shadow-lg:0 24px 60px -20px rgba(31,30,28,.18), 0 6px 14px rgba(31,30,28,.05);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .serif{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.01em}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+  a{color:var(--accent-deep);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+  a:hover{border-bottom-color:var(--accent)}
+
+  /* ================ NAV ================ */
+  nav.top{position:sticky;top:0;z-index:30;backdrop-filter:saturate(1.2) blur(10px);
+    background:rgba(250,249,245,.86);border-bottom:1px solid var(--line)}
+  nav.top .wrap{max-width:1180px;margin:0 auto;padding:14px 22px;
+    display:flex;align-items:center;justify-content:space-between;gap:18px}
+  nav.top .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:13.5px;
+    color:var(--ink);letter-spacing:-.005em}
+  nav.top .brand .dot{width:10px;height:10px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,#f0a98e,var(--accent-deep))}
+  nav.top .brand small{display:block;font-weight:400;font-size:11px;color:var(--muted);letter-spacing:.04em}
+  nav.top ul{display:flex;list-style:none;margin:0;padding:0;gap:22px}
+  nav.top a{font-size:13px;color:var(--ink-soft);font-weight:500;border:none}
+  nav.top a:hover{color:var(--accent-deep)}
+  @media (max-width:680px){nav.top ul{display:none}}
+
+  /* ================ HERO ================ */
+  .hero{position:relative;overflow:hidden;
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(90,143,107,.18), transparent 60%),
+      radial-gradient(700px 400px at -10% 110%, rgba(200,169,81,.22), transparent 60%),
+      linear-gradient(180deg,#fdfcf7 0%,#faf9f5 100%);
+    border-bottom:1px solid var(--line)}
+  .hero .wrap{max-width:1180px;margin:0 auto;padding:78px 22px 92px;
+    display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}
+  @media (max-width:880px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px 56px;gap:36px}}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;
+    text-transform:uppercase;letter-spacing:.18em;color:var(--accent-deep);font-weight:700;
+    background:var(--accent-soft);padding:6px 12px 6px 10px;border-radius:999px;
+    margin-bottom:22px}
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(40px,5.8vw,68px);line-height:1.02;letter-spacing:-.025em;
+    margin:0 0 18px;color:var(--ink)}
+  .hero h1 em{font-style:italic;color:var(--accent);font-weight:500}
+  .hero .role{font-size:17px;color:var(--ink-soft);margin:0 0 10px;font-weight:500}
+  .hero .firm{font-size:14px;color:var(--muted);margin:0 0 28px;
+    display:inline-flex;align-items:center;gap:10px}
+  .hero .firm .mark{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--accent-deep);
+    background:var(--paper);padding:4px 10px;border-radius:6px;border:1px solid var(--line);font-size:12px;
+    letter-spacing:.04em}
+  .hero .firm .mark::before{content:"";width:4px;height:14px;background:var(--accent);border-radius:1px}
+  .hero p.lead{font-size:17.5px;color:var(--ink-soft);line-height:1.62;max-width:58ch;margin:0 0 32px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;
+    font-size:14px;font-weight:600;border:1px solid transparent;cursor:pointer;
+    transition:transform .12s ease, box-shadow .15s ease, background .15s}
+  .btn-primary{background:var(--ink);color:#fdfcf7}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 24px -8px rgba(31,30,28,.4)}
+  .btn-ghost{background:transparent;color:var(--ink-soft);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent-deep);background:var(--paper)}
+  .btn a, .btn:hover{border:none}
+
+  /* emblem card — editorial */
+  .emblem-wrap{position:relative;justify-self:center;width:100%;max-width:420px}
+  .emblem{aspect-ratio:4/5;border-radius:24px;overflow:hidden;position:relative;
+    box-shadow:var(--shadow-lg);border:1px solid var(--line);
+    background:#1f3a2e}
+  .emblem svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .emblem .frame{position:absolute;inset:14px;border:1px solid rgba(253,252,247,.18);
+    border-radius:14px;pointer-events:none;z-index:3}
+  .emblem .corner{position:absolute;width:14px;height:14px;border:1.5px solid rgba(253,252,247,.55);
+    z-index:3}
+  .emblem .corner.tl{top:18px;left:18px;border-right:none;border-bottom:none}
+  .emblem .corner.tr{top:18px;right:18px;border-left:none;border-bottom:none}
+  .emblem .corner.bl{bottom:18px;left:18px;border-right:none;border-top:none}
+  .emblem .corner.br{bottom:18px;right:18px;border-left:none;border-top:none}
+  .emblem .monogram{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    z-index:2}
+  .emblem .monogram .csr{font-family:'Fraunces',serif;font-weight:500;font-style:italic;
+    font-size:clamp(120px,17vw,170px);color:#fdfcf7;letter-spacing:-.04em;line-height:1;
+    text-shadow:0 6px 30px rgba(0,0,0,.45);position:relative}
+  .emblem .monogram .csr::after{content:"";position:absolute;left:50%;bottom:-18px;
+    width:60px;height:1.5px;background:linear-gradient(90deg,transparent,#e9d99a 50%,transparent);
+    transform:translateX(-50%)}
+  .emblem .topline{position:absolute;top:30px;left:0;right:0;text-align:center;z-index:3;
+    font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.32em;
+    color:rgba(253,252,247,.62);font-weight:600;text-transform:uppercase}
+  .emblem .signature{position:absolute;bottom:82px;left:0;right:0;text-align:center;z-index:3;
+    font-family:'Fraunces',serif;font-style:italic;font-size:14.5px;
+    color:rgba(253,252,247,.82);letter-spacing:.01em}
+  .emblem .ribbon{position:absolute;left:24px;bottom:24px;right:24px;z-index:3;
+    border-top:1px solid rgba(253,252,247,.2);padding-top:14px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:10px;
+    color:#fdfcf7}
+  .emblem .ribbon b{font-family:'Fraunces',serif;font-size:14px;font-weight:600;letter-spacing:.005em;display:block}
+  .emblem .ribbon .meta{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:rgba(253,252,247,.6);margin-top:3px}
+  .emblem .ribbon .num{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(253,252,247,.5);letter-spacing:.1em}
+
+  .emblem-wrap .stamp{position:absolute;top:-14px;right:-14px;background:var(--gold-soft);
+    color:#7a6320;border:1px solid #e6d390;border-radius:999px;padding:8px 14px;
+    font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    box-shadow:var(--shadow-md);transform:rotate(6deg);z-index:4}
+
+  /* ================ MAIN GRID ================ */
+  main{max-width:1180px;margin:0 auto;padding:56px 22px 24px;
+    display:grid;grid-template-columns:1.4fr .9fr;gap:34px}
+  @media (max-width:880px){main{grid-template-columns:1fr;padding:40px 22px 24px}}
+
+  section.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;
+    padding:30px 32px;box-shadow:var(--shadow-sm);margin-bottom:22px}
+  section.card h2{font-family:'Fraunces',serif;font-weight:500;font-size:28px;
+    margin:0 0 8px;letter-spacing:-.015em;color:var(--ink)}
+  section.card h2 em{font-style:italic;color:var(--accent)}
+  section.card .kicker{display:inline-block;font-size:11px;text-transform:uppercase;
+    letter-spacing:.18em;color:var(--accent-deep);font-weight:700;margin-bottom:12px}
+  section.card p{margin:0 0 14px;color:var(--ink-soft)}
+  section.card p:last-child{margin-bottom:0}
+
+  /* Facts grid */
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+  @media (max-width:520px){.facts{grid-template-columns:1fr}}
+  .fact{background:var(--warm);border:1px solid var(--line-soft);border-radius:14px;
+    padding:14px 16px}
+  .fact .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;
+    color:var(--muted);font-weight:700;margin-bottom:6px}
+  .fact .val{font-family:'Fraunces',serif;font-weight:500;font-size:17px;color:var(--ink);letter-spacing:-.01em}
+
+  /* Tags */
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .tag{font-size:12.5px;padding:6px 12px;border-radius:999px;background:var(--accent-soft);
+    color:var(--accent-deep);font-weight:600;border:1px solid #f0d4c5}
+  .tag.gold{background:var(--gold-soft);color:#7a6320;border-color:#e6d390}
+  .tag.green{background:var(--green-soft);color:#3e6a4d;border-color:#bcd4c2}
+  .tag.blue{background:var(--blue-soft);color:#3d5874;border-color:#bccad8}
+
+  /* Virtues grid */
+  .virtues{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+  @media (max-width:520px){.virtues{grid-template-columns:1fr}}
+  .virtue{background:var(--paper);border:1px solid var(--line);border-radius:16px;
+    padding:18px 18px;position:relative;overflow:hidden}
+  .virtue::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,var(--accent),var(--gold))}
+  .virtue .ico{font-family:'Fraunces',serif;font-style:italic;font-size:30px;color:var(--accent);
+    line-height:1;margin-bottom:8px;display:block}
+  .virtue h4{font-family:'Fraunces',serif;font-weight:600;font-size:16.5px;margin:0 0 6px;letter-spacing:-.01em}
+  .virtue p{font-size:13.5px;color:var(--muted);margin:0;line-height:1.55}
+
+  /* Quote */
+  blockquote{margin:18px 0 0;padding:18px 22px;border-left:3px solid var(--accent);
+    background:var(--warm);border-radius:0 14px 14px 0;font-family:'Fraunces',serif;
+    font-style:italic;color:var(--ink-soft);font-size:17.5px;line-height:1.5}
+  blockquote cite{display:block;margin-top:8px;font-style:normal;font-family:'Inter',sans-serif;
+    font-size:12px;letter-spacing:.06em;color:var(--muted);font-weight:500}
+
+  /* Stats strip */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+  @media (max-width:680px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:linear-gradient(180deg,var(--warm),var(--warm-deeper));border:1px solid var(--line-soft);
+    border-radius:16px;padding:18px 16px;text-align:center}
+  .stat .n{font-family:'Fraunces',serif;font-weight:500;font-size:28px;color:var(--accent-deep);
+    letter-spacing:-.02em;line-height:1.05;display:block}
+  .stat .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.16em;
+    color:var(--muted);font-weight:700;margin-top:6px;display:block}
+
+  /* Timeline */
+  .timeline{position:relative;padding-left:22px;margin-top:14px}
+  .timeline::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:1.5px;
+    background:linear-gradient(180deg,var(--accent),var(--gold))}
+  .step{position:relative;padding:0 0 18px 14px}
+  .step::before{content:"";position:absolute;left:-22px;top:5px;width:14px;height:14px;
+    border-radius:50%;background:var(--paper);border:2.5px solid var(--accent)}
+  .step .y{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--accent-deep);font-weight:600}
+  .step .t{font-family:'Fraunces',serif;font-weight:500;font-size:16px;color:var(--ink);margin:2px 0 2px}
+  .step .d{font-size:13.5px;color:var(--muted)}
+
+  /* ================ ASIDE ================ */
+  aside .card{background:var(--paper);border:1px solid var(--line);border-radius:20px;
+    padding:24px 24px;box-shadow:var(--shadow-sm);margin-bottom:22px}
+  aside .card h3{font-family:'Fraunces',serif;font-weight:500;font-size:20px;
+    margin:0 0 14px;letter-spacing:-.01em}
+  aside .card h3 em{font-style:italic;color:var(--accent)}
+
+  .ode-box{background:linear-gradient(140deg,#1f3a2e 0%,#2d4f3f 100%);color:#fdfcf7;border:none}
+  .ode-box h3{color:#fdfcf7}
+  .ode-box .kicker{color:#e9d99a;font-weight:700;letter-spacing:.18em;
+    text-transform:uppercase;font-size:11px;display:block;margin-bottom:10px}
+  .ode-box p{color:rgba(253,252,247,.82);font-size:14px;line-height:1.62;margin:0 0 12px}
+  .ode-box p:last-child{margin:0}
+  .ode-box ul{list-style:none;padding:0;margin:14px 0 0}
+  .ode-box ul li{display:flex;justify-content:space-between;gap:14px;
+    padding:10px 0;border-bottom:1px dashed rgba(253,252,247,.14);font-size:13.5px}
+  .ode-box ul li:last-child{border-bottom:none}
+  .ode-box ul li span:first-child{color:rgba(253,252,247,.62);font-size:11px;
+    text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+  .ode-box ul li span:last-child{font-family:'Fraunces',serif;font-weight:500}
+
+  /* footer */
+  footer{padding:36px 22px 60px;text-align:center;color:var(--muted);font-size:12.5px;
+    border-top:1px solid var(--line);margin-top:30px;background:#fdfcf7}
+  footer .row{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer a{color:var(--ink-soft)}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <div class="brand">
+      <span class="dot" aria-hidden="true"></span>
+      <div>
+        Hackathon Fiscale di Monza<br>
+        <small>Edizione 2026 · Omaggio editoriale</small>
+      </div>
+    </div>
+    <ul>
+      <li><a href="#perche">Perché</a></li>
+      <li><a href="#virtu">Virtù</a></li>
+      <li><a href="#storia">Storia</a></li>
+      <li><a href="#numeri">Numeri</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Omaggio · Una banca diversa</span>
+      <h1>Quanto è <em>stupenda</em><br>la Banca CSR</h1>
+      <p class="role">Cassa di Sovvenzioni e Risparmio fra il Personale della Banca d'Italia</p>
+      <p class="firm">conosciuta come <span class="mark">Banca CSR</span> · dal 1894</p>
+      <p class="lead">
+        Esistono banche che si misurano in trimestrali, e banche che si misurano in fiducia.
+        La Banca CSR appartiene alla seconda specie: una cooperativa di credito nata nel cuore della
+        Banca d'Italia per servire le persone, non i mercati. Questa pagina è un piccolo, sincero
+        atto di ammirazione.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#perche">Scopri perché →</a>
+        <a class="btn btn-ghost" href="index.html">Torna all'evento ↗</a>
+      </div>
+    </div>
+
+    <div class="emblem-wrap">
+      <div class="stamp">Dal 1894</div>
+      <div class="emblem" role="img" aria-label="Emblema editoriale della Banca CSR">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <radialGradient id="bg" cx="35%" cy="20%" r="120%">
+              <stop offset="0%" stop-color="#d8e6d0"/>
+              <stop offset="30%" stop-color="#7fa48b"/>
+              <stop offset="60%" stop-color="#2d4f3f"/>
+              <stop offset="100%" stop-color="#10221a"/>
+            </radialGradient>
+            <linearGradient id="vignette" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="70%" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="100%" stop-color="rgba(0,0,0,.55)"/>
+            </linearGradient>
+            <pattern id="grain" patternUnits="userSpaceOnUse" width="3" height="3">
+              <rect width="3" height="3" fill="rgba(255,255,255,0)"/>
+              <circle cx="1" cy="1" r=".4" fill="rgba(253,252,247,.07)"/>
+              <circle cx="2.2" cy="2.2" r=".3" fill="rgba(0,0,0,.06)"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="500" fill="url(#bg)"/>
+          <!-- decorative columns suggesting a classical bank facade -->
+          <g opacity=".18" fill="#fdfcf7">
+            <rect x="70" y="190" width="14" height="190" rx="3"/>
+            <rect x="120" y="190" width="14" height="190" rx="3"/>
+            <rect x="170" y="190" width="14" height="190" rx="3"/>
+            <rect x="220" y="190" width="14" height="190" rx="3"/>
+            <rect x="270" y="190" width="14" height="190" rx="3"/>
+            <rect x="320" y="190" width="14" height="190" rx="3"/>
+            <polygon points="55,190 345,190 200,150"/>
+            <rect x="55" y="380" width="290" height="14" rx="2"/>
+          </g>
+          <rect width="400" height="500" fill="url(#vignette)"/>
+          <rect width="400" height="500" fill="url(#grain)"/>
+        </svg>
+        <div class="topline">Cassa di Sovvenzioni e Risparmio</div>
+        <div class="monogram"><span class="csr">CSR</span></div>
+        <div class="signature">— Una banca delle persone —</div>
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+        <div class="frame"></div>
+        <div class="ribbon">
+          <div>
+            <b>Banca CSR</b>
+            <div class="meta">Personale Banca d'Italia · dal 1894</div>
+          </div>
+          <div class="num">EST · MDCCCXCIV</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div>
+    <section class="card" id="perche">
+      <span class="kicker">Perché ci piace così tanto</span>
+      <h2>Una banca che <em>conosce</em> i suoi soci, uno per uno</h2>
+      <p>
+        La Banca CSR — Cassa di Sovvenzioni e Risparmio fra il Personale della Banca d'Italia — è
+        una società cooperativa di credito a mutualità prevalente, nata nel 1894 per offrire ai
+        dipendenti dell'Istituto un'alternativa solidale al credito commerciale. Più di un secolo
+        dopo è ancora lì, fedele al mandato originario: <strong>raccogliere risparmio fra i soci e
+        restituirlo ai soci sotto forma di prestiti a condizioni eque</strong>.
+      </p>
+      <p>
+        È, semplicemente, una banca bellissima. Non perché abbia la sede più scenografica, non
+        perché abbia il marketing più rumoroso — anzi, di marketing non ne ha — ma perché incarna
+        un'idea quasi dimenticata: che il credito possa essere una forma di rispetto reciproco
+        prima che una transazione finanziaria.
+      </p>
+
+      <div class="facts">
+        <div class="fact">
+          <div class="lbl">Forma</div>
+          <div class="val">Cooperativa di credito</div>
+        </div>
+        <div class="fact">
+          <div class="lbl">Fondazione</div>
+          <div class="val">1894 · Roma</div>
+        </div>
+        <div class="fact">
+          <div class="lbl">Soci</div>
+          <div class="val">Personale Banca d'Italia</div>
+        </div>
+        <div class="fact">
+          <div class="lbl">Mutualità</div>
+          <div class="val">Prevalente · senza scopo di lucro</div>
+        </div>
+      </div>
+
+      <div class="tags">
+        <span class="tag">Mutualità</span>
+        <span class="tag gold">Risparmio</span>
+        <span class="tag blue">Prestiti ai soci</span>
+        <span class="tag green">Solidarietà</span>
+        <span class="tag">Cooperazione</span>
+        <span class="tag gold">Etica del credito</span>
+      </div>
+    </section>
+
+    <section class="card" id="virtu">
+      <span class="kicker">Le sue virtù</span>
+      <h2>Sei ragioni per cui la <em>amiamo</em></h2>
+      <p>
+        Non è una classifica di prodotti, è un elenco di qualità umane. Tutto quello che una
+        banca dovrebbe essere e che, troppo spesso, le banche hanno smesso di voler essere.
+      </p>
+
+      <div class="virtues">
+        <div class="virtue">
+          <span class="ico">α</span>
+          <h4>Trasparenza</h4>
+          <p>Bilanci leggibili, regole chiare, tassi spiegati. Niente clausole nascoste in piccolo,
+            niente sorprese in fondo al contratto.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">β</span>
+          <h4>Equità</h4>
+          <p>I prestiti ai soci non servono a generare margine: servono a sostenere persone vere
+            in momenti reali della loro vita.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">γ</span>
+          <h4>Stabilità</h4>
+          <p>Centotrent'anni di esistenza vissuti attraverso due guerre, una grande inflazione e
+            varie crisi finanziarie. Senza mai vacillare.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">δ</span>
+          <h4>Vicinanza</h4>
+          <p>I soci si conoscono, gli sportelli sono dentro casa, le decisioni si prendono guardandosi
+            negli occhi — non davanti a un algoritmo.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">ε</span>
+          <h4>Cura del risparmio</h4>
+          <p>Custodisce il risparmio come si custodisce qualcosa di prezioso: senza promettere
+            miracoli, ma proteggendolo davvero.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">ζ</span>
+          <h4>Cultura</h4>
+          <p>È figlia della Banca d'Italia: della stessa serietà, della stessa misura, dello stesso
+            amore per le cose fatte bene e per durare.</p>
+        </div>
+      </div>
+
+      <blockquote>
+        "Una banca diventa stupenda quando smette di considerarsi il centro e ricomincia a
+        considerarsi al servizio di chi le porta i risparmi."
+        <cite>— Spirito mutualistico, 1894 — oggi</cite>
+      </blockquote>
+    </section>
+
+    <section class="card" id="storia">
+      <span class="kicker">Una storia lunga</span>
+      <h2>Centotrent'anni in poche <em>tappe</em></h2>
+      <p>Un percorso che attraversa l'intera storia economica italiana, restando fedele alla
+        propria vocazione cooperativa.</p>
+
+      <div class="timeline">
+        <div class="step">
+          <div class="y">1894</div>
+          <div class="t">Nascita della Cassa</div>
+          <div class="d">Un gruppo di impiegati della Banca d'Italia fonda a Roma la prima Cassa
+            di Sovvenzioni e Risparmio: piccole quote, grande idea.</div>
+        </div>
+        <div class="step">
+          <div class="y">'900</div>
+          <div class="t">Il Novecento, due guerre, una promessa mantenuta</div>
+          <div class="d">Attraverso decenni difficili la Cassa continua a sostenere il personale,
+            evolvendosi senza tradire la propria natura mutualistica.</div>
+        </div>
+        <div class="step">
+          <div class="y">Oggi</div>
+          <div class="t">Banca CSR · cooperativa di credito moderna</div>
+          <div class="d">Una vera banca, vigilata, con servizi completi — conti, depositi, prestiti,
+            home banking — ma con un solo padrone: i suoi soci.</div>
+        </div>
+        <div class="step">
+          <div class="y">Domani</div>
+          <div class="t">Un modello che ispira</div>
+          <div class="d">In un'epoca in cui la finanza diventa sempre più astratta, la CSR ricorda
+            che il credito può essere prossimità, fiducia, comunità.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="numeri">
+      <span class="kicker">In numeri</span>
+      <h2>Misure di una <em>cosa buona</em></h2>
+      <p>Non sono cifre da bilancio quotato: sono indicatori di una salute civica, di una
+        promessa rispettata anno dopo anno.</p>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="n">130+</span>
+          <span class="lbl">Anni di attività</span>
+        </div>
+        <div class="stat">
+          <span class="n">1894</span>
+          <span class="lbl">Anno di fondazione</span>
+        </div>
+        <div class="stat">
+          <span class="n">100%</span>
+          <span class="lbl">Mutualità ai soci</span>
+        </div>
+        <div class="stat">
+          <span class="n">0</span>
+          <span class="lbl">Scopo di lucro</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <aside>
+    <div class="card ode-box">
+      <span class="kicker">Piccolo elogio</span>
+      <h3>Una banca <em style="color:#e9d99a">stupenda</em></h3>
+      <p>
+        Stupenda non è una parola da bilancio. È una parola che si usa per le cose che ci
+        commuovono perché funzionano davvero: un treno in orario, una scuola di quartiere,
+        un medico che ti chiama per nome.
+      </p>
+      <p>
+        La Banca CSR è una banca così. Piccola abbastanza da conoscere i suoi soci, antica
+        abbastanza da ricordare perché esiste, moderna abbastanza da farlo ancora nel 2026.
+      </p>
+      <ul>
+        <li><span>Natura</span><span>Cooperativa</span></li>
+        <li><span>Vocazione</span><span>Mutualistica</span></li>
+        <li><span>Età</span><span>130+ anni</span></li>
+        <li><span>Spirito</span><span>Servizio</span></li>
+        <li><span>Voto</span><span>★★★★★</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Cosa la rende <em>diversa</em></h3>
+      <p style="font-size:14px">
+        Nella CSR il cliente è anche socio, e il socio è anche proprietario. Questa coincidenza
+        — banalissima nella teoria cooperativa, rarissima nella pratica bancaria moderna —
+        cambia <em>tutto</em>: gli incentivi, le decisioni, il tono di voce.
+      </p>
+      <ul style="margin:14px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-soft);line-height:1.75">
+        <li>Nessun azionista da remunerare a tutti i costi</li>
+        <li>Decisioni in assemblea, una testa un voto</li>
+        <li>Utili che tornano sotto forma di servizi e condizioni migliori</li>
+        <li>Una governance interna che è anche un atto di cultura civile</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Perché parlarne <em>qui</em></h3>
+      <p style="font-size:13.5px;margin:0 0 8px">
+        All'Hackathon Fiscale di Monza si discute di tecnologia, AI e dato fiscale. Ma la
+        domanda di fondo resta una sola: <strong>al servizio di chi</strong>?
+      </p>
+      <p style="font-size:13.5px;margin:0">
+        La Banca CSR è una risposta concreta, vecchia di 130 anni e ancora valida: la
+        tecnologia ha senso solo se restituisce valore alle persone. Tutto il resto è
+        contabilità.
+      </p>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <div class="row">
+    <div>© 2026 · Hackathon Fiscale di Monza</div>
+    <div>Omaggio editoriale · Banca CSR, dal 1894</div>
+  </div>
+</footer>
+
+</body>
+</html>
