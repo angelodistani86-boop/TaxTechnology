@@ -1,558 +1,316 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Tax Technology &amp; AI 2026 — PwC Italy</title>
-<meta name="description" content="Hub di Angelo Distani — Hackathon Fiscale di Monza, AI tax consulting, dashboard fiscali e altro. Tax Technology &amp; AI, edizione 2026.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,0,700;9..144,1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angelo Di Stani — Tax Technology &amp; AI</title>
 <style>
   :root{
-    --bg:#000000;
-    --bg-soft:#0a0a0a;
-    --panel:#111111;
-    --panel-2:#161616;
-    --ink:#f5f3ec;
-    --ink-soft:#cdc9bd;
-    --muted:#8b8678;
-    --muted-2:#5d594f;
-    --line:rgba(255,255,255,.08);
-    --line-soft:rgba(255,255,255,.04);
-    --orange:#DB4E18;
-    --orange-deep:#b03c12;
-    --orange-soft:rgba(219,78,24,.16);
-    --yellow:#F3BE26;
-    --yellow-soft:rgba(243,190,38,.14);
-    --green:#7bbf6a;
-    --shadow-soft:0 20px 60px -20px rgba(0,0,0,.7), 0 4px 16px rgba(0,0,0,.5);
+    --accent:#D04A02;
+    --ink:#2D2D2D;
+    --muted:#6b6b6b;
+    --line:#e6e6e6;
+    --bg:#ffffff;
+    --bg-soft:#faf9f8;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
   body{
-    background:var(--bg);
+    font-family:Georgia,"Times New Roman",serif;
     color:var(--ink);
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    font-size:16px;line-height:1.6;
+    background:var(--bg);
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
-    overflow-x:hidden;
   }
-  .serif{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.015em}
-  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
-  a{color:var(--yellow);text-decoration:none}
-  a:hover{color:#fff}
+  .wrap{max-width:880px;margin:0 auto;padding:0 28px;}
 
-  /* ============ BACKGROUND ============ */
-  .bg-grid{
-    position:fixed;inset:0;z-index:0;pointer-events:none;
-    background-image:
-      linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-    background-size:48px 48px;
-    mask-image:radial-gradient(ellipse at center, rgba(0,0,0,.9), transparent 75%);
-  }
-  .glow{
-    position:fixed;border-radius:50%;filter:blur(120px);opacity:.35;z-index:0;pointer-events:none;
-  }
-  .glow-1{width:520px;height:520px;background:var(--orange);top:-180px;left:-160px}
-  .glow-2{width:480px;height:480px;background:var(--yellow);bottom:-180px;right:-160px;opacity:.22}
+  /* Header */
+  header{padding:64px 0 40px;border-bottom:1px solid var(--line);}
 
-  /* ============ NAV ============ */
-  nav.top{
-    position:sticky;top:0;z-index:30;
-    backdrop-filter:saturate(1.2) blur(14px);
-    background:rgba(0,0,0,.72);
-    border-bottom:1px solid var(--line);
+  /* Animated eyebrow: Tax Technology & AI */
+  .eyebrow{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.95rem;letter-spacing:.16em;text-transform:uppercase;
+    font-weight:700;margin-bottom:16px;
+    display:inline-flex;flex-wrap:wrap;gap:.05em;
   }
-  nav.top .wrap{
-    max-width:1180px;margin:0 auto;padding:14px 22px;
-    display:flex;align-items:center;justify-content:space-between;gap:18px;
+  .eyebrow .w{
+    display:inline-block;
+    background:linear-gradient(90deg,var(--accent),#f08a3c,var(--accent));
+    background-size:200% 100%;
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;
+    opacity:0;
+    transform:translateY(8px);
+    animation:rise .6s cubic-bezier(.22,1,.36,1) forwards, shimmer 5s linear infinite 1s;
   }
-  nav.top .brand{display:flex;align-items:center;gap:12px;font-weight:600;font-size:13.5px;letter-spacing:-.005em}
-  nav.top .brand .dot{
-    width:12px;height:12px;border-radius:3px;
-    background:linear-gradient(135deg, var(--orange), var(--yellow));
-    box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 4px 12px rgba(219,78,24,.4);
+  .eyebrow .w:nth-child(1){animation-delay:0s, 1s;}
+  .eyebrow .w:nth-child(2){animation-delay:.12s, 1s;}
+  .eyebrow .w:nth-child(3){animation-delay:.24s, 1s;}
+  .eyebrow .amp{
+    color:var(--accent);-webkit-text-fill-color:var(--accent);
+    background:none;
   }
-  nav.top .brand small{display:block;font-weight:400;font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-  nav.top ul{display:flex;list-style:none;gap:22px}
-  nav.top a{font-size:13px;color:var(--ink-soft);font-weight:500}
-  nav.top a:hover{color:var(--yellow)}
-  @media (max-width:760px){nav.top ul{display:none}}
+  @keyframes rise{to{opacity:1;transform:translateY(0);}}
+  @keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+  @media (prefers-reduced-motion:reduce){
+    .eyebrow .w{animation:rise .4s forwards;opacity:1;transform:none;}
+  }
 
-  /* ============ HERO ============ */
-  .hero{position:relative;z-index:1;padding:96px 22px 64px;text-align:center}
-  .hero .eyebrow{
-    display:inline-flex;align-items:center;gap:10px;
-    font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.22em;
-    text-transform:uppercase;color:var(--yellow);
-    padding:8px 14px;border:1px solid var(--yellow-soft);border-radius:999px;
-    background:rgba(243,190,38,.05);margin-bottom:28px;
+  h1{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:1.55rem;font-weight:700;letter-spacing:-.01em;
+    color:var(--ink);margin-bottom:18px;line-height:1.2;
   }
-  .hero .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--yellow);box-shadow:0 0 12px var(--yellow)}
-  .hero h1{
-    font-family:'Fraunces',Georgia,serif;font-weight:500;
-    font-size:clamp(44px,7vw,86px);line-height:.98;letter-spacing:-.035em;
-    margin:0 0 22px;
+  .intro{font-size:1.05rem;color:var(--muted);max-width:620px;}
+  .refs{
+    margin-top:26px;font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.92rem;display:flex;gap:22px;flex-wrap:wrap;
   }
-  .hero h1 .accent{
-    background:linear-gradient(135deg, var(--orange) 0%, var(--yellow) 100%);
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-    font-style:italic;
-  }
-  .hero .bar{display:inline-block;width:64px;height:5px;background:var(--orange);border-radius:2px;margin:6px 0 24px}
-  .hero p.lede{
-    max-width:680px;margin:0 auto;font-size:17px;color:var(--ink-soft);line-height:1.7;
-  }
-  .hero .meta{
-    margin-top:30px;display:inline-flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;
-    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.06em;
-  }
-  .hero .meta span{display:inline-flex;align-items:center;gap:8px}
-  .hero .meta i{width:5px;height:5px;border-radius:50%;background:var(--orange);display:inline-block}
+  .refs a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px;}
+  .refs a:hover{color:var(--accent);}
 
-  /* ============ SECTIONS ============ */
-  main{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:40px 22px 80px}
+  /* Menu */
+  main{padding:40px 0 80px;}
+  .menu-item{border-bottom:1px solid var(--line);}
+  .menu-toggle{
+    width:100%;background:none;border:none;cursor:pointer;
+    display:flex;align-items:center;gap:16px;
+    padding:24px 4px;text-align:left;
+  }
+  .menu-toggle .plus{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:1.5rem;color:var(--accent);font-weight:400;
+    width:24px;flex-shrink:0;line-height:1;transition:transform .2s ease;
+  }
+  .menu-toggle.open .plus{transform:rotate(45deg);}
+  .menu-toggle .label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:1.15rem;font-weight:600;color:var(--ink);
+  }
+  .menu-toggle .sub{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.8rem;color:var(--muted);font-weight:400;margin-left:auto;
+  }
+  .panel{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+  .panel-inner{padding:0 4px 24px 44px;}
+  .panel ul{list-style:none;}
+  .panel li{margin:0 0 2px;}
+  .panel li a{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    display:block;padding:10px 0;color:var(--ink);text-decoration:none;
+    font-size:.98rem;border-bottom:1px solid #f0efed;
+  }
+  .panel li a:hover{color:var(--accent);}
+  .panel li:last-child a{border-bottom:none;}
+  .panel li a .desc{
+    display:block;font-size:.82rem;color:var(--muted);font-weight:400;
+    margin-top:2px;
+  }
 
-  .section-head{
-    display:flex;align-items:flex-end;justify-content:space-between;gap:24px;
-    margin:64px 0 28px;padding-bottom:18px;border-bottom:1px solid var(--line);
-  }
-  .section-head .tag{
-    display:inline-flex;align-items:center;gap:10px;
-    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--muted);margin-bottom:8px;
-  }
-  .section-head .tag::before{
-    content:"";width:18px;height:1.5px;background:var(--orange);border-radius:2px;
-  }
-  .section-head h2{
-    font-family:'Fraunces',Georgia,serif;font-weight:500;
-    font-size:clamp(28px,3.4vw,40px);line-height:1.05;letter-spacing:-.02em;
-  }
-  .section-head h2 em{font-style:italic;color:var(--yellow)}
-  .section-head .note{font-size:13px;color:var(--muted);text-align:right;max-width:300px}
-
-  /* ============ CARD GRID ============ */
-  .grid{
-    display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:18px;
-  }
-  .card{
-    position:relative;display:flex;flex-direction:column;
-    padding:26px 24px 22px;
-    background:linear-gradient(180deg, var(--panel) 0%, var(--bg-soft) 100%);
-    border:1px solid var(--line);border-radius:16px;
-    text-decoration:none;color:inherit;
-    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-    overflow:hidden;
-  }
-  .card::before{
-    content:"";position:absolute;inset:0;border-radius:16px;pointer-events:none;
-    background:linear-gradient(135deg, var(--orange-soft), transparent 40%);
-    opacity:0;transition:opacity .3s;
-  }
-  .card:hover{
-    transform:translateY(-3px);
-    border-color:rgba(243,190,38,.35);
-    box-shadow:var(--shadow-soft);
-  }
-  .card:hover::before{opacity:1}
-  .card .cat{
-    font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--yellow);margin-bottom:14px;
-    display:inline-flex;align-items:center;gap:8px;
-  }
-  .card .cat::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--yellow)}
-  .card h3{
-    font-family:'Fraunces',Georgia,serif;font-weight:500;
-    font-size:22px;line-height:1.2;letter-spacing:-.015em;
-    margin:0 0 10px;color:var(--ink);
-  }
-  .card p{font-size:14px;color:var(--ink-soft);line-height:1.55;margin:0 0 18px}
-  .card .arrow{
-    margin-top:auto;display:inline-flex;align-items:center;gap:8px;
-    font-size:13px;font-weight:500;color:var(--yellow);
-    font-family:'JetBrains Mono',monospace;letter-spacing:.05em;
-  }
-  .card .arrow svg{transition:transform .25s}
-  .card:hover .arrow svg{transform:translateX(4px)}
-
-  .card.for-fun .cat{color:#7bbf6a}
-  .card.for-fun .cat::before{background:#7bbf6a}
-  .card.for-fun .arrow{color:#7bbf6a}
-  .card.for-fun:hover{border-color:rgba(123,191,106,.4)}
-
-  /* ============ GATE ============ */
-  .gate{
-    position:relative;
-    padding:40px 28px;
-    background:linear-gradient(180deg, var(--panel-2) 0%, var(--bg-soft) 100%);
-    border:1px solid var(--line);border-radius:18px;
-    text-align:center;overflow:hidden;
-  }
-  .gate.reserved::before{
-    content:"";position:absolute;inset:0;
-    background:radial-gradient(600px 200px at 50% -10%, var(--orange-soft), transparent 70%);
-    pointer-events:none;
-  }
-  .gate.private::before{
-    content:"";position:absolute;inset:0;
-    background:radial-gradient(600px 200px at 50% -10%, rgba(243,190,38,.12), transparent 70%);
-    pointer-events:none;
-  }
-  .gate .lock{
-    width:54px;height:54px;border-radius:14px;
-    display:inline-flex;align-items:center;justify-content:center;
-    background:rgba(255,255,255,.04);border:1px solid var(--line);
-    margin:0 auto 18px;position:relative;
-  }
-  .gate .lock svg{width:24px;height:24px}
-  .gate h3{
-    font-family:'Fraunces',Georgia,serif;font-weight:500;
-    font-size:26px;line-height:1.15;letter-spacing:-.015em;margin:0 0 8px;
-    position:relative;
-  }
-  .gate p.hint{font-size:14px;color:var(--muted);margin:0 0 22px;position:relative}
-  .gate form{
-    display:flex;gap:8px;max-width:380px;margin:0 auto;
-    position:relative;
-  }
+  /* Gate */
+  .gate{margin-top:10px;max-width:440px;}
+  .gate label{font-family:"Helvetica Neue",Arial,sans-serif;font-size:.85rem;display:block;margin-bottom:8px;color:var(--ink);}
+  .gate-row{display:flex;gap:10px;}
   .gate input{
-    flex:1;
-    background:rgba(0,0,0,.45);
-    border:1px solid var(--line);border-radius:10px;
-    color:var(--ink);padding:13px 16px;
-    font-family:inherit;font-size:14px;
-    outline:none;transition:border-color .2s, background .2s;
+    flex:1;padding:11px 13px;border:1px solid var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;font-size:.95rem;background:#fff;
   }
-  .gate input:focus{border-color:var(--yellow);background:rgba(0,0,0,.6)}
+  .gate input:focus{outline:none;border-color:var(--accent);}
   .gate button{
-    background:linear-gradient(135deg, var(--orange), var(--orange-deep));
-    color:#fff;border:none;border-radius:10px;
-    padding:0 22px;font-size:13.5px;font-weight:600;
-    letter-spacing:.02em;cursor:pointer;
-    transition:transform .15s, box-shadow .2s;
+    background:var(--accent);color:#fff;border:none;
+    padding:11px 22px;font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:.9rem;font-weight:600;cursor:pointer;white-space:nowrap;
   }
-  .gate button:hover{transform:translateY(-1px);box-shadow:0 6px 20px -8px var(--orange)}
-  .gate .err{
-    display:none;
-    margin-top:14px;font-size:12.5px;color:#ff8a80;
-    font-family:'JetBrains Mono',monospace;letter-spacing:.04em;
+  .gate button:hover{background:#b03e02;}
+  .err{color:var(--accent);font-family:"Helvetica Neue",Arial,sans-serif;font-size:.85rem;margin-top:10px;display:none;}
+  .reserved-list{display:none;}
+  .reserved-list .listtag{
+    font-family:"Helvetica Neue",Arial,sans-serif;font-size:.72rem;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+    font-weight:600;margin-bottom:6px;
   }
-  .gate .err.show{display:block;animation:shake .35s}
-  @keyframes shake{
-    0%,100%{transform:translateX(0)}
-    25%{transform:translateX(-6px)}
-    75%{transform:translateX(6px)}
+  .reserved-list .empty{
+    font-family:"Helvetica Neue",Arial,sans-serif;font-size:.92rem;
+    color:var(--muted);font-style:italic;padding:6px 0 4px;
   }
+  .signout{
+    background:none;border:none;color:var(--muted);cursor:pointer;
+    font-family:"Helvetica Neue",Arial,sans-serif;font-size:.8rem;
+    text-decoration:underline;padding:0;margin-top:16px;
+  }
+  .signout:hover{color:var(--accent);}
 
-  .gate .unlocked{display:none;text-align:left}
-  .gate.unlocked .form-wrap{display:none}
-  .gate.unlocked .unlocked{display:block}
-  .gate .unlocked .grid{margin-top:6px}
-  .gate .unlocked-head{
-    display:flex;align-items:center;gap:12px;justify-content:space-between;
-    margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--line);
-  }
-  .gate .unlocked-head .ok{
-    display:inline-flex;align-items:center;gap:8px;
-    font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--green);
-  }
-  .gate .unlocked-head .ok::before{
-    content:"";width:8px;height:8px;border-radius:50%;
-    background:var(--green);box-shadow:0 0 12px var(--green);
-  }
-  .gate .lockout{
-    background:none;border:none;color:var(--muted);font-size:12px;
-    cursor:pointer;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;
-  }
-  .gate .lockout:hover{color:var(--ink)}
-
-  .note-panel{
-    margin-top:14px;padding:18px 20px;
-    background:rgba(243,190,38,.06);border:1px solid var(--yellow-soft);
-    border-radius:12px;
-    font-size:13.5px;color:var(--ink-soft);line-height:1.6;
-  }
-  .note-panel strong{color:var(--yellow);font-weight:600}
-
-  /* ============ FOOTER ============ */
-  footer{
-    position:relative;z-index:1;
-    border-top:1px solid var(--line);
-    padding:38px 22px;margin-top:60px;
-    text-align:center;
-    color:var(--muted);font-size:13px;
-  }
-  footer .row{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between}
-
-  @media (max-width:680px){
-    .hero{padding:64px 22px 40px}
-    .section-head{flex-direction:column;align-items:flex-start}
-    .section-head .note{text-align:left}
-  }
+  footer{border-top:1px solid var(--line);padding:28px 0;font-family:"Helvetica Neue",Arial,sans-serif;font-size:.8rem;color:var(--muted);}
 </style>
 </head>
 <body>
-
-<div class="bg-grid"></div>
-<div class="glow glow-1"></div>
-<div class="glow glow-2"></div>
-
-<nav class="top">
+<header>
   <div class="wrap">
-    <div class="brand">
-      <span class="dot" aria-hidden="true"></span>
-      <div>
-        Tax Technology &amp; AI<br>
-        <small>PwC Italy · 2026</small>
-      </div>
+    <div class="eyebrow" aria-label="Tax Technology & AI">
+      <span class="w">Tax</span>
+      <span class="w">Technology</span>
+      <span class="w amp">&amp;</span>
+      <span class="w">AI</span>
     </div>
-    <ul>
-      <li><a href="#public">Pubblico</a></li>
-      <li><a href="#for-fun">For Fun</a></li>
-      <li><a href="#reserved">Riservata</a></li>
-      <li><a href="#private">Solo per me</a></li>
-    </ul>
-  </div>
-</nav>
-
-<header class="hero">
-  <span class="eyebrow">Edizione 2026 · Hub personale</span>
-  <h1>
-    Tax Tech<br>
-    <span class="accent">&amp; AI</span>
-  </h1>
-  <div class="bar"></div>
-  <p class="lede">
-    Hub di Angelo Distani. Raccoglie l'Hackathon Fiscale di Monza, lo studio AI Stani Beolchi,
-    dashboard fiscali e qualche pagina più leggera. Sotto, due aree riservate.
-  </p>
-  <div class="meta">
-    <span><i></i>angelodistani.com</span>
-    <span><i></i>Hackathon Fiscale di Monza</span>
-    <span><i></i>PwC Italy</span>
+    <h1>Angelo Di Stani</h1>
+    <p class="intro">Appunti e test sull'applicazione di tecnologia e intelligenza artificiale alla materia fiscale. Pagine di lavoro, esperimenti e materiali condivisi.</p>
+    <div class="refs">
+      <a href="https://www.linkedin.com/in/angelo-di-stani-51161129" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:Angelo.di.stani@pwc.com">Angelo.di.stani@pwc.com</a>
+    </div>
   </div>
 </header>
 
-<main>
+<main class="wrap">
 
-  <!-- =========== PUBLIC AREA =========== -->
-  <section id="public">
-    <div class="section-head">
-      <div>
-        <div class="tag">Area pubblica</div>
-        <h2>Tutte le pagine, <em>nessuna password</em></h2>
+  <!-- AREA CONDIVISA -->
+  <div class="menu-item">
+    <button type="button" class="menu-toggle" onclick="toggleMenu(this)">
+      <span class="plus">+</span>
+      <span class="label">Progetti &amp; pagine condivise</span>
+      <span class="sub">accessibili a tutti</span>
+    </button>
+    <div class="panel">
+      <div class="panel-inner">
+        <ul>
+          <li><a href="nancy-saturnino.html">
+            Nancy Saturnino — Special Guest
+            <span class="desc">Hackathon Fiscale di Monza · Tax Executive Director, PwC Italy</span>
+          </a></li>
+          <li><a href="banca-csr.html">
+            Quanto è stupenda la Banca CSR
+            <span class="desc">Omaggio editoriale alla Cassa di Sovvenzioni e Risparmio fra il Personale della Banca d'Italia</span>
+          </a></li>
+          <li><a href="studio-stani-beolchi.html">
+            Studio Stani Beolchi
+            <span class="desc">Il primo studio fiscale italiano operato da agenti AI — landing page</span>
+          </a></li>
+          <li><a href="cnm-dashboard.html">
+            Dashboard Dichiarazione CNM
+            <span class="desc">Consolidato Nazionale Mondiale — quadro di sintesi del consolidamento fiscale</span>
+          </a></li>
+        </ul>
       </div>
-      <div class="note">Le pagine costruite finora: Hackathon, AI tax studio, dashboard fiscali.</div>
     </div>
+  </div>
 
-    <div class="grid">
-
-      <a class="card" href="nancy-saturnino.html">
-        <span class="cat">Hackathon · Special Guest</span>
-        <h3>Nancy Saturnino</h3>
-        <p>Tax Executive Director di PwC Italy, special guest dell'Hackathon Fiscale di Monza 2026.</p>
-        <span class="arrow">apri pagina
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-        </span>
-      </a>
-
-      <a class="card" href="banca-csr.html">
-        <span class="cat">Hackathon · Omaggio editoriale</span>
-        <h3>Banca CSR</h3>
-        <p>Quanto è stupenda la Banca CSR — cento anni di mutualità, fiducia e cura del risparmio.</p>
-        <span class="arrow">apri pagina
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-        </span>
-      </a>
-
-      <a class="card" href="studio-stani-beolchi.html">
-        <span class="cat">AI Tax Studio</span>
-        <h3>Studio Stani Beolchi</h3>
-        <p>Il primo studio di consulenza fiscale in Italia operato esclusivamente da agenti AI. 24/7, senza attese.</p>
-        <span class="arrow">apri pagina
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-        </span>
-      </a>
-
-      <a class="card" href="cnm-dashboard.html">
-        <span class="cat">Tax Technology · Dashboard</span>
-        <h3>Dichiarazione CNM</h3>
-        <p>Consolidato Nazionale Mondiale — quadro di sintesi del consolidamento fiscale, ACE, ROL e crediti esteri.</p>
-        <span class="arrow">apri pagina
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-        </span>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- =========== FOR FUN =========== -->
-  <section id="for-fun">
-    <div class="section-head">
-      <div>
-        <div class="tag">Nuova categoria</div>
-        <h2>For <em>fun</em></h2>
+  <!-- FOR FUN -->
+  <div class="menu-item">
+    <button type="button" class="menu-toggle" onclick="toggleMenu(this)">
+      <span class="plus">+</span>
+      <span class="label">For fun</span>
+      <span class="sub">pagine leggere, esperimenti</span>
+    </button>
+    <div class="panel">
+      <div class="panel-inner">
+        <ul>
+          <li><a href="excel_di_massimo.html">
+            Excel di Massimo
+            <span class="desc">Acconti IRES, LdB 2025–2026: meccanismo di calcolo con esempio numerico modificabile</span>
+          </a></li>
+        </ul>
       </div>
-      <div class="note">Esperimenti, pagine personali, cose costruite per il gusto di costruirle.</div>
     </div>
+  </div>
 
-    <div class="grid">
+  <!-- AREA RISERVATA -->
+  <div class="menu-item">
+    <button type="button" class="menu-toggle" onclick="toggleMenu(this)">
+      <span class="plus">+</span>
+      <span class="label">Area riservata</span>
+      <span class="sub">protetta da password</span>
+    </button>
+    <div class="panel">
+      <div class="panel-inner">
 
-      <a class="card for-fun" href="excel_di_massimo.html">
-        <span class="cat">Numeri &amp; calcoli</span>
-        <h3>Excel di Massimo</h3>
-        <p>Acconti IRES — quadro normativo LdB 2025/2026 e calcolo del saldo e dell'acconto con esempio numerico modificabile.</p>
-        <span class="arrow">apri pagina
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-        </span>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- =========== RESERVED AREA (public password) =========== -->
-  <section id="reserved">
-    <div class="section-head">
-      <div>
-        <div class="tag">Area riservata · aperta al pubblico</div>
-        <h2>Join the <em>tax revolution</em></h2>
-      </div>
-      <div class="note">Inserisci la password per accedere ai contenuti riservati.</div>
-    </div>
-
-    <div class="gate reserved" id="gate-reserved">
-      <div class="form-wrap">
-        <div class="lock" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#F3BE26" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+        <!-- Form password -->
+        <div class="gate" id="gate">
+          <label for="pwd">Password di accesso</label>
+          <div class="gate-row">
+            <input type="password" id="pwd" autocomplete="off" onkeydown="if(event.key==='Enter')checkPwd()">
+            <button type="button" onclick="checkPwd()">Entra</button>
+          </div>
+          <p class="err" id="err">Password errata.</p>
         </div>
-        <h3>Area riservata</h3>
-        <p class="hint">Suggerimento: il movimento ha un nome. Unisciti.</p>
-        <form onsubmit="return checkReserved(event)">
-          <input type="password" id="pw-reserved" placeholder="password" autocomplete="off" spellcheck="false">
-          <button type="submit">Entra</button>
-        </form>
-        <div class="err" id="err-reserved">Password non valida</div>
-      </div>
 
-      <div class="unlocked">
-        <div class="unlocked-head">
-          <div class="ok">Accesso aperto</div>
-          <button class="lockout" onclick="lockReserved()">⨯ blocca di nuovo</button>
+        <!-- Lista mostrata con la password "condivisa" -->
+        <div class="reserved-list" id="listShared">
+          <p class="listtag">Pagine riservate condivise</p>
+          <p class="empty">Niente da mostrare per ora — i contenuti riservati arriveranno qui.</p>
+          <button type="button" class="signout" onclick="signOut()">Esci</button>
         </div>
-        <p style="font-size:15px;color:var(--ink-soft);margin-bottom:10px">
-          Benvenuto nella <strong style="color:var(--yellow)">tax revolution</strong>. Da qui partiranno
-          contenuti riservati alla community: manifesto, prototipi, note di lavoro,
-          documenti in lavorazione per l'edizione 2026 dell'Hackathon.
-        </p>
-        <div class="note-panel">
-          <strong>In arrivo —</strong> draft del manifesto, lista degli invitati,
-          dietro le quinte dei prototipi AI tax e materiali condivisi della community.
-          Aggiunti man mano, in modo riservato.
+
+        <!-- Lista mostrata con la TUA password (tue + condivise) -->
+        <div class="reserved-list" id="listOwner">
+          <p class="listtag">Le tue pagine</p>
+          <p class="empty">Spazio personale — aggiungi qui le tue pagine private.</p>
+          <p class="listtag" style="margin-top:18px;">Pagine riservate condivise</p>
+          <p class="empty">Nessun contenuto condiviso ancora.</p>
+          <button type="button" class="signout" onclick="signOut()">Esci</button>
         </div>
+
       </div>
     </div>
-  </section>
-
-  <!-- =========== PRIVATE AREA (only me) =========== -->
-  <section id="private">
-    <div class="section-head">
-      <div>
-        <div class="tag">Area privata · solo per Angelo</div>
-        <h2>Solo <em>per me</em></h2>
-      </div>
-      <div class="note">Spazio personale. Solo io ho la password.</div>
-    </div>
-
-    <div class="gate private" id="gate-private">
-      <div class="form-wrap">
-        <div class="lock" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#DB4E18" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V6a4 4 0 0 1 8 0v5"/><circle cx="12" cy="16" r="1.4" fill="#DB4E18"/></svg>
-        </div>
-        <h3>Spazio personale</h3>
-        <p class="hint">Solo io.</p>
-        <form onsubmit="return checkPrivate(event)">
-          <input type="password" id="pw-private" placeholder="password" autocomplete="off" spellcheck="false">
-          <button type="submit">Entra</button>
-        </form>
-        <div class="err" id="err-private">Password non valida</div>
-      </div>
-
-      <div class="unlocked">
-        <div class="unlocked-head">
-          <div class="ok">Ciao Angelo</div>
-          <button class="lockout" onclick="lockPrivate()">⨯ blocca di nuovo</button>
-        </div>
-        <p style="font-size:15px;color:var(--ink-soft);margin-bottom:10px">
-          Quaderno personale. Qui finiscono note, idee, link da non perdere e tutto quello
-          che vuoi tenere a portata di mano senza condividerlo con nessuno.
-        </p>
-        <div class="note-panel">
-          <strong>Idee da sviluppare —</strong> aggiungi qui i prossimi prototipi che vuoi mostrare
-          al PwC, le pagine da costruire e le persone da invitare. Solo tu vedi questa sezione.
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 
 </main>
 
 <footer>
-  <div class="row">
-    <div>© 2026 · Angelo Distani · angelodistani.com</div>
-    <div>Tax Technology &amp; AI · PwC Italy · Hackathon Fiscale di Monza</div>
-  </div>
+  <div class="wrap">© <span id="yr"></span> Angelo Di Stani — angelodistani.com</div>
 </footer>
 
 <script>
-  function checkReserved(e){
-    e.preventDefault();
-    const pw = document.getElementById('pw-reserved').value.trim().toLowerCase();
-    const err = document.getElementById('err-reserved');
-    if (pw === 'jointhetaxrevolution'){
-      document.getElementById('gate-reserved').classList.add('unlocked');
-      try { sessionStorage.setItem('gate-reserved','1'); } catch(_){}
-      err.classList.remove('show');
-    } else {
-      err.classList.add('show');
-      setTimeout(()=>err.classList.remove('show'), 1800);
-    }
-    return false;
-  }
-  function lockReserved(){
-    document.getElementById('gate-reserved').classList.remove('unlocked');
-    document.getElementById('pw-reserved').value = '';
-    try { sessionStorage.removeItem('gate-reserved'); } catch(_){}
-  }
-  function checkPrivate(e){
-    e.preventDefault();
-    const pw = document.getElementById('pw-private').value.trim().toLowerCase().replace(/\s+/g,'');
-    const err = document.getElementById('err-private');
-    if (pw === 'angelo44'){
-      document.getElementById('gate-private').classList.add('unlocked');
-      try { sessionStorage.setItem('gate-private','1'); } catch(_){}
-      err.classList.remove('show');
-    } else {
-      err.classList.add('show');
-      setTimeout(()=>err.classList.remove('show'), 1800);
-    }
-    return false;
-  }
-  function lockPrivate(){
-    document.getElementById('gate-private').classList.remove('unlocked');
-    document.getElementById('pw-private').value = '';
-    try { sessionStorage.removeItem('gate-private'); } catch(_){}
+  document.getElementById('yr').textContent=new Date().getFullYear();
+
+  // --- Menu a fisarmonica ---
+  function toggleMenu(btn){
+    const panel=btn.nextElementSibling;
+    const open=btn.classList.toggle('open');
+    panel.style.maxHeight = open ? panel.scrollHeight+'px' : '0';
   }
 
-  try {
-    if (sessionStorage.getItem('gate-reserved')==='1') document.getElementById('gate-reserved').classList.add('unlocked');
-    if (sessionStorage.getItem('gate-private')==='1') document.getElementById('gate-private').classList.add('unlocked');
-  } catch(_){}
+  // --- Password lato client (NON sicura). ---
+  const PWD_SHARED="jointhetaxrevolution"; // pagine riservate condivise
+  const PWD_OWNER ="angelo44";             // tue pagine + condivise
+
+  function normalize(v){ return (v||'').trim().toLowerCase().replace(/\s+/g,''); }
+
+  function checkPwd(){
+    const v=normalize(document.getElementById('pwd').value);
+    const gate=document.getElementById('gate');
+    const err=document.getElementById('err');
+    let shown=null;
+
+    if(v===PWD_OWNER){ shown=document.getElementById('listOwner'); }
+    else if(v===PWD_SHARED){ shown=document.getElementById('listShared'); }
+
+    if(shown){
+      gate.style.display='none';
+      err.style.display='none';
+      shown.style.display='block';
+      reflow();
+    }else{
+      err.style.display='block';
+      reflow();
+    }
+  }
+
+  function signOut(){
+    document.getElementById('pwd').value='';
+    document.getElementById('listShared').style.display='none';
+    document.getElementById('listOwner').style.display='none';
+    document.getElementById('err').style.display='none';
+    document.getElementById('gate').style.display='block';
+    reflow();
+  }
+
+  // ricalcola l'altezza del pannello riservata se è aperto
+  function reflow(){
+    document.querySelectorAll('.menu-toggle.open').forEach(btn=>{
+      btn.nextElementSibling.style.maxHeight=btn.nextElementSibling.scrollHeight+'px';
+    });
+  }
 </script>
-
 </body>
 </html>
