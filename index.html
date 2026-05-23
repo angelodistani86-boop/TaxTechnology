@@ -7,6 +7,8 @@
 <style>
   :root{
     --accent:#D04A02;
+    --accent-deep:#a83a01;
+    --accent-soft:#fde7d7;
     --ink:#2D2D2D;
     --muted:#6b6b6b;
     --line:#e6e6e6;
@@ -24,44 +26,81 @@
   }
   .wrap{max-width:880px;margin:0 auto;padding:0 28px;}
 
-  /* Header */
-  header{padding:64px 0 40px;border-bottom:1px solid var(--line);}
-
-  /* Animated eyebrow: Tax Technology & AI */
-  .eyebrow{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:.95rem;letter-spacing:.16em;text-transform:uppercase;
-    font-weight:700;margin-bottom:16px;
-    display:inline-flex;flex-wrap:wrap;gap:.05em;
+  /* ============ STICKY HEADER ============ */
+  .site-header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.88);
+    backdrop-filter:saturate(1.5) blur(14px);
+    -webkit-backdrop-filter:saturate(1.5) blur(14px);
+    border-bottom:1px solid var(--line);
   }
-  .eyebrow .w{
+  .nav-wrap{
+    max-width:1080px;margin:0 auto;
+    display:flex;align-items:center;gap:18px;
+    padding:14px 28px;
+  }
+  .brand{
+    display:flex;align-items:center;gap:16px;
+    text-decoration:none;color:inherit;min-width:0;
+  }
+  .logo-mark{
+    width:48px;height:48px;flex-shrink:0;display:block;
+    filter:drop-shadow(0 4px 12px rgba(208,74,2,.28));
+    transition:transform .4s cubic-bezier(.22,1,.36,1);
+  }
+  .brand:hover .logo-mark{transform:rotate(-6deg) scale(1.04);}
+  .brand-text{
+    display:flex;flex-direction:column;gap:2px;
+    line-height:1;min-width:0;
+  }
+  .brand-title{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:800;
+    font-size:clamp(1.35rem, 3.6vw, 2.1rem);
+    letter-spacing:.015em;text-transform:uppercase;
+    display:inline-flex;flex-wrap:nowrap;gap:.18em;
+    line-height:1;
+  }
+  .brand-title .w{
     display:inline-block;
     background:linear-gradient(90deg,var(--accent),#f08a3c,var(--accent));
     background-size:200% 100%;
     -webkit-background-clip:text;background-clip:text;
     color:transparent;
     opacity:0;
-    transform:translateY(8px);
-    animation:rise .6s cubic-bezier(.22,1,.36,1) forwards, shimmer 5s linear infinite 1s;
+    transform:translateY(10px);
+    animation:rise .65s cubic-bezier(.22,1,.36,1) forwards, shimmer 4s linear infinite 1.2s;
   }
-  .eyebrow .w:nth-child(1){animation-delay:0s, 1s;}
-  .eyebrow .w:nth-child(2){animation-delay:.12s, 1s;}
-  .eyebrow .w:nth-child(3){animation-delay:.24s, 1s;}
-  .eyebrow .amp{
+  .brand-title .w:nth-child(1){animation-delay:.05s, 1.2s;}
+  .brand-title .w:nth-child(2){animation-delay:.18s, 1.2s;}
+  .brand-title .w:nth-child(3){animation-delay:.31s, 1.2s;}
+  .brand-title .w:nth-child(4){animation-delay:.44s, 1.2s;}
+  .brand-title .amp{
     color:var(--accent);-webkit-text-fill-color:var(--accent);
-    background:none;
+    background:none;font-weight:700;
+  }
+  .brand-name{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:clamp(.78rem, 1.5vw, .92rem);
+    font-weight:500;color:var(--muted);
+    letter-spacing:.04em;
+    opacity:0;animation:fadein .7s ease forwards .9s;
   }
   @keyframes rise{to{opacity:1;transform:translateY(0);}}
   @keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+  @keyframes fadein{to{opacity:1;}}
   @media (prefers-reduced-motion:reduce){
-    .eyebrow .w{animation:rise .4s forwards;opacity:1;transform:none;}
+    .brand-title .w{animation:rise .4s forwards;opacity:1;transform:none;}
+    .brand-name{animation:none;opacity:1;}
+  }
+  @media (max-width:520px){
+    .brand-title{gap:.12em;}
+    .nav-wrap{padding:12px 20px;gap:12px;}
+    .logo-mark{width:42px;height:42px;}
   }
 
-  h1{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:1.55rem;font-weight:700;letter-spacing:-.01em;
-    color:var(--ink);margin-bottom:18px;line-height:1.2;
-  }
+  /* ============ INTRO SECTION ============ */
+  .intro-section{padding:48px 0 32px;border-bottom:1px solid var(--line);}
   .intro{font-size:1.05rem;color:var(--muted);max-width:620px;}
   .refs{
     margin-top:26px;font-family:"Helvetica Neue",Arial,sans-serif;
@@ -70,7 +109,7 @@
   .refs a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px;}
   .refs a:hover{color:var(--accent);}
 
-  /* Menu */
+  /* ============ MENU ============ */
   main{padding:40px 0 80px;}
   .menu-item{border-bottom:1px solid var(--line);}
   .menu-toggle{
@@ -108,7 +147,7 @@
     margin-top:2px;
   }
 
-  /* Gate */
+  /* ============ GATE ============ */
   .gate{margin-top:10px;max-width:440px;}
   .gate label{font-family:"Helvetica Neue",Arial,sans-serif;font-size:.85rem;display:block;margin-bottom:8px;color:var(--ink);}
   .gate-row{display:flex;gap:10px;}
@@ -122,7 +161,7 @@
     padding:11px 22px;font-family:"Helvetica Neue",Arial,sans-serif;
     font-size:.9rem;font-weight:600;cursor:pointer;white-space:nowrap;
   }
-  .gate button:hover{background:#b03e02;}
+  .gate button:hover{background:var(--accent-deep);}
   .err{color:var(--accent);font-family:"Helvetica Neue",Arial,sans-serif;font-size:.85rem;margin-top:10px;display:none;}
   .reserved-list{display:none;}
   .reserved-list .listtag{
@@ -145,22 +184,43 @@
 </style>
 </head>
 <body>
-<header>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <a href="#top" class="brand" id="top">
+      <svg class="logo-mark" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="lg-fill" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#D04A02"/>
+            <stop offset="1" stop-color="#a83a01"/>
+          </linearGradient>
+        </defs>
+        <rect x="1.2" y="1.2" width="45.6" height="45.6" rx="11" fill="url(#lg-fill)"/>
+        <path d="M13.5 34 L24 14 L34.5 34 M17.4 26.4 L30.6 26.4" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="37.5" cy="11.5" r="2.8" fill="#F3BE26"/>
+      </svg>
+      <span class="brand-text">
+        <span class="brand-title" aria-label="Tax Technology & AI">
+          <span class="w">Tax</span>
+          <span class="w">Technology</span>
+          <span class="w amp">&amp;</span>
+          <span class="w">AI</span>
+        </span>
+        <span class="brand-name">Angelo Di Stani</span>
+      </span>
+    </a>
+  </div>
+</header>
+
+<section class="intro-section">
   <div class="wrap">
-    <div class="eyebrow" aria-label="Tax Technology & AI">
-      <span class="w">Tax</span>
-      <span class="w">Technology</span>
-      <span class="w amp">&amp;</span>
-      <span class="w">AI</span>
-    </div>
-    <h1>Angelo Di Stani</h1>
     <p class="intro">Appunti e test sull'applicazione di tecnologia e intelligenza artificiale alla materia fiscale. Pagine di lavoro, esperimenti e materiali condivisi.</p>
     <div class="refs">
       <a href="https://www.linkedin.com/in/angelo-di-stani-51161129" target="_blank" rel="noopener">LinkedIn</a>
       <a href="mailto:Angelo.di.stani@pwc.com">Angelo.di.stani@pwc.com</a>
     </div>
   </div>
-</header>
+</section>
 
 <main class="wrap">
 
@@ -170,6 +230,25 @@
       <span class="plus">+</span>
       <span class="label">Progetti &amp; pagine condivise</span>
       <span class="sub">accessibili a tutti</span>
+    </button>
+    <div class="panel">
+      <div class="panel-inner">
+        <ul>
+          <li><a href="acconto-imposte-dirette-2026.html">
+            Acconto imposte dirette 2026
+            <span class="desc">Acconti IRES, LdB 2025–2026: meccanismo di calcolo del saldo 2025 e dell'acconto 2026 con esempio numerico modificabile</span>
+          </a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOR FUN -->
+  <div class="menu-item">
+    <button type="button" class="menu-toggle" onclick="toggleMenu(this)">
+      <span class="plus">+</span>
+      <span class="label">For fun</span>
+      <span class="sub">pagine leggere, esperimenti</span>
     </button>
     <div class="panel">
       <div class="panel-inner">
@@ -189,25 +268,6 @@
           <li><a href="cnm-dashboard.html">
             Dashboard Dichiarazione CNM
             <span class="desc">Consolidato Nazionale Mondiale — quadro di sintesi del consolidamento fiscale</span>
-          </a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOR FUN -->
-  <div class="menu-item">
-    <button type="button" class="menu-toggle" onclick="toggleMenu(this)">
-      <span class="plus">+</span>
-      <span class="label">For fun</span>
-      <span class="sub">pagine leggere, esperimenti</span>
-    </button>
-    <div class="panel">
-      <div class="panel-inner">
-        <ul>
-          <li><a href="excel_di_massimo.html">
-            Excel di Massimo
-            <span class="desc">Acconti IRES, LdB 2025–2026: meccanismo di calcolo con esempio numerico modificabile</span>
           </a></li>
         </ul>
       </div>
@@ -305,7 +365,6 @@
     reflow();
   }
 
-  // ricalcola l'altezza del pannello riservata se è aperto
   function reflow(){
     document.querySelectorAll('.menu-toggle.open').forEach(btn=>{
       btn.nextElementSibling.style.maxHeight=btn.nextElementSibling.scrollHeight+'px';
