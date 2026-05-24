@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Aggiornamento Banking · Mockup A · Grid compatto</title>
+<meta name="description" content="Mockup A — dashboard a card compatte 3 colonne con pillole filtro orizzontali. Dati esemplificativi su Intesa Sanpaolo, Banca di Asti, Cherry Bank.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,0,700;9..144,1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f5; --paper:#ffffff; --ink:#1f1e1c; --ink-soft:#3d3a35; --muted:#6b675e;
+    --line:#e8e4d8; --line-soft:#f1ede1; --accent:#cc785c; --accent-deep:#a85a40; --accent-soft:#f4e4dc;
+    --warm:#f5f1e6; --warm-deeper:#ede6d3;
+    --gold:#c8a951; --gold-soft:#fbf4dc;
+    --green:#5a8f6b; --green-soft:#e4ede2;
+    --blue:#5a7a9f; --blue-soft:#e1e8ef;
+    --plum:#8d4f7d; --plum-soft:#f0e2ec;
+    --shadow-sm:0 1px 2px rgba(31,30,28,.04);
+    --shadow-md:0 4px 16px -4px rgba(31,30,28,.08), 0 1px 3px rgba(31,30,28,.04);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .serif{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.01em}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+  a{color:var(--accent-deep);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+  a:hover{border-bottom-color:var(--accent)}
+
+  nav.top{position:sticky;top:0;z-index:30;backdrop-filter:saturate(1.2) blur(10px);
+    background:rgba(250,249,245,.86);border-bottom:1px solid var(--line)}
+  nav.top .wrap{max-width:1240px;margin:0 auto;padding:14px 22px;
+    display:flex;align-items:center;justify-content:space-between;gap:18px}
+  nav.top .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:13.5px;color:var(--ink)}
+  nav.top .brand .dot{width:10px;height:10px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,#f0a98e,var(--accent-deep))}
+  nav.top .brand small{display:block;font-weight:400;font-size:11px;color:var(--muted);letter-spacing:.04em}
+  nav.top ul{display:flex;list-style:none;margin:0;padding:0;gap:22px}
+  nav.top a{font-size:13px;color:var(--ink-soft);font-weight:500;border:none}
+  nav.top a:hover{color:var(--accent-deep)}
+  @media (max-width:680px){nav.top ul{display:none}}
+
+  .hero{position:relative;overflow:hidden;
+    background:radial-gradient(900px 500px at 85% -10%, rgba(90,143,107,.14), transparent 60%),
+      radial-gradient(700px 400px at -10% 110%, rgba(200,169,81,.18), transparent 60%),
+      linear-gradient(180deg,#fdfcf7 0%,#faf9f5 100%);
+    border-bottom:1px solid var(--line)}
+  .hero .wrap{max-width:1240px;margin:0 auto;padding:44px 22px 36px}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;
+    text-transform:uppercase;letter-spacing:.18em;color:var(--accent-deep);font-weight:700;
+    background:var(--accent-soft);padding:6px 12px 6px 10px;border-radius:999px;margin-bottom:18px}
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(34px,4.6vw,52px);line-height:1.04;letter-spacing:-.022em;margin:0 0 12px;color:var(--ink)}
+  .hero h1 em{font-style:italic;color:var(--accent);font-weight:500}
+  .hero .lead{font-size:16px;color:var(--ink-soft);line-height:1.6;max-width:62ch;margin:0 0 6px}
+  .hero .meta{font-size:12.5px;color:var(--muted);margin-top:14px;display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:var(--ink-soft);font-weight:600}
+
+  main{max-width:1240px;margin:0 auto;padding:32px 22px 24px}
+
+  /* === FILTER BAR === */
+  .filterbar{background:var(--paper);border:1px solid var(--line);border-radius:18px;
+    padding:18px 22px;box-shadow:var(--shadow-sm);margin-bottom:28px;position:sticky;top:64px;z-index:20}
+  .filterbar .grp{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .filterbar .grp:last-child{margin-bottom:0}
+  .filterbar .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);
+    font-weight:700;min-width:96px}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;padding:6px 12px;
+    border-radius:999px;background:var(--warm);color:var(--ink-soft);font-weight:600;
+    border:1px solid var(--line-soft);cursor:pointer;transition:all .15s;user-select:none}
+  .pill:hover{border-color:var(--accent)}
+  .pill.on{background:var(--ink);color:#fdfcf7;border-color:var(--ink)}
+  .pill.on.t-risultati{background:var(--green);border-color:var(--green);color:#fdfcf7}
+  .pill.on.t-comunicato{background:var(--blue);border-color:var(--blue);color:#fdfcf7}
+  .pill.on.t-intervista-ceo{background:var(--gold);border-color:var(--gold);color:#3d3a35}
+  .pill.on.t-operazione-straordinaria{background:var(--accent);border-color:var(--accent);color:#fdfcf7}
+  .pill.on.t-fisco{background:var(--plum);border-color:var(--plum);color:#fdfcf7}
+  .pill .n{font-family:'JetBrains Mono',monospace;font-size:10.5px;opacity:.7}
+  .filterbar .reset{margin-left:auto;font-size:12px;color:var(--accent-deep);cursor:pointer;
+    font-weight:600;border:none;background:none;padding:0}
+
+  /* === CLIENT SECTION === */
+  .client{margin-bottom:36px;scroll-margin-top:140px}
+  .client-head{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    padding:14px 18px;background:var(--paper);border:1px solid var(--line);border-radius:14px;
+    box-shadow:var(--shadow-sm);margin-bottom:14px}
+  .client-head .name{font-family:'Fraunces',serif;font-weight:500;font-size:22px;letter-spacing:-.015em;color:var(--ink);margin:0}
+  .client-head .name em{font-style:italic;color:var(--accent)}
+  .badge{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;font-weight:700;
+    padding:4px 10px;border-radius:999px;background:var(--warm);color:var(--ink-soft);border:1px solid var(--line)}
+  .badge.top10{background:var(--accent-soft);color:var(--accent-deep);border-color:#f0d4c5}
+  .badge.media{background:var(--gold-soft);color:#7a6320;border-color:#e6d390}
+  .badge.piccola{background:var(--green-soft);color:#3e6a4d;border-color:#bcd4c2}
+  .audit{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-left:auto;
+    font-size:12px;color:var(--muted)}
+  .audit b{color:var(--ink-soft);font-weight:600}
+  .audit .sep{width:1px;height:14px;background:var(--line)}
+
+  /* === CARD GRID 3-COL === */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:640px){.grid{grid-template-columns:1fr}}
+  article.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;
+    padding:16px 18px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:8px;
+    transition:transform .12s ease, box-shadow .15s}
+  article.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+  article.card .meta-row{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+  article.card .meta-row time{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--accent-deep)}
+  article.card .meta-row .src{color:var(--ink-soft)}
+  article.card h3{font-family:'Fraunces',serif;font-weight:500;font-size:16.5px;line-height:1.28;
+    letter-spacing:-.012em;margin:2px 0 4px;color:var(--ink)}
+  article.card p.sum{font-size:13px;color:var(--ink-soft);line-height:1.55;margin:0;flex:1}
+  article.card .foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px}
+  article.card .foot a.read{font-size:12px;font-weight:600;color:var(--accent-deep);border:none}
+  .tag{font-size:10.5px;padding:3px 9px;border-radius:999px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.08em;border:1px solid}
+  .tag.t-risultati{background:var(--green-soft);color:#3e6a4d;border-color:#bcd4c2}
+  .tag.t-comunicato{background:var(--blue-soft);color:#3d5874;border-color:#bccad8}
+  .tag.t-intervista-ceo{background:var(--gold-soft);color:#7a6320;border-color:#e6d390}
+  .tag.t-operazione-straordinaria{background:var(--accent-soft);color:var(--accent-deep);border-color:#f0d4c5}
+  .tag.t-fisco{background:var(--plum-soft);color:var(--plum);border-color:#dcc1d4}
+
+  .empty{padding:40px 22px;text-align:center;color:var(--muted);font-size:14px;
+    background:var(--paper);border:1px dashed var(--line);border-radius:14px}
+
+  footer{padding:36px 22px 60px;text-align:center;color:var(--muted);font-size:12.5px;
+    border-top:1px solid var(--line);margin-top:30px;background:#fdfcf7}
+  footer .row{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer a{color:var(--ink-soft)}
+  .mockup-stamp{position:fixed;bottom:18px;right:18px;background:var(--ink);color:#fdfcf7;
+    font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    padding:8px 14px;border-radius:999px;z-index:50;box-shadow:var(--shadow-md);opacity:.92}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <div class="brand">
+      <span class="dot" aria-hidden="true"></span>
+      <div>Aggiornamento Banking<br><small>Mockup A · Grid compatto 3-col</small></div>
+    </div>
+    <ul>
+      <li><a href="../index.html">← Home</a></li>
+      <li><a href="#intesa">Intesa</a></li>
+      <li><a href="#asti">Asti</a></li>
+      <li><a href="#cherry">Cherry</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Aggiornato Mar 24 Mag 2026 · prossimo update Ven 28 Mag</span>
+    <h1>Intelligence settimanale sulle <em>banche italiane</em></h1>
+    <p class="lead">Risultati economici, comunicati stampa, interviste e dichiarazioni del CEO, operazioni straordinarie, tematiche fiscali emergenti — sintetizzati automaticamente da fonti pubbliche.</p>
+    <div class="meta">
+      <span><b>3</b> clienti monitorati</span>
+      <span><b>19</b> news raccolte (ultimi 7 giorni)</span>
+      <span><b>11</b> fonti consultate</span>
+      <span><b>0,42 $</b> costo run</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== FILTER BAR ===== -->
+  <div class="filterbar" id="filters">
+    <div class="grp">
+      <span class="lbl">Cliente</span>
+      <button class="pill" data-filter="cliente" data-val="intesa">Intesa Sanpaolo <span class="n">7</span></button>
+      <button class="pill" data-filter="cliente" data-val="asti">Banca di Asti <span class="n">6</span></button>
+      <button class="pill" data-filter="cliente" data-val="cherry">Cherry Bank <span class="n">6</span></button>
+    </div>
+    <div class="grp">
+      <span class="lbl">Fascia</span>
+      <button class="pill" data-filter="fascia" data-val="top10">Top 10 gruppi <span class="n">7</span></button>
+      <button class="pill" data-filter="fascia" data-val="media">Medie <span class="n">6</span></button>
+      <button class="pill" data-filter="fascia" data-val="piccola">Piccole / fintech <span class="n">6</span></button>
+    </div>
+    <div class="grp">
+      <span class="lbl">Tipologia</span>
+      <button class="pill t-risultati" data-filter="tipo" data-val="risultati">Risultati <span class="n">5</span></button>
+      <button class="pill t-comunicato" data-filter="tipo" data-val="comunicato">Comunicato <span class="n">7</span></button>
+      <button class="pill t-intervista-ceo" data-filter="tipo" data-val="intervista-ceo">Intervista CEO <span class="n">3</span></button>
+      <button class="pill t-operazione-straordinaria" data-filter="tipo" data-val="operazione-straordinaria">Operaz. straord. <span class="n">2</span></button>
+      <button class="pill t-fisco" data-filter="tipo" data-val="fisco">Fisco <span class="n">3</span></button>
+    </div>
+    <div class="grp">
+      <span class="lbl">Emittente</span>
+      <button class="pill" data-filter="emittente" data-val="sole24">Il Sole 24 Ore</button>
+      <button class="pill" data-filter="emittente" data-val="ansa">ANSA</button>
+      <button class="pill" data-filter="emittente" data-val="mf">MF Milano Finanza</button>
+      <button class="pill" data-filter="emittente" data-val="bloomberg">Bloomberg</button>
+      <button class="pill" data-filter="emittente" data-val="reuters">Reuters</button>
+      <button class="pill" data-filter="emittente" data-val="corporate">Corporate press</button>
+      <button class="pill" data-filter="emittente" data-val="bebeez">BeBeez</button>
+      <button class="pill" data-filter="emittente" data-val="eutekne">Eutekne</button>
+      <button class="pill" data-filter="emittente" data-val="fiscooggi">FiscoOggi</button>
+      <button class="reset" id="resetBtn" type="button">Azzera filtri</button>
+    </div>
+  </div>
+
+  <!-- ===== INTESA ===== -->
+  <section class="client" id="intesa" data-client="intesa">
+    <div class="client-head">
+      <h2 class="name">Intesa <em>Sanpaolo</em></h2>
+      <span class="badge top10">Top 10 gruppi</span>
+      <div class="audit">
+        <span>Revisore <b>EY S.p.A.</b></span><span class="sep"></span>
+        <span>Esercizio <b>2025</b> revisionato</span><span class="sep"></span>
+        <span>Incarico fino al <b>2029</b></span><span class="sep"></span>
+        <span>AD <b>Carlo Messina</b></span>
+      </div>
+    </div>
+    <div class="grid">
+      <article class="card" data-cliente="intesa" data-fascia="top10" data-emittente="sole24" data-tipo="risultati">
+        <div class="meta-row"><time>2026-02-02</time><span>·</span><span class="src">Il Sole 24 Ore</span></div>
+        <h3>Intesa chiude 2025 con utile record di 9,3 miliardi</h3>
+        <p class="sum">Miglior anno della storia: ROE 18%, ROTE 22%, Costi/Ricavi 42,2%. Crediti deteriorati netti al minimo storico 0,8%.</p>
+        <div class="foot"><span class="tag t-risultati">Risultati</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="intesa" data-fascia="top10" data-emittente="ansa" data-tipo="operazione-straordinaria">
+        <div class="meta-row"><time>2025-11-03</time><span>·</span><span class="src">ANSA</span></div>
+        <h3>Perfezionata la fusione di First Bank in Romania</h3>
+        <p class="sum">Completata integrazione: Intesa Sanpaolo Bank Romania conta 58 filiali e oltre 700 ATM. Rafforzata la presenza Est Europa.</p>
+        <div class="foot"><span class="tag t-operazione-straordinaria">Operazione straord.</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="intesa" data-fascia="top10" data-emittente="sole24" data-tipo="comunicato">
+        <div class="meta-row"><time>2025-11-17</time><span>·</span><span class="src">Il Sole 24 Ore</span></div>
+        <h3>Nuova advisory per la finanza straordinaria delle PMI</h3>
+        <p class="sum">Budget 11 miliardi su 5 anni, 70+ investment banker dedicati, oltre 2 miliardi già erogati in 9 mesi.</p>
+        <div class="foot"><span class="tag t-comunicato">Comunicato</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="intesa" data-fascia="top10" data-emittente="bloomberg" data-tipo="intervista-ceo">
+        <div class="meta-row"><time>2026-05-08</time><span>·</span><span class="src">Bloomberg</span></div>
+        <h3>Messina: «Nel 2026 distribuiremo 10 miliardi di utile»</h3>
+        <p class="sum">Q1 2026 utile 2,8 mld (+5,6%). L'AD conferma guidance e payout 70%. Focus su wealth management e capital efficiency.</p>
+        <div class="foot"><span class="tag t-intervista-ceo">Intervista CEO</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="intesa" data-fascia="top10" data-emittente="corporate" data-tipo="risultati">
+        <div class="meta-row"><time>2026-05-18</time><span>·</span><span class="src">Comunicato corp.</span></div>
+        <h3>Stacco dividendo saldo: 19 centesimi per azione</h3>
+        <p class="sum">Saldo 3,3 miliardi distribuiti. Dividendo complessivo 2025: 37,6 cent/azione. Payout 70% confermato.</p>
+        <div class="foot"><span class="tag t-risultati">Risultati</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="intesa" data-fascia="top10" data-emittente="reuters" data-tipo="comunicato">
+        <div class="meta-row"><time>2026-05-01</time><span>·</span><span class="src">Reuters</span></div>
+        <h3>Fideuram Direct Belux: piattaforma ETF con BlackRock</h3>
+        <p class="sum">Lancio in Belgio/Lussemburgo: ~74 strategie, 90 ETF iShares. Estesa la partnership strategica con BlackRock.</p>
+        <div class="foot"><span class="tag t-comunicato">Comunicato</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="intesa" data-fascia="top10" data-emittente="fiscooggi" data-tipo="fisco">
+        <div class="meta-row"><time>2026-04-22</time><span>·</span><span class="src">FiscoOggi</span></div>
+        <h3>Pillar Two: stima impatto top-up tax 2026 sul gruppo</h3>
+        <p class="sum">Prime stime indicano un impatto contenuto (~200 mln) grazie alla GloBE Information Return. Dettagli nel bilancio Q2.</p>
+        <div class="foot"><span class="tag t-fisco">Fisco</span><a class="read" href="#">leggi →</a></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== ASTI ===== -->
+  <section class="client" id="asti" data-client="asti">
+    <div class="client-head">
+      <h2 class="name">Banca di <em>Asti</em></h2>
+      <span class="badge media">Banca media</span>
+      <div class="audit">
+        <span>Revisore <b>Deloitte &amp; Touche</b></span><span class="sep"></span>
+        <span>Esercizio <b>2025</b> revisionato</span><span class="sep"></span>
+        <span>Incarico fino al <b>2027</b></span><span class="sep"></span>
+        <span>AD <b>Roberto Fiorini</b></span>
+      </div>
+    </div>
+    <div class="grid">
+      <article class="card" data-cliente="asti" data-fascia="media" data-emittente="mf" data-tipo="risultati">
+        <div class="meta-row"><time>2026-02-10</time><span>·</span><span class="src">MF Milano Finanza</span></div>
+        <h3>Utile 2025 a 65,4 milioni (+27,6%), ROE al 5,8%</h3>
+        <p class="sum">Raccolta fiduciaria 18,1 mld (+4,1%). Nuovi finanziamenti 2,3 mld. Margine d'interesse in calo ma compensato dalle commissioni.</p>
+        <div class="foot"><span class="tag t-risultati">Risultati</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="asti" data-fascia="media" data-emittente="corporate" data-tipo="comunicato">
+        <div class="meta-row"><time>2026-04-28</time><span>·</span><span class="src">Comunicato corp.</span></div>
+        <h3>Nuova governance: Rasero presidente, Fiorini CEO</h3>
+        <p class="sum">L'assemblea rinnova il CdA. Maurizio Rasero (sindaco di Asti) presidente; Roberto Fiorini, ex UniCredit, alla guida operativa.</p>
+        <div class="foot"><span class="tag t-comunicato">Comunicato</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="asti" data-fascia="media" data-emittente="mf" data-tipo="risultati">
+        <div class="meta-row"><time>2026-04-28</time><span>·</span><span class="src">MF Milano Finanza</span></div>
+        <h3>Dividendo record 0,50 €/azione (+25%)</h3>
+        <p class="sum">Distribuiti 35,3 mln complessivi, miglior dividendo nella storia della banca. Fondazione CrAsti incassa ~11 mln.</p>
+        <div class="foot"><span class="tag t-risultati">Risultati</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="asti" data-fascia="media" data-emittente="mf" data-tipo="intervista-ceo">
+        <div class="meta-row"><time>2026-05-04</time><span>·</span><span class="src">MF Milano Finanza</span></div>
+        <h3>Negro al nuovo AD: «Rilancio, non cessione»</h3>
+        <p class="sum">Il presidente della Fondazione CrAsti (31,8% della banca) indirizza al CEO Fiorini un piano di rilancio autonomo, escludendo M&amp;A passive.</p>
+        <div class="foot"><span class="tag t-intervista-ceo">Intervista CEO</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="asti" data-fascia="media" data-emittente="eutekne" data-tipo="fisco">
+        <div class="meta-row"><time>2026-03-12</time><span>·</span><span class="src">Eutekne</span></div>
+        <h3>ZES Unica: opportunità credito d'imposta per filiali Sud</h3>
+        <p class="sum">[PLAUSIBILE] Analisi degli effetti del credito d'imposta ZES Unica sulle filiali Asti del Mezzogiorno. Impatto stimato modesto ma non nullo.</p>
+        <div class="foot"><span class="tag t-fisco">Fisco</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="asti" data-fascia="media" data-emittente="bebeez" data-tipo="operazione-straordinaria">
+        <div class="meta-row"><time>2026-05-15</time><span>·</span><span class="src">BeBeez</span></div>
+        <h3>Aggregazione regionale: tavolo con Cassa di Risparmio di Bra</h3>
+        <p class="sum">[PLAUSIBILE] Ipotesi di studio per scala dimensionale nel Nord-Ovest. Nessun accordo formalizzato. Da monitorare nei prossimi CdA.</p>
+        <div class="foot"><span class="tag t-operazione-straordinaria">Operazione straord.</span><a class="read" href="#">leggi →</a></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== CHERRY ===== -->
+  <section class="client" id="cherry" data-client="cherry">
+    <div class="client-head">
+      <h2 class="name">Cherry <em>Bank</em></h2>
+      <span class="badge piccola">Piccola / fintech</span>
+      <div class="audit">
+        <span>Revisore <b>da confermare in CdA</b></span><span class="sep"></span>
+        <span>Esercizio <b>2025</b> revisionato</span><span class="sep"></span>
+        <span>Presidente <b>Marina Natale</b></span><span class="sep"></span>
+        <span>AD <b>Giovanni Bossi</b></span>
+      </div>
+    </div>
+    <div class="grid">
+      <article class="card" data-cliente="cherry" data-fascia="piccola" data-emittente="bebeez" data-tipo="risultati">
+        <div class="meta-row"><time>2026-03-19</time><span>·</span><span class="src">BeBeez</span></div>
+        <h3>Utile 2025 a 21,5 milioni, CET1 al 16,3%</h3>
+        <p class="sum">ROE 10,4%. Attivo 4,5 mld (+2,9%). Gross NPE in calo al 6,1%. Qualità del credito in miglioramento.</p>
+        <div class="foot"><span class="tag t-risultati">Risultati</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="cherry" data-fascia="piccola" data-emittente="bebeez" data-tipo="comunicato">
+        <div class="meta-row"><time>2026-01-28</time><span>·</span><span class="src">BeBeez</span></div>
+        <h3>Partnership strategica con Apollo nei private markets</h3>
+        <p class="sum">Alleanza con Apollo Global Management per accesso clienti a investimenti private markets. Primo pilastro del piano wealth 2026.</p>
+        <div class="foot"><span class="tag t-comunicato">Comunicato</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="cherry" data-fascia="piccola" data-emittente="corporate" data-tipo="comunicato">
+        <div class="meta-row"><time>2026-02-03</time><span>·</span><span class="src">Comunicato corp.</span></div>
+        <h3>Marina Natale nuova presidente</h3>
+        <p class="sum">Nuovo CdA 2026-2028: Natale (ex AMCO, ex UniCredit) presidente, Bossi riconfermato CEO. Piano strategico atteso ad aprile.</p>
+        <div class="foot"><span class="tag t-comunicato">Comunicato</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="cherry" data-fascia="piccola" data-emittente="bebeez" data-tipo="intervista-ceo">
+        <div class="meta-row"><time>2026-02-15</time><span>·</span><span class="src">BeBeez</span></div>
+        <h3>Bossi: «Nuovo piano 2026-2028, target ROE 15-20%»</h3>
+        <p class="sum">CEO annuncia i pilastri: Wealth Mgmt (target 4 mld masse) e Corporate &amp; Investment Banking capital-light. Distribuzione utile prevista.</p>
+        <div class="foot"><span class="tag t-intervista-ceo">Intervista CEO</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="cherry" data-fascia="piccola" data-emittente="bebeez" data-tipo="comunicato">
+        <div class="meta-row"><time>2026-05-10</time><span>·</span><span class="src">BeBeez</span></div>
+        <h3>Finanziamento 5,75 mln a Bonino Impianti (Piemonte)</h3>
+        <p class="sum">Operazione di credito corporate per PMI di impianti e macchinari industriali. Conferma del focus su imprese familiari del Nord-Ovest.</p>
+        <div class="foot"><span class="tag t-comunicato">Comunicato</span><a class="read" href="#">leggi →</a></div>
+      </article>
+      <article class="card" data-cliente="cherry" data-fascia="piccola" data-emittente="fiscooggi" data-tipo="fisco">
+        <div class="meta-row"><time>2026-04-08</time><span>·</span><span class="src">FiscoOggi</span></div>
+        <h3>DTA su NPL: trattamento conferma vantaggio fiscale Q1</h3>
+        <p class="sum">[PLAUSIBILE] La Cassazione conferma la deducibilità di DTA da NPL: impatto positivo stimato ~12 mln per Cherry. Da considerare nel Q2.</p>
+        <div class="foot"><span class="tag t-fisco">Fisco</span><a class="read" href="#">leggi →</a></div>
+      </article>
+    </div>
+  </section>
+
+  <div class="empty" id="emptyState" style="display:none">Nessuna news corrisponde ai filtri selezionati. <a href="#" id="emptyReset">Azzera</a>.</div>
+
+</main>
+
+<footer>
+  <div class="row">
+    <span>Aggiornamento Banking · Mockup A · generato 24 maggio 2026</span>
+    <span>Sintesi assistita da AI · <a href="../index.html">torna all'area riservata</a></span>
+  </div>
+  <p style="max-width:720px;margin:14px auto 0;font-size:11.5px;color:var(--muted);line-height:1.55">
+    Pagina di test. Contenuti generati automaticamente da fonti pubbliche linkate. Le sintesi sono prodotte da un modello linguistico (Claude Sonnet); verifica sempre le fonti originali prima di citare. Alcuni item sono marcati [PLAUSIBILE] a scopo di mockup.
+  </p>
+</footer>
+
+<div class="mockup-stamp">Mockup A</div>
+
+<script>
+(function(){
+  var active = { cliente:[], fascia:[], emittente:[], tipo:[] };
+  var pills = document.querySelectorAll('.pill[data-filter]');
+  pills.forEach(function(p){
+    p.addEventListener('click', function(){
+      var f = p.dataset.filter, v = p.dataset.val;
+      var i = active[f].indexOf(v);
+      if(i>=0){ active[f].splice(i,1); p.classList.remove('on'); }
+      else { active[f].push(v); p.classList.add('on'); }
+      apply();
+    });
+  });
+  document.getElementById('resetBtn').addEventListener('click', reset);
+  var er = document.getElementById('emptyReset'); if(er) er.addEventListener('click', function(e){e.preventDefault(); reset();});
+  function reset(){
+    Object.keys(active).forEach(function(k){ active[k]=[]; });
+    pills.forEach(function(p){ p.classList.remove('on'); });
+    apply();
+  }
+  function apply(){
+    var cards = document.querySelectorAll('article.card');
+    var visible = 0;
+    cards.forEach(function(c){
+      var ok = true;
+      Object.keys(active).forEach(function(k){
+        if(active[k].length && active[k].indexOf(c.dataset[k]) < 0) ok = false;
+      });
+      c.style.display = ok ? '' : 'none';
+      if(ok) visible++;
+    });
+    // hide empty client sections
+    document.querySelectorAll('section.client').forEach(function(s){
+      var any = s.querySelectorAll('article.card:not([style*="display: none"])').length;
+      s.style.display = any ? '' : 'none';
+    });
+    document.getElementById('emptyState').style.display = visible ? 'none' : '';
+  }
+})();
+</script>
+
+</body>
+</html>
