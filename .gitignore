@@ -1,0 +1,16 @@
+# Logs runtime dell'agente (non vanno in repo)
+agent/state/last-run.log
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtualenv (eventuali test locali)
+.venv/
+venv/
+
+# Editor
+.vscode/
+.idea/
+.DS_Store

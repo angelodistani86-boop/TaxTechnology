@@ -1,0 +1,436 @@
+# Clienti banking monitorati. Modifica/aggiungi liberamente.
+# Campi:
+#   slug:                            identificatore stabile (no spazi, lowercase)
+#   nome:                            etichetta visualizzata
+#   fascia:                          top10 | media | piccola
+#   revisore:                        società attualmente incaricata (o "Da confermare")
+#   ultimo_esercizio_revisionato:    int (es. 2025)
+#   incarico_fino_al:                int o null
+#   ad:                              nome AD/CEO (o null)
+#   presidente:                      nome presidente (o null)
+#   query_alias:                     stringhe alternative per matching news (utile per nomi composti)
+
+clienti:
+
+  # === TOP 10 GRUPPI (sistemici / FTSE MIB) ===
+  - slug: intesa
+    nome: "Intesa Sanpaolo"
+    fascia: top10
+    revisore: "EY S.p.A."
+    ultimo_esercizio_revisionato: 2025
+    incarico_fino_al: 2029
+    ad: "Carlo Messina"
+    presidente: "Gian Maria Gros-Pietro"
+    query_alias: ["Intesa Sanpaolo", "Messina", "ISP"]
+
+  - slug: unicredit
+    nome: "UniCredit"
+    fascia: top10
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: "Andrea Orcel"
+    presidente: null
+    query_alias: ["UniCredit", "Orcel"]
+
+  - slug: banco-bpm
+    nome: "Banco BPM"
+    fascia: top10
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: "Giuseppe Castagna"
+    presidente: null
+    query_alias: ["Banco BPM"]
+
+  - slug: mps
+    nome: "Monte dei Paschi (MPS)"
+    fascia: top10
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: "Luigi Lovaglio"
+    presidente: null
+    query_alias: ["Monte dei Paschi", "MPS", "Lovaglio"]
+
+  - slug: bper
+    nome: "BPER Banca"
+    fascia: top10
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: "Gianni Franco Papa"
+    presidente: null
+    query_alias: ["BPER Banca", "BPER"]
+
+  - slug: mediobanca
+    nome: "Mediobanca"
+    fascia: top10
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: "Alberto Nagel"
+    presidente: null
+    query_alias: ["Mediobanca", "Nagel"]
+
+  - slug: mediolanum
+    nome: "Banca Mediolanum"
+    fascia: top10
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: "Massimo Doris"
+    presidente: null
+    query_alias: ["Banca Mediolanum", "Mediolanum"]
+
+  - slug: banca-generali
+    nome: "Banca Generali"
+    fascia: top10
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: "Gian Maria Mossa"
+    presidente: null
+    query_alias: ["Banca Generali"]
+
+  - slug: fineco
+    nome: "FinecoBank"
+    fascia: top10
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: "Alessandro Foti"
+    presidente: null
+    query_alias: ["FinecoBank", "Fineco"]
+
+  - slug: credem
+    nome: "Credem (Credito Emiliano)"
+    fascia: top10
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: "Nazzareno Gregori"
+    presidente: null
+    query_alias: ["Credem", "Credito Emiliano"]
+
+  # === BANCHE MEDIE / REGIONALI ===
+  - slug: asti
+    nome: "Banca di Asti"
+    fascia: media
+    revisore: "Deloitte & Touche"
+    ultimo_esercizio_revisionato: 2025
+    incarico_fino_al: 2027
+    ad: "Roberto Fiorini"
+    presidente: "Maurizio Rasero"
+    query_alias: ["Banca di Asti", "Cassa di Risparmio di Asti", "CRAsti"]
+
+  - slug: popolare-sondrio
+    nome: "Banca Popolare di Sondrio"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca Popolare di Sondrio", "BPSO"]
+
+  - slug: sella
+    nome: "Banca Sella"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca Sella", "Gruppo Sella"]
+
+  - slug: ifis
+    nome: "Banca Ifis"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca Ifis"]
+
+  - slug: illimity
+    nome: "illimity Bank"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["illimity"]
+
+  - slug: bff
+    nome: "BFF Banking Group"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["BFF Banking", "Banca Farmafactoring"]
+
+  - slug: sistema
+    nome: "Banca Sistema"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca Sistema"]
+
+  - slug: profilo
+    nome: "Banca Profilo"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca Profilo"]
+
+  - slug: volksbank
+    nome: "Volksbank (Pop. Alto Adige)"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Volksbank", "Banca Popolare dell'Alto Adige"]
+
+  - slug: banco-sardegna
+    nome: "Banco di Sardegna"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banco di Sardegna"]
+
+  - slug: bpp
+    nome: "Banca Popolare Pugliese"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca Popolare Pugliese"]
+
+  - slug: civibank
+    nome: "CiviBank"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["CiviBank", "Banca di Cividale"]
+
+  - slug: banca-piemonte
+    nome: "Banca del Piemonte"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca del Piemonte"]
+
+  - slug: sparkasse
+    nome: "Sparkasse (CR Bolzano)"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Sparkasse", "Cassa di Risparmio di Bolzano"]
+
+  - slug: bpb
+    nome: "Banca Popolare di Bari"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca Popolare di Bari", "BP Bari"]
+
+  - slug: iccrea
+    nome: "Iccrea Banca (BCC)"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Iccrea", "BCC Banca"]
+
+  # === PICCOLE / FINTECH / SPECIALIZZATE ===
+  - slug: cherry
+    nome: "Cherry Bank"
+    fascia: piccola
+    revisore: "Da confermare in CdA"
+    ultimo_esercizio_revisionato: 2025
+    incarico_fino_al: null
+    ad: "Giovanni Bossi"
+    presidente: "Marina Natale"
+    query_alias: ["Cherry Bank", "Bossi Cherry"]
+
+  - slug: aidexa
+    nome: "Banca AideXa"
+    fascia: piccola
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["AideXa"]
+
+  - slug: cfp
+    nome: "Banca CF+"
+    fascia: piccola
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca CF+", "Banca CF Plus"]
+
+  - slug: patrimoni-sella
+    nome: "Banca Patrimoni Sella & C."
+    fascia: piccola
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca Patrimoni Sella"]
+
+  - slug: reale
+    nome: "Banca Reale"
+    fascia: piccola
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca Reale"]
+
+  - slug: valsabbina
+    nome: "Banca Valsabbina"
+    fascia: piccola
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca Valsabbina"]
+
+  - slug: fucino
+    nome: "Banca del Fucino"
+    fascia: piccola
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca del Fucino", "Igea Banca"]
+
+  - slug: passadore
+    nome: "Banca Passadore"
+    fascia: piccola
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca Passadore"]
+
+  - slug: investis
+    nome: "Banca Investis (ex BIM)"
+    fascia: piccola
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca Investis", "BIM", "Banca Intermobiliare"]
+
+  - slug: akros
+    nome: "Banca Akros"
+    fascia: piccola
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca Akros"]
+
+  - slug: finint
+    nome: "Banca Finint"
+    fascia: piccola
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca Finint", "Finanziaria Internazionale"]
+
+  - slug: galileo
+    nome: "Banca Galileo"
+    fascia: piccola
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Banca Galileo"]
+
+  - slug: hype
+    nome: "Hype"
+    fascia: piccola
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Hype banca", "Banca Hype"]
+
+  - slug: tinaba
+    nome: "Tinaba"
+    fascia: piccola
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Tinaba"]
+
+  - slug: buddybank
+    nome: "Buddybank"
+    fascia: piccola
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Buddybank"]
+
+  - slug: cr-fossano
+    nome: "CR Fossano"
+    fascia: piccola
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["Cassa di Risparmio di Fossano", "CR Fossano"]
