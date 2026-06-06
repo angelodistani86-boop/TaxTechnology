@@ -282,12 +282,12 @@
       <div class="periodo-presets" role="group" aria-label="Preset periodo">
         <button type="button" class="ppill" data-days="7">7 gg</button>
         <button type="button" class="ppill" data-days="30">30 gg</button>
-        <button type="button" class="ppill on" data-days="90">3 mesi</button>
+        <button type="button" class="ppill" data-days="90">3 mesi</button>
         <button type="button" class="ppill" data-days="180">6 mesi</button>
-        <button type="button" class="ppill" data-days="365">Tutto</button>
+        <button type="button" class="ppill on" data-days="365">Tutto</button>
       </div>
       <div class="periodo-slider">
-        <input type="range" id="dateRange" min="7" max="365" step="1" value="90" aria-label="Ultimi N giorni">
+        <input type="range" id="dateRange" min="7" max="365" step="1" value="365" aria-label="Ultimi N giorni">
         <div class="periodo-label">
           <span>Ultimi <b id="dateRangeLabel">90</b> giorni</span>
           <span class="ft" id="dateRangeFromTo">dal 23 feb 2026</span>
@@ -663,7 +663,7 @@
 (function(){
   var active = { cliente:[], fascia:[], emittente:[], tipo:[] };
   var TODAY = new Date(2026, 4, 24); // 24 maggio 2026 (mese 0-based)
-  var maxDays = 90;
+  var maxDays = 365;
 
   var checks = document.querySelectorAll('input[type="checkbox"][data-filter]');
   var panel = document.getElementById('filtersPanel');
@@ -752,7 +752,7 @@
     Object.keys(active).forEach(function(k){ active[k]=[]; });
     checks.forEach(function(c){ c.checked=false; });
     if(search){ search.value=''; document.querySelectorAll('details.fascia .fopt').forEach(function(o){o.style.display='';}); }
-    maxDays = 90; dateRange.value = 90; updateDateUI(90);
+    maxDays = 365; dateRange.value = 365; updateDateUI(365);
     apply();
   }
 
@@ -786,7 +786,8 @@
   }
 
   // init
-  updateDateUI(90);
+  updateDateUI(365);
+  apply();
 })();
 </script>
 

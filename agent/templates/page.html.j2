@@ -270,12 +270,12 @@
       <div class="periodo-presets" role="group" aria-label="Preset periodo">
         <button type="button" class="ppill" data-days="7">7 gg</button>
         <button type="button" class="ppill" data-days="30">30 gg</button>
-        <button type="button" class="ppill on" data-days="90">3 mesi</button>
+        <button type="button" class="ppill" data-days="90">3 mesi</button>
         <button type="button" class="ppill" data-days="180">6 mesi</button>
-        <button type="button" class="ppill" data-days="365">Tutto</button>
+        <button type="button" class="ppill on" data-days="365">Tutto</button>
       </div>
       <div class="periodo-slider">
-        <input type="range" id="dateRange" min="7" max="365" step="1" value="90" aria-label="Ultimi N giorni">
+        <input type="range" id="dateRange" min="7" max="365" step="1" value="365" aria-label="Ultimi N giorni">
         <div class="periodo-label">
           <span>Ultimi <b id="dateRangeLabel">90</b> giorni</span>
           <span class="ft" id="dateRangeFromTo">dal —</span>
@@ -384,7 +384,7 @@
 (function(){
   var active = { cliente:[], fascia:[], emittente:[], tipo:[] };
   var TODAY = new Date({{ generated_at.year }}, {{ generated_at.month - 1 }}, {{ generated_at.day }});
-  var maxDays = 90;
+  var maxDays = 365;
 
   var checks = document.querySelectorAll('input[type="checkbox"][data-filter]');
   var panel = document.getElementById('filtersPanel');
@@ -471,7 +471,7 @@
     Object.keys(active).forEach(function(k){ active[k]=[]; });
     checks.forEach(function(c){ c.checked=false; });
     if(search){ search.value=''; document.querySelectorAll('details.fascia .fopt').forEach(function(o){o.style.display='';}); }
-    maxDays = 90; if(dateRange){ dateRange.value = 90; } updateDateUI(90);
+    maxDays = 365; if(dateRange){ dateRange.value = 365; } updateDateUI(365);
     apply();
   }
 
@@ -503,7 +503,8 @@
     if(fabCount){ fabCount.textContent = total; fabCount.classList.toggle('on', total>0); }
   }
 
-  updateDateUI(90);
+  updateDateUI(365);
+  apply();
 })();
 </script>
 
