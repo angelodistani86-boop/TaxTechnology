@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cassa di Risparmio di Bolzano · Sparkasse · Hackathon Fiscale di Monza</title>
+<meta name="description" content="Un ritratto editoriale della Cassa di Risparmio di Bolzano — Südtiroler Sparkasse: 170 anni di una banca bilingue, indipendente, profondamente radicata nel territorio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,0,700;9..144,1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f5;
+    --paper:#ffffff;
+    --ink:#1f1e1c;
+    --ink-soft:#3d3a35;
+    --muted:#6b675e;
+    --line:#e8e4d8;
+    --line-soft:#f1ede1;
+    --accent:#b73a3a;          /* rosso tirolese */
+    --accent-deep:#8a2424;
+    --accent-soft:#f5dede;
+    --warm:#f7f1e6;
+    --warm-deeper:#efe4cd;
+    --gold:#c89c3a;            /* oro asburgico */
+    --gold-soft:#f8eecf;
+    --green:#5a8f6b;
+    --green-soft:#e4ede2;
+    --blue:#5a7a9f;
+    --blue-soft:#e1e8ef;
+    --shadow-sm:0 1px 2px rgba(31,30,28,.04);
+    --shadow-md:0 4px 16px -4px rgba(31,30,28,.08), 0 1px 3px rgba(31,30,28,.04);
+    --shadow-lg:0 24px 60px -20px rgba(31,30,28,.18), 0 6px 14px rgba(31,30,28,.05);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .serif{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.01em}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+  a{color:var(--accent-deep);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+  a:hover{border-bottom-color:var(--accent)}
+
+  nav.top{position:sticky;top:0;z-index:30;backdrop-filter:saturate(1.2) blur(10px);
+    background:rgba(250,249,245,.86);border-bottom:1px solid var(--line)}
+  nav.top .wrap{max-width:1180px;margin:0 auto;padding:14px 22px;
+    display:flex;align-items:center;justify-content:space-between;gap:18px}
+  nav.top .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:13.5px;
+    color:var(--ink);letter-spacing:-.005em}
+  nav.top .brand .dot{width:10px;height:10px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,#e07070,var(--accent-deep))}
+  nav.top .brand small{display:block;font-weight:400;font-size:11px;color:var(--muted);letter-spacing:.04em}
+  nav.top ul{display:flex;list-style:none;margin:0;padding:0;gap:22px}
+  nav.top a{font-size:13px;color:var(--ink-soft);font-weight:500;border:none}
+  nav.top a:hover{color:var(--accent-deep)}
+  @media (max-width:680px){nav.top ul{display:none}}
+
+  .hero{position:relative;overflow:hidden;
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(200,156,58,.22), transparent 60%),
+      radial-gradient(700px 400px at -10% 110%, rgba(183,58,58,.16), transparent 60%),
+      linear-gradient(180deg,#fdfcf7 0%,#faf9f5 100%);
+    border-bottom:1px solid var(--line)}
+  .hero .wrap{max-width:1180px;margin:0 auto;padding:78px 22px 92px;
+    display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}
+  @media (max-width:880px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px 56px;gap:36px}}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;
+    text-transform:uppercase;letter-spacing:.18em;color:var(--accent-deep);font-weight:700;
+    background:var(--accent-soft);padding:6px 12px 6px 10px;border-radius:999px;
+    margin-bottom:22px}
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(40px,5.8vw,68px);line-height:1.02;letter-spacing:-.025em;
+    margin:0 0 18px;color:var(--ink)}
+  .hero h1 em{font-style:italic;color:var(--accent);font-weight:500}
+  .hero .role{font-size:17px;color:var(--ink-soft);margin:0 0 10px;font-weight:500}
+  .hero .firm{font-size:14px;color:var(--muted);margin:0 0 28px;
+    display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .hero .firm .mark{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--accent-deep);
+    background:var(--paper);padding:4px 10px;border-radius:6px;border:1px solid var(--line);font-size:12px;
+    letter-spacing:.04em}
+  .hero .firm .mark::before{content:"";width:4px;height:14px;background:var(--accent);border-radius:1px}
+  .hero p.lead{font-size:17.5px;color:var(--ink-soft);line-height:1.62;max-width:58ch;margin:0 0 32px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;
+    font-size:14px;font-weight:600;border:1px solid transparent;cursor:pointer;
+    transition:transform .12s ease, box-shadow .15s ease, background .15s}
+  .btn-primary{background:var(--ink);color:#fdfcf7}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 24px -8px rgba(31,30,28,.4)}
+  .btn-ghost{background:transparent;color:var(--ink-soft);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent-deep);background:var(--paper)}
+  .btn a, .btn:hover{border:none}
+
+  /* emblem card */
+  .emblem-wrap{position:relative;justify-self:center;width:100%;max-width:420px}
+  .emblem{aspect-ratio:4/5;border-radius:24px;overflow:hidden;position:relative;
+    box-shadow:var(--shadow-lg);border:1px solid var(--line);
+    background:#5a1f1f}
+  .emblem svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .emblem .frame{position:absolute;inset:14px;border:1px solid rgba(253,252,247,.18);
+    border-radius:14px;pointer-events:none;z-index:3}
+  .emblem .corner{position:absolute;width:14px;height:14px;border:1.5px solid rgba(253,252,247,.55);
+    z-index:3}
+  .emblem .corner.tl{top:18px;left:18px;border-right:none;border-bottom:none}
+  .emblem .corner.tr{top:18px;right:18px;border-left:none;border-bottom:none}
+  .emblem .corner.bl{bottom:18px;left:18px;border-right:none;border-top:none}
+  .emblem .corner.br{bottom:18px;right:18px;border-left:none;border-top:none}
+  .emblem .monogram{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    z-index:2}
+  .emblem .monogram .csr{font-family:'Fraunces',serif;font-weight:500;font-style:italic;
+    font-size:clamp(120px,17vw,170px);color:#fdfcf7;letter-spacing:-.04em;line-height:1;
+    text-shadow:0 6px 30px rgba(0,0,0,.45);position:relative}
+  .emblem .monogram .csr::after{content:"";position:absolute;left:50%;bottom:-18px;
+    width:60px;height:1.5px;background:linear-gradient(90deg,transparent,#e9c97a 50%,transparent);
+    transform:translateX(-50%)}
+  .emblem .topline{position:absolute;top:30px;left:0;right:0;text-align:center;z-index:3;
+    font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.32em;
+    color:rgba(253,252,247,.72);font-weight:600;text-transform:uppercase}
+  .emblem .signature{position:absolute;bottom:90px;left:0;right:0;text-align:center;z-index:3;
+    font-family:'Fraunces',serif;font-style:italic;font-size:14.5px;
+    color:rgba(253,252,247,.82);letter-spacing:.01em}
+  .emblem .ribbon{position:absolute;left:24px;bottom:24px;right:24px;z-index:3;
+    border-top:1px solid rgba(253,252,247,.2);padding-top:14px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:10px;
+    color:#fdfcf7}
+  .emblem .ribbon b{font-family:'Fraunces',serif;font-size:14px;font-weight:600;letter-spacing:.005em;display:block}
+  .emblem .ribbon .meta{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:rgba(253,252,247,.62);margin-top:3px}
+  .emblem .ribbon .num{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(253,252,247,.55);letter-spacing:.1em}
+
+  .emblem-wrap .stamp{position:absolute;top:-14px;right:-14px;background:var(--gold-soft);
+    color:#7a5a16;border:1px solid #e6cd86;border-radius:999px;padding:8px 14px;
+    font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    box-shadow:var(--shadow-md);transform:rotate(6deg);z-index:4}
+
+  /* main grid */
+  main{max-width:1180px;margin:0 auto;padding:56px 22px 24px;
+    display:grid;grid-template-columns:1.4fr .9fr;gap:34px}
+  @media (max-width:880px){main{grid-template-columns:1fr;padding:40px 22px 24px}}
+
+  section.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;
+    padding:30px 32px;box-shadow:var(--shadow-sm);margin-bottom:22px}
+  section.card h2{font-family:'Fraunces',serif;font-weight:500;font-size:28px;
+    margin:0 0 8px;letter-spacing:-.015em;color:var(--ink)}
+  section.card h2 em{font-style:italic;color:var(--accent)}
+  section.card .kicker{display:inline-block;font-size:11px;text-transform:uppercase;
+    letter-spacing:.18em;color:var(--accent-deep);font-weight:700;margin-bottom:12px}
+  section.card p{margin:0 0 14px;color:var(--ink-soft)}
+  section.card p:last-child{margin-bottom:0}
+
+  /* Facts */
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+  @media (max-width:520px){.facts{grid-template-columns:1fr}}
+  .fact{background:var(--warm);border:1px solid var(--line-soft);border-radius:14px;padding:14px 16px}
+  .fact .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;
+    color:var(--muted);font-weight:700;margin-bottom:6px}
+  .fact .val{font-family:'Fraunces',serif;font-weight:500;font-size:17px;color:var(--ink);letter-spacing:-.01em}
+
+  /* Tags */
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .tag{font-size:12.5px;padding:6px 12px;border-radius:999px;background:var(--accent-soft);
+    color:var(--accent-deep);font-weight:600;border:1px solid #f0c5c5}
+  .tag.gold{background:var(--gold-soft);color:#7a5a16;border-color:#e6cd86}
+  .tag.green{background:var(--green-soft);color:#3e6a4d;border-color:#bcd4c2}
+  .tag.blue{background:var(--blue-soft);color:#3d5874;border-color:#bccad8}
+
+  /* Virtues */
+  .virtues{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+  @media (max-width:520px){.virtues{grid-template-columns:1fr}}
+  .virtue{background:var(--paper);border:1px solid var(--line);border-radius:16px;
+    padding:18px 18px;position:relative;overflow:hidden}
+  .virtue::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,var(--accent),var(--gold))}
+  .virtue .ico{font-family:'Fraunces',serif;font-style:italic;font-size:30px;color:var(--accent);
+    line-height:1;margin-bottom:8px;display:block}
+  .virtue h4{font-family:'Fraunces',serif;font-weight:600;font-size:16.5px;margin:0 0 6px;letter-spacing:-.01em}
+  .virtue p{font-size:13.5px;color:var(--muted);margin:0;line-height:1.55}
+
+  /* Quote */
+  blockquote{margin:18px 0 0;padding:18px 22px;border-left:3px solid var(--accent);
+    background:var(--warm);border-radius:0 14px 14px 0;font-family:'Fraunces',serif;
+    font-style:italic;color:var(--ink-soft);font-size:17.5px;line-height:1.5}
+  blockquote cite{display:block;margin-top:8px;font-style:normal;font-family:'Inter',sans-serif;
+    font-size:12px;letter-spacing:.06em;color:var(--muted);font-weight:500}
+
+  /* Stats strip */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+  @media (max-width:680px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:linear-gradient(180deg,var(--warm),var(--warm-deeper));border:1px solid var(--line-soft);
+    border-radius:16px;padding:18px 16px;text-align:center}
+  .stat .n{font-family:'Fraunces',serif;font-weight:500;font-size:28px;color:var(--accent-deep);
+    letter-spacing:-.02em;line-height:1.05;display:block}
+  .stat .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.16em;
+    color:var(--muted);font-weight:700;margin-top:6px;display:block}
+
+  /* Timeline */
+  .timeline{position:relative;padding-left:22px;margin-top:14px}
+  .timeline::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:1.5px;
+    background:linear-gradient(180deg,var(--accent),var(--gold))}
+  .step{position:relative;padding:0 0 18px 14px}
+  .step::before{content:"";position:absolute;left:-22px;top:5px;width:14px;height:14px;
+    border-radius:50%;background:var(--paper);border:2.5px solid var(--accent)}
+  .step .y{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--accent-deep);font-weight:600}
+  .step .t{font-family:'Fraunces',serif;font-weight:500;font-size:16px;color:var(--ink);margin:2px 0 2px}
+  .step .d{font-size:13.5px;color:var(--muted)}
+
+  /* Aside */
+  aside .card{background:var(--paper);border:1px solid var(--line);border-radius:20px;
+    padding:24px 24px;box-shadow:var(--shadow-sm);margin-bottom:22px}
+  aside .card h3{font-family:'Fraunces',serif;font-weight:500;font-size:20px;
+    margin:0 0 14px;letter-spacing:-.01em}
+  aside .card h3 em{font-style:italic;color:var(--accent)}
+
+  .ode-box{background:linear-gradient(140deg,#5a1f1f 0%,#7d2c2c 100%);color:#fdfcf7;border:none}
+  .ode-box h3{color:#fdfcf7}
+  .ode-box .kicker{color:#e9c97a;font-weight:700;letter-spacing:.18em;
+    text-transform:uppercase;font-size:11px;display:block;margin-bottom:10px}
+  .ode-box p{color:rgba(253,252,247,.84);font-size:14px;line-height:1.62;margin:0 0 12px}
+  .ode-box p:last-child{margin:0}
+  .ode-box ul{list-style:none;padding:0;margin:14px 0 0}
+  .ode-box ul li{display:flex;justify-content:space-between;gap:14px;
+    padding:10px 0;border-bottom:1px dashed rgba(253,252,247,.14);font-size:13.5px}
+  .ode-box ul li:last-child{border-bottom:none}
+  .ode-box ul li span:first-child{color:rgba(253,252,247,.62);font-size:11px;
+    text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+  .ode-box ul li span:last-child{font-family:'Fraunces',serif;font-weight:500}
+
+  /* governance dl */
+  .gov{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px;padding:0;list-style:none}
+  .gov li{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px dashed var(--line-soft);font-size:13.5px;color:var(--ink-soft)}
+  .gov li:last-child{border-bottom:none}
+  .gov li span:first-child{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-weight:700}
+  .gov li span:last-child{font-family:'Fraunces',serif;font-weight:500;color:var(--ink)}
+
+  /* footer */
+  footer{padding:36px 22px 60px;text-align:center;color:var(--muted);font-size:12.5px;
+    border-top:1px solid var(--line);margin-top:30px;background:#fdfcf7}
+  footer .row{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer a{color:var(--ink-soft)}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <div class="brand">
+      <span class="dot" aria-hidden="true"></span>
+      <div>
+        Hackathon Fiscale di Monza<br>
+        <small>Edizione 2026 · Ritratto editoriale</small>
+      </div>
+    </div>
+    <ul>
+      <li><a href="index.html">← Home</a></li>
+      <li><a href="#perche">Perché</a></li>
+      <li><a href="#virtu">Virtù</a></li>
+      <li><a href="#storia">Storia</a></li>
+      <li><a href="#numeri">Numeri</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Omaggio · Una banca bilingue</span>
+      <h1>Cassa di Risparmio<br>di <em>Bolzano</em></h1>
+      <p class="role">Südtiroler Sparkasse AG — la più antica e indipendente banca dell'Alto Adige</p>
+      <p class="firm">conosciuta come <span class="mark">Sparkasse</span> · dal 1854</p>
+      <p class="lead">
+        Centosettant'anni di storia che attraversano l'Impero asburgico, il fascismo, la
+        Repubblica e l'autonomia speciale, restando fedele a una scelta semplice e radicale:
+        essere una banca <em>del territorio</em>, indipendente, parlata in due lingue.
+        Questo è un piccolo ritratto editoriale.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#perche">Scopri perché →</a>
+        <a class="btn btn-ghost" href="index.html">Torna all'evento ↗</a>
+      </div>
+    </div>
+
+    <div class="emblem-wrap">
+      <div class="stamp">Dal 1854</div>
+      <div class="emblem" role="img" aria-label="Emblema editoriale della Cassa di Risparmio di Bolzano">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <radialGradient id="bg" cx="35%" cy="20%" r="120%">
+              <stop offset="0%" stop-color="#e8a98f"/>
+              <stop offset="30%" stop-color="#a84545"/>
+              <stop offset="60%" stop-color="#5a1f1f"/>
+              <stop offset="100%" stop-color="#2a0c0c"/>
+            </radialGradient>
+            <linearGradient id="vignette" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="70%" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="100%" stop-color="rgba(0,0,0,.55)"/>
+            </linearGradient>
+            <pattern id="grain" patternUnits="userSpaceOnUse" width="3" height="3">
+              <rect width="3" height="3" fill="rgba(255,255,255,0)"/>
+              <circle cx="1" cy="1" r=".4" fill="rgba(253,252,247,.07)"/>
+              <circle cx="2.2" cy="2.2" r=".3" fill="rgba(0,0,0,.06)"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="500" fill="url(#bg)"/>
+          <!-- decorative mountain silhouette (Dolomiti) -->
+          <g opacity=".22" fill="#fdfcf7">
+            <polygon points="0,360 60,260 110,310 160,220 220,300 280,230 340,290 400,250 400,400 0,400"/>
+          </g>
+          <!-- seven bees, symbol of the 7 founding savings banks -->
+          <g opacity=".55" fill="#e9c97a">
+            <circle cx="120" cy="120" r="3"/>
+            <circle cx="160" cy="100" r="3"/>
+            <circle cx="200" cy="90" r="3"/>
+            <circle cx="240" cy="100" r="3"/>
+            <circle cx="280" cy="120" r="3"/>
+            <circle cx="180" cy="140" r="3"/>
+            <circle cx="220" cy="140" r="3"/>
+          </g>
+          <rect width="400" height="500" fill="url(#vignette)"/>
+          <rect width="400" height="500" fill="url(#grain)"/>
+        </svg>
+        <div class="topline">Südtiroler Sparkasse · Bozen</div>
+        <div class="monogram"><span class="csr">S</span></div>
+        <div class="signature">— Unitas · Parsimonia · Progressio —</div>
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+        <div class="frame"></div>
+        <div class="ribbon">
+          <div>
+            <b>Sparkasse</b>
+            <div class="meta">Cassa di Risparmio di Bolzano · dal 1854</div>
+          </div>
+          <div class="num">EST · MDCCCLIV</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div>
+    <section class="card" id="perche">
+      <span class="kicker">Perché parlarne</span>
+      <h2>Una banca <em>bilingue</em>, indipendente, di territorio</h2>
+      <p>
+        La Cassa di Risparmio di Bolzano — Südtiroler Sparkasse AG — è il più antico istituto di
+        credito dell'Alto Adige e oggi la più grande banca italiana ancora pienamente
+        <strong>indipendente</strong>: nessuna holding nazionale, nessuna controllante straniera,
+        decisioni prese a Bolzano. Una rarità in un settore che da trent'anni si muove nella
+        direzione opposta.
+      </p>
+      <p>
+        È una banca che parla due lingue per statuto, che da centosettant'anni serve un
+        territorio specifico — l'Alto Adige, e per estensione il Nord Est — con la
+        convinzione molto poco di moda che <em>la conoscenza del posto</em> sia ancora un
+        vantaggio competitivo. Non un retaggio storico, una strategia.
+      </p>
+
+      <div class="facts">
+        <div class="fact">
+          <div class="lbl">Forma</div>
+          <div class="val">S.p.A. dal 1992 · Legge Amato</div>
+        </div>
+        <div class="fact">
+          <div class="lbl">Fondazione</div>
+          <div class="val">6 novembre 1854 · Bolzano</div>
+        </div>
+        <div class="fact">
+          <div class="lbl">Azionista di riferimento</div>
+          <div class="val">Fondazione Cassa di Risparmio di Bolzano (~63%)</div>
+        </div>
+        <div class="fact">
+          <div class="lbl">Lingue</div>
+          <div class="val">Italiano · Tedesco</div>
+        </div>
+      </div>
+
+      <div class="tags">
+        <span class="tag">Bilinguismo</span>
+        <span class="tag gold">Indipendenza</span>
+        <span class="tag blue">Territorio</span>
+        <span class="tag green">Sostenibilità ESG</span>
+        <span class="tag">PMI · Famiglie</span>
+        <span class="tag gold">Nord Est</span>
+      </div>
+    </section>
+
+    <section class="card" id="virtu">
+      <span class="kicker">Le sue virtù</span>
+      <h2>Sei tratti che la rendono <em>diversa</em></h2>
+      <p>
+        Non un'agiografia: un elenco onesto delle qualità che la distinguono nel panorama
+        bancario italiano, dove ormai quasi tutto è già stato consolidato in due o tre poli.
+      </p>
+
+      <div class="virtues">
+        <div class="virtue">
+          <span class="ico">α</span>
+          <h4>Indipendenza</h4>
+          <p>La più grande banca italiana ancora non confluita in un gruppo nazionale.
+            Le decisioni si prendono a Bolzano, non in una sala riunioni a Milano o Vienna.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">β</span>
+          <h4>Bilinguismo</h4>
+          <p>Statuto, comunicazione, sportelli, formazione: tutto in italiano e tedesco.
+            Non un servizio aggiuntivo, una struttura cognitiva interna.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">γ</span>
+          <h4>Radicamento</h4>
+          <p>Centosettant'anni nello stesso territorio. Il <em>risk game</em> — come dice il
+            suo AD — si gioca su una geografia conosciuta, non su modelli astratti.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">δ</span>
+          <h4>Multicanalità vera</h4>
+          <p>Digitale dove serve, sportello dove conta. Una scelta esplicita: «non vogliamo
+            essere una banca che spinge tutto sul digitale, ma costruire vera multicanalità».</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">ε</span>
+          <h4>Sostenibilità</h4>
+          <p>Primo gruppo bancario italiano con certificazione ISO 45001-14001 integrata
+            (2025). Cattedra universitaria a Bolzano sulla sostenibilità, partnership con
+            Eco Research.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">ζ</span>
+          <h4>Espansione organica</h4>
+          <p>Non per acquisizioni di massa: cinque nuove filiali in due anni nel Nord Est
+            (Veneto, Friuli, Emilia), oltre 150 assunzioni. Crescita lenta, scelta a una a una.</p>
+        </div>
+      </div>
+
+      <blockquote>
+        «Our risk game is on the territory.»
+        <cite>— Nicola Calabrò, Amministratore Delegato</cite>
+      </blockquote>
+    </section>
+
+    <section class="card" id="storia">
+      <span class="kicker">Una storia lunga</span>
+      <h2>Centosettant'anni in poche <em>tappe</em></h2>
+      <p>Una linea che attraversa l'Impero asburgico, due guerre mondiali, il fascismo,
+        la Repubblica e l'autonomia speciale — senza mai uscire dal proprio territorio.</p>
+
+      <div class="timeline">
+        <div class="step">
+          <div class="y">1854</div>
+          <div class="t">Fondazione della Sparkasse der Stadt Bozen</div>
+          <div class="d">Il 6 novembre, sotto il dominio asburgico, un gruppo di notabili
+            guidati da Carl von Hepperger fonda il primo istituto di risparmio dell'Alto Adige.
+            Operazioni dal 1° gennaio 1855: un solo cassiere, una sola idea.</div>
+        </div>
+        <div class="step">
+          <div class="y">1907</div>
+          <div class="t">La sede storica in stile neorococò</div>
+          <div class="d">In Via Cassa di Risparmio nasce l'edificio storico: un manifesto
+            urbano della solidità bancaria di provincia, rivisto in chiave razionalista nel 1938.</div>
+        </div>
+        <div class="step">
+          <div class="y">1927–1935</div>
+          <div class="t">Le aggregazioni territoriali</div>
+          <div class="d">Sotto il fascismo, le Casse minori dell'Alto Adige — Bressanone,
+            Brunico, Merano, Silandro, Vipiteno, Ortisei — confluiscono. Da quei sette istituti
+            nascono le sette api dell'emblema.</div>
+        </div>
+        <div class="step">
+          <div class="y">1992</div>
+          <div class="t">Trasformazione in S.p.A. · nasce la Fondazione</div>
+          <div class="d">La Legge Amato separa la banca commerciale dall'ente conferente:
+            nasce la Fondazione Cassa di Risparmio di Bolzano, oggi azionista di riferimento
+            con circa il 63% del capitale.</div>
+        </div>
+        <div class="step">
+          <div class="y">2015</div>
+          <div class="t">L'arrivo di Calabrò · dalle perdite al rilancio</div>
+          <div class="d">Nicola Calabrò assume la direzione operativa. Inizia un decennio
+            di risanamento e qualità del credito che porterà la banca dai bilanci in rosso
+            ai record degli ultimi anni.</div>
+        </div>
+        <div class="step">
+          <div class="y">2025</div>
+          <div class="t">Sostenibilità certificata</div>
+          <div class="d">Primo gruppo bancario italiano con certificazione ISO 45001 + 14001
+            integrata. Cinque nuove filiali nel Nord Est. Utile consolidato 2025: 87,5 milioni;
+            CET1 al 16,6%.</div>
+        </div>
+        <div class="step">
+          <div class="y">Domani</div>
+          <div class="t">Indipendente per scelta</div>
+          <div class="d">In un settore che si consolida, restare indipendenti è ormai una
+            posizione politica. La Sparkasse continua a dimostrare che una banca media,
+            ben fatta, può prosperare senza diluirsi.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="numeri">
+      <span class="kicker">In numeri (esercizio 2025)</span>
+      <h2>Una salute <em>composta</em></h2>
+      <p>Cifre del bilancio consolidato 2025 (approvato dal CdA il 24 marzo 2026).
+        Tutti i dati sono pubblici e disponibili sul sito Investor Relations della banca.</p>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="n">87,5 M€</span>
+          <span class="lbl">Utile netto</span>
+        </div>
+        <div class="stat">
+          <span class="n">16,6%</span>
+          <span class="lbl">CET1 ratio</span>
+        </div>
+        <div class="stat">
+          <span class="n">12,5 mld</span>
+          <span class="lbl">Raccolta diretta (+4,7%)</span>
+        </div>
+        <div class="stat">
+          <span class="n">4,2 mld</span>
+          <span class="lbl">Raccolta gestita (+13,3%)</span>
+        </div>
+        <div class="stat">
+          <span class="n">10,0 mld</span>
+          <span class="lbl">Crediti a clientela</span>
+        </div>
+        <div class="stat">
+          <span class="n">100+</span>
+          <span class="lbl">Filiali</span>
+        </div>
+        <div class="stat">
+          <span class="n">1.300+</span>
+          <span class="lbl">Dipendenti</span>
+        </div>
+        <div class="stat">
+          <span class="n">~24.000</span>
+          <span class="lbl">Azionisti</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <aside>
+    <div class="card ode-box">
+      <span class="kicker">Piccolo elogio</span>
+      <h3>Una banca <em style="color:#e9c97a">di confine</em></h3>
+      <p>
+        Bolzano è una città di confine — tra il latino e il germanico, tra il versante
+        italiano e quello alpino, tra l'industria del Nord e l'agricoltura di alta quota.
+        La sua banca somiglia alla sua città: bilingue, prudente, riservata.
+      </p>
+      <p>
+        Non fa rumore, non insegue mode, non gioca le sue trimestrali su Twitter.
+        Costruisce, lentamente, anno dopo anno, una rete fitta di rapporti con famiglie
+        e PMI. Qualcuno la chiamerebbe vecchio stile. Forse è semplicemente
+        <em>stile</em>, e basta.
+      </p>
+      <ul>
+        <li><span>Natura</span><span>S.p.A. · indipendente</span></li>
+        <li><span>Anima</span><span>Casse di risparmio</span></li>
+        <li><span>Lingue</span><span>It · De</span></li>
+        <li><span>Età</span><span>170+ anni</span></li>
+        <li><span>Spirito</span><span>Territorio</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Governance <em>2026</em></h3>
+      <ul class="gov">
+        <li><span>Presidente</span><span>Gerhard Brandstätter</span></li>
+        <li><span>Vicepresidente</span><span>Carlo Costa</span></li>
+        <li><span>AD · DG</span><span>Nicola Calabrò</span></li>
+        <li><span>Sede</span><span>Bolzano</span></li>
+        <li><span>Mercato</span><span>Non quotata</span></li>
+      </ul>
+      <p style="font-size:13px;color:var(--muted);margin-top:14px;line-height:1.55">
+        Composizione azionaria stabile: circa il 63% in capo alla Fondazione Cassa di
+        Risparmio di Bolzano, il resto distribuito fra circa 24.000 piccoli azionisti del
+        territorio. La società di revisione è indicata nel bilancio depositato.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Cosa la rende <em>diversa</em></h3>
+      <p style="font-size:14px">
+        Nelle conversazioni con i clienti istituzionali capita di sentire questa frase:
+        «la Sparkasse è un'altra cosa». Non è marketing — è una constatazione di chi
+        ha visto da vicino le altre banche italiane.
+      </p>
+      <ul style="margin:14px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-soft);line-height:1.75">
+        <li>Decisioni di credito vicine al cliente, non in una sede lontana</li>
+        <li>Bilinguismo nativo, non un servizio aggiunto</li>
+        <li>Modello di rischio basato sulla conoscenza del territorio</li>
+        <li>Programmi giovani e formazione finanziaria nelle scuole</li>
+        <li>Indipendenza come scelta politica, non come ripiego</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Perché parlarne <em>qui</em></h3>
+      <p style="font-size:13.5px;margin:0 0 8px">
+        All'Hackathon Fiscale di Monza si discute di tecnologia, AI, dato fiscale.
+        Ma una banca come la Sparkasse ricorda che la <strong>conoscenza del cliente</strong>
+        — quella vera, di prossimità — non si esaurisce in un modello.
+      </p>
+      <p style="font-size:13.5px;margin:0">
+        Un buon algoritmo, in fondo, è solo un altro modo per dire ciò che le casse di
+        risparmio dicono dal 1854: <em>il credito è una forma di conoscenza</em>.
+      </p>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <div class="row">
+    <div>© 2026 · Hackathon Fiscale di Monza</div>
+    <div>Ritratto editoriale · Cassa di Risparmio di Bolzano, dal 1854</div>
+  </div>
+</footer>
+
+</body>
+</html>

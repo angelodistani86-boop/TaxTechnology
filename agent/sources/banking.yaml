@@ -1,0 +1,46 @@
+# Fonti per la pagina "Aggiornamento Banking".
+# Edita liberamente: aggiungi/rimuovi feed, disabilita temporaneamente con `enabled: false`.
+# Le modifiche prendono effetto al prossimo run (Mar/Ven 08:00) o subito con Actions → Run workflow.
+
+rss:
+  - name: "Il Sole 24 Ore — Finanza"
+    url: "https://www.ilsole24ore.com/rss/finanza--banche.xml"
+    enabled: true
+  - name: "ANSA — Economia"
+    url: "https://www.ansa.it/sito/notizie/economia/economia_rss.xml"
+    enabled: true
+  - name: "MF Milano Finanza — Banche"
+    url: "https://www.milanofinanza.it/rss/Default/banche-e-assicurazioni"
+    enabled: true
+  - name: "Banca d'Italia — Comunicati"
+    url: "https://www.bancaditalia.it/media/comunicati/feed-rss.xml"
+    enabled: true
+  - name: "BeBeez"
+    url: "https://bebeez.it/feed/"
+    enabled: true
+  - name: "ABI — Comunicati"
+    url: "https://www.abi.it/rss/comunicati"
+    enabled: true
+  - name: "FiscoOggi"
+    url: "https://www.fiscooggi.it/rss-feed"
+    enabled: true
+  - name: "Reuters Italy — Business"
+    url: "https://www.reuters.com/world/europe/italy/rss"
+    enabled: true
+
+# Google News RSS — query strutturate per coprire tutti i clienti target.
+# Sintassi: stesso operatore di google.com (OR, virgolette, when:Nd). Il sistema accoda automaticamente hl=it&gl=IT.
+gnews_queries:
+  - label: "top10-news"
+    query: '"Intesa Sanpaolo" OR "UniCredit" OR "Banco BPM" OR "Mediobanca" OR "BPER Banca" OR "Monte dei Paschi" OR "FinecoBank" OR "Banca Generali" OR "Mediolanum" OR "Credem" when:7d'
+  - label: "medie-news"
+    query: '"Banca di Asti" OR "Cassa di Risparmio di Asti" OR "Banca Sella" OR "Banca Ifis" OR "illimity Bank" OR "BFF Banking" OR "Banca Popolare di Sondrio" OR "Volksbank" OR "CiviBank" when:7d'
+  - label: "piccole-news"
+    query: '"Cherry Bank" OR "Banca AideXa" OR "Banca CF+" OR "Banca Valsabbina" OR "Banca del Fucino" OR "Banca Passadore" OR "Banca Investis" when:7d'
+  - label: "fisco-banche"
+    query: '("banche italiane" OR "settore bancario") (Pillar Two OR DTA OR "art. 106 TUIR" OR "art. 96 TUIR" OR Eurosistema) when:30d'
+  - label: "regulator"
+    query: '("Banca d''Italia" OR BCE OR EBA OR Consob OR MEF) (bancario OR banche) when:14d'
+
+# Scraping diretto di pagine corporate (opzionale, attivare in v1.1 dopo MVP)
+scrape: []
