@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Francesco Trivisano · ritratto for fun</title>
+<meta name="description" content="Un piccolo omaggio editoriale a Francesco Trivisano, amico di lunga data, oggi Tax Partner di Deloitte Tax & Legal a Milano.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,0,700;9..144,1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f5; --paper:#ffffff; --ink:#1f1e1c; --ink-soft:#3d3a35; --muted:#6b675e;
+    --line:#e8e4d8; --line-soft:#f1ede1;
+    --accent:#86BC25;            /* verde Deloitte */
+    --accent-deep:#5e8418;
+    --accent-soft:#e8f3d0;
+    --warm:#f5f1e6; --warm-deeper:#ede6d3;
+    --gold:#c8a951; --gold-soft:#fbf4dc;
+    --dark:#1a1a1a;              /* nero corporate */
+    --dark-soft:#2c2c2c;
+    --shadow-sm:0 1px 2px rgba(31,30,28,.04);
+    --shadow-md:0 4px 16px -4px rgba(31,30,28,.08), 0 1px 3px rgba(31,30,28,.04);
+    --shadow-lg:0 24px 60px -20px rgba(31,30,28,.18), 0 6px 14px rgba(31,30,28,.05);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .serif{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.01em}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+  a{color:var(--accent-deep);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+  a:hover{border-bottom-color:var(--accent)}
+
+  nav.top{position:sticky;top:0;z-index:30;backdrop-filter:saturate(1.2) blur(10px);
+    background:rgba(250,249,245,.86);border-bottom:1px solid var(--line)}
+  nav.top .wrap{max-width:1100px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+  nav.top .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:13.5px;color:var(--ink)}
+  nav.top .brand .dot{width:10px;height:10px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,#b6e060,var(--accent-deep))}
+  nav.top .brand small{display:block;font-weight:400;font-size:11px;color:var(--muted);letter-spacing:.04em}
+  nav.top ul{display:flex;list-style:none;margin:0;padding:0;gap:22px}
+  nav.top a{font-size:13px;color:var(--ink-soft);font-weight:500;border:none}
+  nav.top a:hover{color:var(--accent-deep)}
+  @media (max-width:680px){nav.top ul{display:none}}
+
+  .hero{position:relative;overflow:hidden;
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(134,188,37,.18), transparent 60%),
+      radial-gradient(700px 400px at -10% 110%, rgba(26,26,26,.10), transparent 60%),
+      linear-gradient(180deg,#fdfcf7 0%,#faf9f5 100%);
+    border-bottom:1px solid var(--line)}
+  .hero .wrap{max-width:1100px;margin:0 auto;padding:64px 22px 76px;
+    display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}
+  @media (max-width:880px){.hero .wrap{grid-template-columns:1fr;padding:44px 22px 52px;gap:36px}}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;
+    text-transform:uppercase;letter-spacing:.18em;color:var(--accent-deep);font-weight:700;
+    background:var(--accent-soft);padding:6px 12px 6px 10px;border-radius:999px;margin-bottom:22px}
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(40px,5.6vw,62px);line-height:1.02;letter-spacing:-.025em;margin:0 0 14px;color:var(--ink)}
+  .hero h1 em{font-style:italic;color:var(--accent-deep);font-weight:500}
+  .hero .role{font-size:17px;color:var(--ink-soft);margin:0 0 10px;font-weight:500}
+  .hero .firm{font-size:14px;color:var(--muted);margin:0 0 26px;display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .hero .firm .mark{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--accent-deep);
+    background:var(--paper);padding:4px 10px;border-radius:6px;border:1px solid var(--line);font-size:12px;letter-spacing:.04em}
+  .hero .firm .mark::before{content:"";width:4px;height:14px;background:var(--accent);border-radius:1px}
+  .hero p.lead{font-size:17px;color:var(--ink-soft);line-height:1.6;max-width:58ch;margin:0 0 28px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;
+    font-size:14px;font-weight:600;border:1px solid transparent;cursor:pointer;transition:transform .12s ease, box-shadow .15s ease}
+  .btn-primary{background:var(--ink);color:#fdfcf7}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 24px -8px rgba(31,30,28,.4)}
+  .btn-ghost{background:transparent;color:var(--ink-soft);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent-deep);background:var(--paper)}
+
+  /* emblem */
+  .emblem-wrap{position:relative;justify-self:center;width:100%;max-width:380px}
+  .emblem{aspect-ratio:4/5;border-radius:24px;overflow:hidden;position:relative;
+    box-shadow:var(--shadow-lg);border:1px solid var(--line);background:#1a1a1a}
+  .emblem svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .emblem .frame{position:absolute;inset:14px;border:1px solid rgba(253,252,247,.2);border-radius:14px;pointer-events:none;z-index:3}
+  .emblem .corner{position:absolute;width:14px;height:14px;border:1.5px solid rgba(253,252,247,.55);z-index:3}
+  .emblem .corner.tl{top:18px;left:18px;border-right:none;border-bottom:none}
+  .emblem .corner.tr{top:18px;right:18px;border-left:none;border-bottom:none}
+  .emblem .corner.bl{bottom:18px;left:18px;border-right:none;border-top:none}
+  .emblem .corner.br{bottom:18px;right:18px;border-left:none;border-top:none}
+  .emblem .monogram{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2}
+  .emblem .monogram .mg{font-family:'Fraunces',serif;font-weight:500;font-style:italic;
+    font-size:clamp(110px,16vw,150px);color:#fdfcf7;letter-spacing:-.03em;line-height:1;
+    text-shadow:0 6px 30px rgba(0,0,0,.45)}
+  .emblem .monogram .deg{font-family:'JetBrains Mono',monospace;font-size:12px;color:#86BC25;letter-spacing:.4em;margin-top:14px;font-weight:600}
+  .emblem .topline{position:absolute;top:30px;left:0;right:0;text-align:center;z-index:3;
+    font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.32em;color:rgba(253,252,247,.72);font-weight:600;text-transform:uppercase}
+  .emblem .signature{position:absolute;bottom:90px;left:0;right:0;text-align:center;z-index:3;
+    font-family:'Fraunces',serif;font-style:italic;font-size:14px;color:rgba(253,252,247,.78)}
+  .emblem .ribbon{position:absolute;left:24px;bottom:24px;right:24px;z-index:3;
+    border-top:1px solid rgba(253,252,247,.2);padding-top:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:10px;color:#fdfcf7}
+  .emblem .ribbon b{font-family:'Fraunces',serif;font-size:14px;font-weight:600;display:block}
+  .emblem .ribbon .meta{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:rgba(253,252,247,.6);margin-top:3px}
+  .emblem .ribbon .num{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(253,252,247,.55);letter-spacing:.1em}
+  /* punto verde Deloitte */
+  .emblem .ribbon .deloitte-dot{position:absolute;right:24px;top:-2px;width:8px;height:8px;background:var(--accent);border-radius:50%}
+  .emblem-wrap .stamp{position:absolute;top:-14px;right:-14px;background:var(--accent-soft);color:#3a5410;
+    border:1px solid #b5d077;border-radius:999px;padding:8px 14px;font-size:11px;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;box-shadow:var(--shadow-md);transform:rotate(6deg);z-index:4}
+
+  main{max-width:1100px;margin:0 auto;padding:50px 22px 24px;display:grid;grid-template-columns:1.4fr .9fr;gap:30px}
+  @media (max-width:880px){main{grid-template-columns:1fr;padding:36px 22px 24px}}
+
+  section.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;
+    padding:28px 30px;box-shadow:var(--shadow-sm);margin-bottom:20px}
+  section.card h2{font-family:'Fraunces',serif;font-weight:500;font-size:26px;
+    margin:0 0 8px;letter-spacing:-.015em;color:var(--ink)}
+  section.card h2 em{font-style:italic;color:var(--accent-deep)}
+  section.card .kicker{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.18em;
+    color:var(--accent-deep);font-weight:700;margin-bottom:12px}
+  section.card p{margin:0 0 12px;color:var(--ink-soft)}
+  section.card p:last-child{margin-bottom:0}
+
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+  @media (max-width:520px){.facts{grid-template-columns:1fr}}
+  .fact{background:var(--warm);border:1px solid var(--line-soft);border-radius:12px;padding:12px 14px}
+  .fact .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:700;margin-bottom:5px}
+  .fact .val{font-family:'Fraunces',serif;font-weight:500;font-size:15px;color:var(--ink);letter-spacing:-.01em;line-height:1.3}
+
+  .virtues{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+  @media (max-width:520px){.virtues{grid-template-columns:1fr}}
+  .virtue{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 16px;position:relative;overflow:hidden}
+  .virtue::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--dark))}
+  .virtue .ico{font-family:'Fraunces',serif;font-style:italic;font-size:26px;color:var(--accent-deep);line-height:1;margin-bottom:6px;display:block}
+  .virtue h4{font-family:'Fraunces',serif;font-weight:600;font-size:15.5px;margin:0 0 4px}
+  .virtue p{font-size:13px;color:var(--muted);margin:0;line-height:1.5}
+
+  blockquote{margin:16px 0 0;padding:16px 20px;border-left:3px solid var(--accent);
+    background:var(--accent-soft);border-radius:0 14px 14px 0;font-family:'Fraunces',serif;
+    font-style:italic;color:var(--ink-soft);font-size:16px;line-height:1.5}
+  blockquote cite{display:block;margin-top:6px;font-style:normal;font-family:'Inter',sans-serif;font-size:11.5px;letter-spacing:.06em;color:var(--muted);font-weight:500}
+
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .tag{font-size:12px;padding:5px 11px;border-radius:999px;background:var(--accent-soft);
+    color:var(--accent-deep);font-weight:600;border:1px solid #c5dc92}
+  .tag.gold{background:var(--gold-soft);color:#7a6320;border-color:#e6d390}
+  .tag.dark{background:#2c2c2c;color:#b6e060;border-color:#2c2c2c}
+
+  aside .card{background:var(--paper);border:1px solid var(--line);border-radius:20px;
+    padding:22px 22px;box-shadow:var(--shadow-sm);margin-bottom:20px}
+  aside .card h3{font-family:'Fraunces',serif;font-weight:500;font-size:19px;margin:0 0 12px;letter-spacing:-.01em}
+  aside .card h3 em{font-style:italic;color:var(--accent-deep)}
+
+  .ode-box{background:linear-gradient(140deg,#1a1a1a 0%,#2c2c2c 100%);color:#fdfcf7;border:none;position:relative}
+  .ode-box::after{content:"";position:absolute;bottom:18px;right:18px;width:10px;height:10px;background:var(--accent);border-radius:50%}
+  .ode-box h3{color:#fdfcf7}
+  .ode-box .kicker{color:var(--accent);font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:11px;display:block;margin-bottom:10px}
+  .ode-box p{color:rgba(253,252,247,.84);font-size:14px;line-height:1.6;margin:0 0 10px}
+  .ode-box p:last-child{margin:0}
+  .ode-box ul{list-style:none;padding:0;margin:14px 0 0}
+  .ode-box ul li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px dashed rgba(253,252,247,.14);font-size:13px}
+  .ode-box ul li:last-child{border-bottom:none}
+  .ode-box ul li span:first-child{color:rgba(253,252,247,.62);font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+  .ode-box ul li span:last-child{font-family:'Fraunces',serif;font-weight:500}
+
+  footer{padding:34px 22px 58px;text-align:center;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);margin-top:24px;background:#fdfcf7}
+  footer .row{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer a{color:var(--ink-soft)}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <div class="brand">
+      <span class="dot" aria-hidden="true"></span>
+      <div>Un amico in Deloitte<br><small>For fun · ritratto giugno 2026</small></div>
+    </div>
+    <ul>
+      <li><a href="index.html">← Home</a></li>
+      <li><a href="#amico">L'amico</a></li>
+      <li><a href="#deloitte">Deloitte</a></li>
+      <li><a href="#tratti">Tratti</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Ritratto for fun · un amico</span>
+      <h1><em>Francesco</em><br>Trivisano</h1>
+      <p class="role">Tax Partner — Deloitte Tax &amp; Legal · Milano</p>
+      <p class="firm">Ph.D. di fiscale · <span class="mark">amico di sempre</span></p>
+      <p class="lead">
+        C'è una categoria di amici che fa una cosa molto rara: prende sul
+        serio il proprio mestiere — fino in fondo, con dottorato di ricerca e
+        partnership in un Big Four — senza prendere sul serio sé stesso.
+        Francesco appartiene a questa categoria. Questa è una pagina
+        leggera e dichiaratamente affettuosa per dire: <em>bravo, e
+        grazie di esserci</em>.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#amico">Vai al ritratto →</a>
+        <a class="btn btn-ghost" href="index.html">Torna alla home ↗</a>
+      </div>
+    </div>
+
+    <div class="emblem-wrap">
+      <div class="stamp">Per Francesco</div>
+      <div class="emblem" role="img" aria-label="Emblema editoriale per Francesco Trivisano">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <radialGradient id="bg-ft" cx="35%" cy="20%" r="120%">
+              <stop offset="0%" stop-color="#4a4a4a"/>
+              <stop offset="40%" stop-color="#2c2c2c"/>
+              <stop offset="70%" stop-color="#1a1a1a"/>
+              <stop offset="100%" stop-color="#0a0a0a"/>
+            </radialGradient>
+            <linearGradient id="vignette-ft" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="70%" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="100%" stop-color="rgba(0,0,0,.55)"/>
+            </linearGradient>
+            <pattern id="grain-ft" patternUnits="userSpaceOnUse" width="3" height="3">
+              <rect width="3" height="3" fill="rgba(255,255,255,0)"/>
+              <circle cx="1" cy="1" r=".4" fill="rgba(253,252,247,.07)"/>
+              <circle cx="2.2" cy="2.2" r=".3" fill="rgba(0,0,0,.06)"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="500" fill="url(#bg-ft)"/>
+          <!-- bilancia stilizzata: simbolo del lavoro tax/legal -->
+          <g opacity=".18" fill="#86BC25" transform="translate(200 240)">
+            <rect x="-2" y="-90" width="4" height="180" rx="1"/>
+            <rect x="-80" y="-90" width="160" height="3" rx="1"/>
+            <line x1="-70" y1="-87" x2="-70" y2="-50" stroke="#86BC25" stroke-width="1.5"/>
+            <line x1="70" y1="-87" x2="70" y2="-50" stroke="#86BC25" stroke-width="1.5"/>
+            <ellipse cx="-70" cy="-30" rx="36" ry="8" stroke="#86BC25" stroke-width="2" fill="none"/>
+            <ellipse cx="70" cy="-30" rx="36" ry="8" stroke="#86BC25" stroke-width="2" fill="none"/>
+            <circle cx="0" cy="-90" r="6"/>
+            <ellipse cx="0" cy="100" rx="60" ry="6"/>
+          </g>
+          <rect width="400" height="500" fill="url(#vignette-ft)"/>
+          <rect width="400" height="500" fill="url(#grain-ft)"/>
+        </svg>
+        <div class="topline">Francesco Trivisano · Deloitte</div>
+        <div class="monogram">
+          <span class="mg">FT</span>
+          <span class="deg">PH·D</span>
+        </div>
+        <div class="signature">— un amico, un orgoglio —</div>
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+        <div class="frame"></div>
+        <div class="ribbon">
+          <div>
+            <b>Per Francesco</b>
+            <div class="meta">amico di sempre · giugno 2026</div>
+          </div>
+          <div class="num">MMXXVI</div>
+          <span class="deloitte-dot" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div>
+
+    <!-- L'AMICO -->
+    <section class="card" id="amico">
+      <span class="kicker">L'amico</span>
+      <h2>Un partner di <em>amicizia</em>, prima ancora che di studio</h2>
+      <p>
+        Per chi non bazzica il mondo della consulenza fiscale: in un Big
+        Four diventare <em>partner</em> non è un titolo onorifico, è una
+        soglia che si raggiunge dopo dieci-quindici anni di lavoro
+        ininterrotto, con un curriculum tecnico che si misura in
+        contenziosi vinti, transazioni chiuse e progetti di consolidato
+        portati a casa. Francesco è arrivato lì. Ma quando ci vediamo a
+        cena resta semplicemente Francesco: divertente, presente,
+        attento agli altri.
+      </p>
+      <p>
+        Questa pagina è il piccolo gioco di un amico: dire pubblicamente,
+        con un po' di ironia ma molto sul serio, che siamo orgogliosi del
+        percorso che ha fatto — e ancora più contenti di non avergli mai
+        sentito tirarsela.
+      </p>
+
+      <div class="tags">
+        <span class="tag">Amicizia di lunga durata</span>
+        <span class="tag gold">Tax / Legal</span>
+        <span class="tag dark">Ph.D.</span>
+        <span class="tag">Partner Big Four</span>
+      </div>
+    </section>
+
+    <!-- DELOITTE -->
+    <section class="card" id="deloitte">
+      <span class="kicker">Dove lavora</span>
+      <h2><em>Deloitte</em> Tax &amp; Legal — la consulenza tributaria</h2>
+      <p>
+        Deloitte è una delle quattro grandi società di consulenza globale
+        (le cosiddette <strong>Big Four</strong>), fondata a Londra nel
+        1845 da William Welch Deloitte. In Italia opera attraverso più
+        practice — Audit, Consulting, Risk Advisory, Financial Advisory
+        e <strong>Tax &amp; Legal</strong>, di cui fa parte lo
+        <em>Studio Tributario e Societario Deloitte</em> (STS Deloitte),
+        la business unit fiscale-legale.
+      </p>
+      <p>
+        Francesco è <strong>Tax Partner</strong> a Milano: si occupa di
+        consulenza tributaria e operazioni straordinarie su clienti
+        corporate, con focus su <em>financial investors</em> e tematiche
+        di tax due diligence, transazioni e contenzioso. È stato uno
+        dei nuovi partner promossi nelle ultime tornate del gruppo
+        Tax &amp; Legal italiano.
+      </p>
+
+      <div class="facts">
+        <div class="fact"><div class="lbl">Network</div><div class="val">Deloitte Touche Tohmatsu (DTTL)</div></div>
+        <div class="fact"><div class="lbl">Practice italiana</div><div class="val">STS Deloitte — Tax &amp; Legal</div></div>
+        <div class="fact"><div class="lbl">Sede operativa</div><div class="val">Milano</div></div>
+        <div class="fact"><div class="lbl">Fondazione</div><div class="val">1845 · Londra</div></div>
+      </div>
+
+      <p style="margin-top:16px;font-size:13.5px;color:var(--muted);font-style:italic">
+        Nel piccolo mondo della consulenza fiscale italiana, lo Studio
+        Tributario e Societario di Deloitte è uno degli interlocutori
+        più riconosciuti per le grandi operazioni e per la fiscalità
+        internazionale. Avere lì un amico Partner significa avere
+        un osservatorio interno sulle tendenze del mercato — e una
+        persona che ti spiega le cose senza marketing.
+      </p>
+    </section>
+
+    <!-- TRATTI -->
+    <section class="card" id="tratti">
+      <span class="kicker">Tratti</span>
+      <h2>Sei cose che <em>diciamo</em> di lui quando non c'è</h2>
+      <p>
+        Come per Vito: niente confidenze, niente imbarazzi. Solo le qualità
+        che riconoscono subito tutti quelli che lo conoscono.
+      </p>
+
+      <div class="virtues">
+        <div class="virtue">
+          <span class="ico">α</span>
+          <h4>Rigore intellettuale</h4>
+          <p>Un dottorato non si prende per caso. Quando ragiona su una norma, parte dai principi e ci arriva con calma.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">β</span>
+          <h4>Modestia di fondo</h4>
+          <p>Mai un'esibizione di titoli. Il Ph.D. e la partnership sono cose che si scoprono per caso, parlandoci.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">γ</span>
+          <h4>Ironia silenziosa</h4>
+          <p>Non racconta barzellette, ma ha un commento che fa ridere quando meno te lo aspetti.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">δ</span>
+          <h4>Disponibilità reale</h4>
+          <p>Se hai una domanda tecnica, risponde. Se hai bisogno di parlare di altro, ascolta. Senza calcolare il tempo.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">ε</span>
+          <h4>Resistenza</h4>
+          <p>Anni di Big Four non l'hanno indurito. È un dato statisticamente notevole.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">ζ</span>
+          <h4>Lealtà</h4>
+          <p>Le amicizie le tiene strette. Quando le cose si complicano, non scompare.</p>
+        </div>
+      </div>
+
+      <blockquote>
+        «Un partner si misura in operazioni chiuse. Un amico si
+        misura in telefonate fatte senza un motivo. Francesco non
+        si fa scegliere su una sola dimensione.»
+        <cite>— Spirito di questa pagina</cite>
+      </blockquote>
+    </section>
+
+  </div>
+
+  <aside>
+    <div class="card ode-box">
+      <span class="kicker">Piccolo elogio</span>
+      <h3>Un amico <em style="color:#b6e060">in studio</em></h3>
+      <p>
+        Lavora in un settore dove i clienti pretendono velocità,
+        precisione e sangue freddo allo stesso tempo. La sua versione
+        di tutto questo si chiama — semplicemente — <em>serietà gentile</em>.
+      </p>
+      <p>
+        Questa pagina è un'occasione per dirgli grazie. Senza
+        compleanni, senza motivi formali, senza retorica.
+      </p>
+      <ul>
+        <li><span>Ruolo</span><span>Tax Partner</span></li>
+        <li><span>Studio</span><span>Deloitte STS</span></li>
+        <li><span>Sede</span><span>Milano</span></li>
+        <li><span>Titolo</span><span>Ph.D.</span></li>
+        <li><span>Voto</span><span>★★★★★</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Profilo <em>pubblico</em></h3>
+      <p style="font-size:13.5px">
+        Per chi vuole raggiungerlo professionalmente:
+        <a href="https://it.linkedin.com/in/francesco-trivisano-ph-d-9a2b9236" target="_blank" rel="noopener">linkedin.com/in/francesco-trivisano-ph-d</a>.
+      </p>
+      <p style="font-size:13px;color:var(--muted);margin-top:8px;line-height:1.55">
+        Il ruolo indicato in pagina — <em>Tax Partner di Deloitte
+        Tax &amp; Legal</em> — è quello che Francesco stesso ha reso
+        pubblico sul suo profilo LinkedIn. Niente informazioni riservate
+        o non già visibili a chiunque.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Perché questa <em>pagina</em></h3>
+      <p style="font-size:13.5px">
+        Il sito ha una sezione "For fun" dove ospito piccoli omaggi
+        editoriali. Una persona, una pagina, un piccolo gesto. Dopo
+        Vito Pennetta (Zambon) è il turno di Francesco.
+      </p>
+      <p style="font-size:13.5px;margin-top:8px">
+        Se domani Francesco preferisce rimuoverla, basta un messaggio:
+        viene giù in cinque minuti. Le amicizie funzionano così —
+        anche su Internet.
+      </p>
+    </div>
+
+  </aside>
+</main>
+
+<footer>
+  <div class="row">
+    <div>© 2026 · angelodistani.com</div>
+    <div>For fun · ritratto amichevole · giugno 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
