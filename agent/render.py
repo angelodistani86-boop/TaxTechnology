@@ -66,11 +66,19 @@ def render_page(items: List[Dict], targets: Dict, generated_at: datetime, next_u
     for c in clienti_list:
         by_fascia.setdefault(c['fascia'], []).append(c)
 
+    # Flusso unico ordinato per data desc (nuovo layout)
+    items_sorted = sorted(items, key=lambda x: x.get('data') or '', reverse=True)
+
+    # Dict banche accessibile al JS del modal (per anagrafica al click)
+    banche_dict = {c['slug']: c for c in clienti_list}
+
     template = env.get_template('page.html.j2')
     return template.render(
         generated_at=generated_at,
         next_update=next_update,
         sections=sections,
+        items_sorted=items_sorted,
+        banche_dict=banche_dict,
         all_targets=clienti_list,
         by_fascia=by_fascia,
         counters=counters,

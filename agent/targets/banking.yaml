@@ -22,6 +22,11 @@ clienti:
     ad: "Carlo Messina"
     presidente: "Gian Maria Gros-Pietro"
     query_alias: ["Intesa Sanpaolo", "Messina", "ISP"]
+    # Dati finanziari (Fase 1 — Intesa già coperta a fondo)
+    dipendenti: 96000
+    totale_attivo_mln_eur: 964000
+    utile_ultimo_esercizio_mln_eur: 9300
+    esercizio_riferimento: 2025
 
   - slug: unicredit
     nome: "UniCredit"
@@ -123,6 +128,10 @@ clienti:
     ad: "Roberto Fiorini"
     presidente: "Maurizio Rasero"
     query_alias: ["Banca di Asti", "Cassa di Risparmio di Asti", "CRAsti"]
+    dipendenti: 700
+    totale_attivo_mln_eur: 21500
+    utile_ultimo_esercizio_mln_eur: 65.4
+    esercizio_riferimento: 2025
 
   - slug: popolare-sondrio
     nome: "Banca Popolare di Sondrio"
@@ -284,6 +293,10 @@ clienti:
     ad: "Giovanni Bossi"
     presidente: "Marina Natale"
     query_alias: ["Cherry Bank", "Bossi Cherry"]
+    dipendenti: 220
+    totale_attivo_mln_eur: 4500
+    utile_ultimo_esercizio_mln_eur: 21.5
+    esercizio_riferimento: 2025
 
   - slug: aidexa
     nome: "Banca AideXa"

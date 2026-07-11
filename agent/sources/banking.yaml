@@ -1,8 +1,9 @@
-# Fonti per la pagina "Aggiornamento Banking".
+# Fonti News Banche · settimanale.
 # Edita liberamente: aggiungi/rimuovi feed, disabilita temporaneamente con `enabled: false`.
-# Le modifiche prendono effetto al prossimo run (Mar/Ven 08:00) o subito con Actions → Run workflow.
+# Le modifiche prendono effetto al prossimo run venerdì (o subito via Actions → Run workflow).
 
 rss:
+  # Nazionali (baseline)
   - name: "Il Sole 24 Ore — Finanza"
     url: "https://www.ilsole24ore.com/rss/finanza--banche.xml"
     enabled: true
@@ -24,17 +25,45 @@ rss:
   - name: "FiscoOggi"
     url: "https://www.fiscooggi.it/rss-feed"
     enabled: true
-  - name: "Reuters Italy — Business"
-    url: "https://www.reuters.com/world/europe/italy/rss"
+
+  # Regionali — Piemonte / Lombardia (Fase 1)
+  - name: "Il Cittadino di Monza e Brianza"
+    url: "https://www.ilcittadinomb.it/rss/economia"
+    enabled: true
+  - name: "PrimaMonza"
+    url: "https://primamonza.it/economia/feed/"
+    enabled: true
+  - name: "AtNews — Asti"
+    url: "https://www.atnews.it/feed/"
+    enabled: true
+  - name: "Quotidiano Piemontese — Economia"
+    url: "https://www.quotidianopiemontese.it/categoria/economia/feed/"
+    enabled: true
+  - name: "BresciaToday — Economia"
+    url: "https://www.bresciatoday.it/rss/economia/"
     enabled: true
 
-# Google News RSS — query strutturate per coprire tutti i clienti target.
-# Sintassi: stesso operatore di google.com (OR, virgolette, when:Nd). Il sistema accoda automaticamente hl=it&gl=IT.
+  # Alto Adige (per Sparkasse Bolzano)
+  - name: "Salto Alto Adige"
+    url: "https://www.salto.bz/it/rss.xml"
+    enabled: true
+  - name: "Alto Adige Innovazione"
+    url: "https://www.altoadigeinnovazione.it/feed/"
+    enabled: false  # da attivare in Fase 3, verificare feed
+
+  # Emilia-Romagna (Credem)
+  - name: "Gazzetta di Modena"
+    url: "https://gazzettadimodena.gelocal.it/feed"
+    enabled: false  # abilitare quando confermato
+
+# Google News RSS — query strutturate baseline (copertura settimanale).
+# La rotazione settimanale aggiunge dinamicamente query 'deep dive' per 3-4 banche
+# (vedi `deep_dive_rotation` sotto e la logica in agent/run.py).
 gnews_queries:
   - label: "top10-news"
     query: '"Intesa Sanpaolo" OR "UniCredit" OR "Banco BPM" OR "Mediobanca" OR "BPER Banca" OR "Monte dei Paschi" OR "FinecoBank" OR "Banca Generali" OR "Mediolanum" OR "Credem" when:7d'
   - label: "medie-news"
-    query: '"Banca di Asti" OR "Cassa di Risparmio di Asti" OR "Banca Sella" OR "Banca Ifis" OR "illimity Bank" OR "BFF Banking" OR "Banca Popolare di Sondrio" OR "Volksbank" OR "CiviBank" when:7d'
+    query: '"Banca di Asti" OR "Banca Sella" OR "Banca Ifis" OR "illimity Bank" OR "BFF Banking" OR "Banca Popolare di Sondrio" OR "Volksbank" OR "CiviBank" OR "Sparkasse Bolzano" when:7d'
   - label: "piccole-news"
     query: '"Cherry Bank" OR "Banca AideXa" OR "Banca CF+" OR "Banca Valsabbina" OR "Banca del Fucino" OR "Banca Passadore" OR "Banca Investis" when:7d'
   - label: "fisco-banche"
@@ -42,5 +71,54 @@ gnews_queries:
   - label: "regulator"
     query: '("Banca d''Italia" OR BCE OR EBA OR Consob OR MEF) (bancario OR banche) when:14d'
 
-# Scraping diretto di pagine corporate (opzionale, attivare in v1.1 dopo MVP)
-scrape: []
+# === ROTAZIONE DEEP DIVE (Fase 1-3) ===
+# Ogni settimana l'agente prende N banche dalla testa di questa lista, poi le fa scivolare
+# in fondo (state/deep_rotation.json tiene traccia). Le banche selezionate ricevono query
+# aggiuntive mirate al bilancio/anagrafica per popolare i campi finanziari.
+deep_dive_rotation:
+  banks_per_week: 4
+  # Le banche già coperte a fondo (Intesa, Asti, Cherry) vengono ripescate ogni 12 settimane
+  # per aggiornamenti. Le altre partono con priorità alta.
+  order:
+    - unicredit
+    - banco-bpm
+    - mps
+    - mediobanca
+    - bper
+    - mediolanum
+    - banca-generali
+    - fineco
+    - credem
+    - popolare-sondrio
+    - sella
+    - ifis
+    - illimity
+    - bff
+    - sistema
+    - profilo
+    - volksbank
+    - banco-sardegna
+    - bpp
+    - civibank
+    - banca-piemonte
+    - sparkasse
+    - bpb
+    - iccrea
+    - aidexa
+    - cfp
+    - patrimoni-sella
+    - reale
+    - valsabbina
+    - fucino
+    - passadore
+    - investis
+    - akros
+    - finint
+    - galileo
+    - hype
+    - tinaba
+    - buddybank
+    - cr-fossano
+    - intesa
+    - asti
+    - cherry
