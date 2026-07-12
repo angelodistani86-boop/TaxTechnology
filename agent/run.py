@@ -58,9 +58,8 @@ def _hash_url(url: str) -> str:
 
 
 def _next_update(now: datetime) -> datetime:
-    """Prossimo venerdì alle 08:00 Europe/Rome."""
-    days_ahead = (4 - now.weekday()) % 7 or 7
-    return (now + timedelta(days=days_ahead)).replace(hour=8, minute=0, second=0, microsecond=0)
+    """Domattina alle 08:00 Europe/Rome (aggiornamento giornaliero)."""
+    return (now + timedelta(days=1)).replace(hour=8, minute=0, second=0, microsecond=0)
 
 
 def _select_deep_banks(sources: dict, targets: dict, override: str = '') -> list:

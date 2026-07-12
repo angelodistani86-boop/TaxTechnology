@@ -1,10 +1,10 @@
-name: News Banche · aggiornamento settimanale
+name: News Banche · aggiornamento giornaliero
 
-# Esecuzione automatica ogni venerdì alle 08:00 ora italiana (06:00 UTC).
+# Esecuzione automatica tutti i giorni alle 08:00 ora italiana (06:00 UTC).
 # Esecuzione manuale: Actions → "News Banche" → Run workflow.
 on:
   schedule:
-    - cron: '0 6 * * 5'
+    - cron: '0 6 * * *'
   workflow_dispatch:
     inputs:
       mock:
