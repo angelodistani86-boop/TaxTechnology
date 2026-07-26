@@ -447,3 +447,14 @@ clienti:
     ad: null
     presidente: null
     query_alias: ["Cassa di Risparmio di Fossano", "CR Fossano"]
+
+  # === TRASVERSALI (news di sistema: regolatorie, fiscali, di comparto) ===
+  - slug: sistema
+    nome: "Sistema bancario italiano"
+    fascia: media
+    revisore: null
+    ultimo_esercizio_revisionato: null
+    incarico_fino_al: null
+    ad: null
+    presidente: null
+    query_alias: ["banche italiane", "sistema bancario", "settore bancario"]
