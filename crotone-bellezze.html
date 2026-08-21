@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Crotone · le bellezze della città di Pitagora</title>
+<meta name="description" content="Un ritratto editoriale di Crotone: Magna Grecia, il tempio di Hera Lacinia a Capo Colonna, il castello aragonese di Carlo V, il Museo Archeologico, Le Castella e la cucina del Marchesato.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,0,700;9..144,1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f5; --paper:#ffffff; --ink:#1f1e1c; --ink-soft:#3d3a35; --muted:#6b675e;
+    --line:#e8e4d8; --line-soft:#f1ede1;
+    --accent:#2b5a7a;               /* blu Ionio */
+    --accent-deep:#1a3f5c;
+    --accent-soft:#d8e5f0;
+    --warm:#f5f1e6; --warm-deeper:#ede6d3;
+    --gold:#c8a951;                 /* oro dorico */
+    --gold-soft:#fbf4dc;
+    --terracotta:#cc785c;
+    --terracotta-soft:#f4e4dc;
+    --green:#5a8f6b; --green-soft:#e4ede2;
+    --shadow-sm:0 1px 2px rgba(31,30,28,.04);
+    --shadow-md:0 4px 16px -4px rgba(31,30,28,.08), 0 1px 3px rgba(31,30,28,.04);
+    --shadow-lg:0 24px 60px -20px rgba(31,30,28,.18), 0 6px 14px rgba(31,30,28,.05);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .serif{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.01em}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+  a{color:var(--accent-deep);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+  a:hover{border-bottom-color:var(--accent)}
+
+  nav.top{position:sticky;top:0;z-index:30;backdrop-filter:saturate(1.2) blur(10px);
+    background:rgba(250,249,245,.86);border-bottom:1px solid var(--line)}
+  nav.top .wrap{max-width:1180px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+  nav.top .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:13.5px;color:var(--ink)}
+  nav.top .brand .dot{width:10px;height:10px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,#6ea3c4,var(--accent-deep))}
+  nav.top .brand small{display:block;font-weight:400;font-size:11px;color:var(--muted);letter-spacing:.04em}
+  nav.top ul{display:flex;list-style:none;margin:0;padding:0;gap:22px}
+  nav.top a{font-size:13px;color:var(--ink-soft);font-weight:500;border:none}
+  nav.top a:hover{color:var(--accent-deep)}
+  @media (max-width:680px){nav.top ul{display:none}}
+
+  .hero{position:relative;overflow:hidden;
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(200,169,81,.18), transparent 60%),
+      radial-gradient(700px 400px at -10% 110%, rgba(43,90,122,.14), transparent 60%),
+      linear-gradient(180deg,#fdfcf7 0%,#faf9f5 100%);
+    border-bottom:1px solid var(--line)}
+  .hero .wrap{max-width:1180px;margin:0 auto;padding:78px 22px 92px;display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}
+  @media (max-width:880px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px 56px;gap:36px}}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;text-transform:uppercase;letter-spacing:.18em;
+    color:var(--accent-deep);font-weight:700;background:var(--accent-soft);padding:6px 12px 6px 10px;border-radius:999px;margin-bottom:22px}
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:clamp(40px,5.8vw,68px);line-height:1.02;letter-spacing:-.025em;margin:0 0 18px;color:var(--ink)}
+  .hero h1 em{font-style:italic;color:var(--accent);font-weight:500}
+  .hero .role{font-size:17px;color:var(--ink-soft);margin:0 0 10px;font-weight:500}
+  .hero .firm{font-size:14px;color:var(--muted);margin:0 0 28px;display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .hero .firm .mark{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--accent-deep);
+    background:var(--paper);padding:4px 10px;border-radius:6px;border:1px solid var(--line);font-size:12px;letter-spacing:.04em}
+  .hero .firm .mark::before{content:"";width:4px;height:14px;background:var(--accent);border-radius:1px}
+  .hero p.lead{font-size:17.5px;color:var(--ink-soft);line-height:1.62;max-width:58ch;margin:0 0 32px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;font-size:14px;font-weight:600;border:1px solid transparent;cursor:pointer;transition:transform .12s ease, box-shadow .15s ease}
+  .btn-primary{background:var(--ink);color:#fdfcf7}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 24px -8px rgba(31,30,28,.4)}
+  .btn-ghost{background:transparent;color:var(--ink-soft);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent-deep);background:var(--paper)}
+
+  /* EMBLEM — colonna dorica su fondo Ionio */
+  .emblem-wrap{position:relative;justify-self:center;width:100%;max-width:420px}
+  .emblem{aspect-ratio:4/5;border-radius:24px;overflow:hidden;position:relative;box-shadow:var(--shadow-lg);border:1px solid var(--line);background:#0f2a3f}
+  .emblem svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .emblem .frame{position:absolute;inset:14px;border:1px solid rgba(253,252,247,.18);border-radius:14px;pointer-events:none;z-index:3}
+  .emblem .corner{position:absolute;width:14px;height:14px;border:1.5px solid rgba(253,252,247,.55);z-index:3}
+  .emblem .corner.tl{top:18px;left:18px;border-right:none;border-bottom:none}
+  .emblem .corner.tr{top:18px;right:18px;border-left:none;border-bottom:none}
+  .emblem .corner.bl{bottom:18px;left:18px;border-right:none;border-top:none}
+  .emblem .corner.br{bottom:18px;right:18px;border-left:none;border-top:none}
+  .emblem .monogram{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2}
+  .emblem .monogram .mg{font-family:'Fraunces',serif;font-weight:500;font-style:italic;
+    font-size:clamp(120px,17vw,170px);color:#fdfcf7;letter-spacing:-.04em;line-height:1;
+    text-shadow:0 6px 30px rgba(0,0,0,.5);position:relative}
+  .emblem .monogram .mg::after{content:"";position:absolute;left:50%;bottom:-16px;width:60px;height:1.5px;
+    background:linear-gradient(90deg,transparent,#e9c97a 50%,transparent);transform:translateX(-50%)}
+  .emblem .greek{font-family:'Fraunces',serif;font-weight:400;font-size:15px;color:#e9c97a;letter-spacing:.14em;margin-top:22px;font-style:italic}
+  .emblem .topline{position:absolute;top:30px;left:0;right:0;text-align:center;z-index:3;
+    font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.32em;color:rgba(253,252,247,.7);font-weight:600;text-transform:uppercase}
+  .emblem .signature{position:absolute;bottom:96px;left:0;right:0;text-align:center;z-index:3;
+    font-family:'Fraunces',serif;font-style:italic;font-size:14.5px;color:rgba(253,252,247,.82);letter-spacing:.01em}
+  .emblem .ribbon{position:absolute;left:24px;bottom:24px;right:24px;z-index:3;border-top:1px solid rgba(253,252,247,.2);padding-top:14px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:10px;color:#fdfcf7}
+  .emblem .ribbon b{font-family:'Fraunces',serif;font-size:14px;font-weight:600;display:block}
+  .emblem .ribbon .meta{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:rgba(253,252,247,.62);margin-top:3px}
+  .emblem .ribbon .num{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(253,252,247,.5);letter-spacing:.1em}
+  .emblem-wrap .stamp{position:absolute;top:-14px;right:-14px;background:var(--gold-soft);color:#7a5a16;
+    border:1px solid #e6cd86;border-radius:999px;padding:8px 14px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    box-shadow:var(--shadow-md);transform:rotate(6deg);z-index:4}
+
+  main{max-width:1180px;margin:0 auto;padding:56px 22px 24px;display:grid;grid-template-columns:1.4fr .9fr;gap:34px}
+  @media (max-width:880px){main{grid-template-columns:1fr;padding:40px 22px 24px}}
+
+  section.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;
+    padding:30px 32px;box-shadow:var(--shadow-sm);margin-bottom:22px}
+  section.card h2{font-family:'Fraunces',serif;font-weight:500;font-size:28px;margin:0 0 8px;letter-spacing:-.015em;color:var(--ink)}
+  section.card h2 em{font-style:italic;color:var(--accent)}
+  section.card .kicker{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:var(--accent-deep);font-weight:700;margin-bottom:12px}
+  section.card p{margin:0 0 14px;color:var(--ink-soft)}
+  section.card p:last-child{margin-bottom:0}
+
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+  @media (max-width:520px){.facts{grid-template-columns:1fr}}
+  .fact{background:var(--warm);border:1px solid var(--line-soft);border-radius:14px;padding:14px 16px}
+  .fact .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:700;margin-bottom:6px}
+  .fact .val{font-family:'Fraunces',serif;font-weight:500;font-size:16px;color:var(--ink);letter-spacing:-.01em;line-height:1.3}
+
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .tag{font-size:12.5px;padding:6px 12px;border-radius:999px;background:var(--accent-soft);color:var(--accent-deep);font-weight:600;border:1px solid #b9d0e0}
+  .tag.gold{background:var(--gold-soft);color:#7a5a16;border-color:#e6cd86}
+  .tag.green{background:var(--green-soft);color:#3e6a4d;border-color:#bcd4c2}
+  .tag.terra{background:var(--terracotta-soft);color:#a85a40;border-color:#f0d4c5}
+
+  /* Sei bellezze */
+  .virtues{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+  @media (max-width:520px){.virtues{grid-template-columns:1fr}}
+  .virtue{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px 18px;position:relative;overflow:hidden}
+  .virtue::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--gold))}
+  .virtue .ico{font-family:'Fraunces',serif;font-style:italic;font-size:26px;color:var(--accent);line-height:1;margin-bottom:8px;display:block}
+  .virtue h4{font-family:'Fraunces',serif;font-weight:600;font-size:16.5px;margin:0 0 6px;letter-spacing:-.01em}
+  .virtue p{font-size:13.5px;color:var(--muted);margin:0;line-height:1.55}
+
+  blockquote{margin:18px 0 0;padding:18px 22px;border-left:3px solid var(--accent);background:var(--warm);border-radius:0 14px 14px 0;
+    font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:17px;line-height:1.5}
+  blockquote cite{display:block;margin-top:8px;font-style:normal;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.06em;color:var(--muted);font-weight:500}
+
+  /* Timeline */
+  .timeline{position:relative;padding-left:22px;margin-top:14px}
+  .timeline::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:1.5px;background:linear-gradient(180deg,var(--accent),var(--gold))}
+  .step{position:relative;padding:0 0 18px 14px}
+  .step::before{content:"";position:absolute;left:-22px;top:5px;width:14px;height:14px;border-radius:50%;background:var(--paper);border:2.5px solid var(--accent)}
+  .step .y{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--accent-deep);font-weight:600}
+  .step .t{font-family:'Fraunces',serif;font-weight:500;font-size:16px;color:var(--ink);margin:2px 0}
+  .step .d{font-size:13.5px;color:var(--muted)}
+
+  /* Aside */
+  aside .card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:24px 24px;box-shadow:var(--shadow-sm);margin-bottom:22px}
+  aside .card h3{font-family:'Fraunces',serif;font-weight:500;font-size:20px;margin:0 0 14px;letter-spacing:-.01em}
+  aside .card h3 em{font-style:italic;color:var(--accent)}
+
+  .ode-box{background:linear-gradient(140deg,#0f2a3f 0%,#1a3f5c 100%);color:#fdfcf7;border:none}
+  .ode-box h3{color:#fdfcf7}
+  .ode-box .kicker{color:#e9c97a;font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:11px;display:block;margin-bottom:10px}
+  .ode-box p{color:rgba(253,252,247,.85);font-size:14px;line-height:1.62;margin:0 0 12px}
+  .ode-box p:last-child{margin:0}
+  .ode-box ul{list-style:none;padding:0;margin:14px 0 0}
+  .ode-box ul li{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px dashed rgba(253,252,247,.14);font-size:13.5px}
+  .ode-box ul li:last-child{border-bottom:none}
+  .ode-box ul li span:first-child{color:rgba(253,252,247,.62);font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+  .ode-box ul li span:last-child{font-family:'Fraunces',serif;font-weight:500}
+
+  /* Info pratiche */
+  .info-list{margin:0;padding:0;list-style:none}
+  .info-list li{padding:10px 0;border-bottom:1px dashed var(--line-soft);font-size:13.5px;color:var(--ink-soft);display:flex;gap:10px;align-items:flex-start}
+  .info-list li:last-child{border-bottom:none}
+  .info-list li::before{content:"·";color:var(--accent-deep);font-weight:700;font-size:22px;line-height:1;flex-shrink:0;margin-top:-4px}
+  .info-list b{color:var(--ink);font-family:'Fraunces',serif;font-weight:500;font-size:14.5px;letter-spacing:-.01em}
+
+  footer{padding:36px 22px 60px;text-align:center;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);margin-top:30px;background:#fdfcf7}
+  footer .row{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer a{color:var(--ink-soft)}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <div class="brand">
+      <span class="dot" aria-hidden="true"></span>
+      <div>Crotone<br><small>Ritratto for fun · luglio 2026</small></div>
+    </div>
+    <ul>
+      <li><a href="index.html">← Home</a></li>
+      <li><a href="#perche">Perché</a></li>
+      <li><a href="#bellezze">Bellezze</a></li>
+      <li><a href="#storia">Storia</a></li>
+      <li><a href="#pratiche">Info</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Magna Grecia · un ritratto for fun</span>
+      <h1><em>Crotone</em>,<br>la città di Pitagora</h1>
+      <p class="role">Kroton, colonia achea sul Mar Ionio — fondata nel 710 a.C.</p>
+      <p class="firm">terra di <span class="mark">filosofi, atleti e tempi dorici</span></p>
+      <p class="lead">
+        Ci sono città che si visitano; e città che si <em>ricordano</em>.
+        Crotone è la seconda specie: una di quelle che aspettano nel silenzio
+        dei loro venti e delle loro colonne solitarie, e ti chiedono soltanto
+        di guardarle bene. Questa è una piccola pagina, ammirata e ammaliata,
+        per raccontare le sue bellezze.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#perche">Scopri perché →</a>
+        <a class="btn btn-ghost" href="index.html">Torna alla home ↗</a>
+      </div>
+    </div>
+
+    <div class="emblem-wrap">
+      <div class="stamp">Kroton · 710 a.C.</div>
+      <div class="emblem" role="img" aria-label="Emblema editoriale per Crotone">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <radialGradient id="bg" cx="35%" cy="20%" r="120%">
+              <stop offset="0%" stop-color="#7fb0d0"/>
+              <stop offset="30%" stop-color="#2b5a7a"/>
+              <stop offset="65%" stop-color="#0f2a3f"/>
+              <stop offset="100%" stop-color="#050f1a"/>
+            </radialGradient>
+            <linearGradient id="vignette" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="70%" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="100%" stop-color="rgba(0,0,0,.55)"/>
+            </linearGradient>
+            <pattern id="grain" patternUnits="userSpaceOnUse" width="3" height="3">
+              <rect width="3" height="3" fill="rgba(255,255,255,0)"/>
+              <circle cx="1" cy="1" r=".4" fill="rgba(253,252,247,.07)"/>
+              <circle cx="2.2" cy="2.2" r=".3" fill="rgba(0,0,0,.06)"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="500" fill="url(#bg)"/>
+          <!-- linea di orizzonte -->
+          <line x1="0" y1="380" x2="400" y2="380" stroke="rgba(253,252,247,.15)" stroke-width="1"/>
+          <!-- colonna dorica solitaria (Capo Colonna) -->
+          <g opacity=".85" fill="#e9c97a">
+            <rect x="192" y="180" width="16" height="200" rx="1"/>
+            <rect x="185" y="175" width="30" height="8" rx="1"/>
+            <rect x="180" y="380" width="40" height="6" rx="1"/>
+          </g>
+          <!-- scanalature colonna -->
+          <g opacity=".25" stroke="#0f2a3f" stroke-width="1">
+            <line x1="196" y1="183" x2="196" y2="378"/>
+            <line x1="200" y1="183" x2="200" y2="378"/>
+            <line x1="204" y1="183" x2="204" y2="378"/>
+          </g>
+          <!-- onde stilizzate del mare Ionio -->
+          <g opacity=".2" stroke="#e9c97a" stroke-width="1" fill="none">
+            <path d="M0 420 Q 40 415, 80 420 T 160 420 T 240 420 T 320 420 T 400 420"/>
+            <path d="M0 440 Q 40 435, 80 440 T 160 440 T 240 440 T 320 440 T 400 440"/>
+          </g>
+          <rect width="400" height="500" fill="url(#vignette)"/>
+          <rect width="400" height="500" fill="url(#grain)"/>
+        </svg>
+        <div class="topline">Kroton · Magna Grecia</div>
+        <div class="monogram">
+          <span class="mg">K</span>
+          <span class="greek">κρότων</span>
+        </div>
+        <div class="signature">— la città delle colonne solitarie —</div>
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+        <div class="frame"></div>
+        <div class="ribbon">
+          <div>
+            <b>Crotone</b>
+            <div class="meta">Calabria · Mar Ionio</div>
+          </div>
+          <div class="num">EST · DCCX a.C.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div>
+
+    <!-- PERCHÉ -->
+    <section class="card" id="perche">
+      <span class="kicker">Perché parlarne</span>
+      <h2>Una città che ha inventato <em>mezza cultura occidentale</em></h2>
+      <p>
+        Nel 710 a.C. un gruppo di coloni achei sbarca su un promontorio del Mar
+        Ionio, guidato dall'oracolo di Delfi, e fonda <strong>Kroton</strong>.
+        Nei tre secoli successivi quella città diventa una delle più potenti
+        della Magna Grecia: rivale di Sibari, patria di
+        <strong>Pitagora</strong> e della sua scuola, culla di
+        <strong>Milone</strong> — sei volte campione olimpico, l'atleta più
+        celebrato dell'antichità.
+      </p>
+      <p>
+        Oggi Crotone è una città di provincia calabrese, con circa 60 mila
+        abitanti, che porta addosso la sua storia come un mantello un po'
+        troppo pesante per le sue spalle. Ma proprio in quell'apparente
+        modestia sta la sua bellezza: la <em>discrezione</em> di un luogo che
+        non deve dimostrare niente perché ha già dimostrato tutto.
+      </p>
+
+      <div class="facts">
+        <div class="fact"><div class="lbl">Fondazione</div><div class="val">710 a.C. · coloni achei</div></div>
+        <div class="fact"><div class="lbl">Regione</div><div class="val">Calabria · Mar Ionio</div></div>
+        <div class="fact"><div class="lbl">Provincia</div><div class="val">Crotone (dal 1996)</div></div>
+        <div class="fact"><div class="lbl">Abitanti</div><div class="val">~ 60.000</div></div>
+      </div>
+
+      <div class="tags">
+        <span class="tag">Magna Grecia</span>
+        <span class="tag gold">Patrimonio archeologico</span>
+        <span class="tag terra">Mare Ionio</span>
+        <span class="tag green">Cucina calabrese</span>
+        <span class="tag">Pitagora</span>
+      </div>
+    </section>
+
+    <!-- BELLEZZE -->
+    <section class="card" id="bellezze">
+      <span class="kicker">Sei cose da vedere</span>
+      <h2>Le sue <em>bellezze</em> imperdibili</h2>
+      <p>
+        Non è la lista di TripAdvisor: è un piccolo itinerario ragionato per
+        chi arriva a Crotone e vuole capire cosa cercare — e cosa mangiare,
+        già che ci siamo.
+      </p>
+
+      <div class="virtues">
+        <div class="virtue">
+          <span class="ico">α</span>
+          <h4>Capo Colonna e il tempio di Hera Lacinia</h4>
+          <p>Una sola colonna dorica rimasta in piedi, di fronte al mare, dove
+          sorgeva uno dei santuari più importanti del Mediterraneo antico.
+          Andarci al tramonto è quasi un obbligo morale.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">β</span>
+          <h4>Castello di Carlo V</h4>
+          <p>Fortezza aragonese del XVI secolo che domina il centro storico.
+          All'interno il Museo Civico e vedute mozzafiato sul porto vecchio
+          e sul lungomare.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">γ</span>
+          <h4>Il centro storico</h4>
+          <p>Vicoli stretti, palazzi nobiliari, la Cattedrale con la Madonna
+          di Capo Colonna. Da fare a piedi, la sera, quando la luce si fa
+          bassa e il caldo cala.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">δ</span>
+          <h4>Museo Archeologico Nazionale</h4>
+          <p>Custodisce il <em>Tesoro di Hera</em>: la Corona di Hera in oro
+          finissimo trovata a Capo Colonna nel 1987. Piccolo museo, ma con
+          reperti che lasciano senza parole.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">ε</span>
+          <h4>Le Castella (Isola di Capo Rizzuto)</h4>
+          <p>Fortezza aragonese su un isolotto collegato alla terraferma da
+          una lingua di sabbia. Uno dei borghi marini più fotografati del
+          Sud Italia. A 20 minuti d'auto da Crotone.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">ζ</span>
+          <h4>La cucina del Marchesato</h4>
+          <p>'Nduja, sardella cruciana, pipi e patati, pesce spada del
+          Ionio, pecorino crotonese DOP. E il vino Cirò, il rosso più
+          antico d'Italia — vinificato ininterrottamente dai tempi greci.</p>
+        </div>
+      </div>
+
+      <blockquote>
+        «Sappiate anzitutto rispettare voi stessi.»
+        <cite>— Pitagora di Samo, che a Crotone visse e insegnò per circa vent'anni</cite>
+      </blockquote>
+    </section>
+
+    <!-- STORIA -->
+    <section class="card" id="storia">
+      <span class="kicker">In poche tappe</span>
+      <h2>Duemilasettecento anni in una <em>timeline</em></h2>
+      <p>
+        Una città che ha attraversato tutte le stagioni del Mediterraneo,
+        senza mai perdere il proprio nome.
+      </p>
+
+      <div class="timeline">
+        <div class="step">
+          <div class="y">710 a.C.</div>
+          <div class="t">Fondazione di Kroton</div>
+          <div class="d">Coloni achei guidati dall'ecista Miscello fondano
+            la città su indicazione dell'oracolo di Delfi. Rapida crescita
+            economica e militare.</div>
+        </div>
+        <div class="step">
+          <div class="y">VI sec. a.C.</div>
+          <div class="t">Pitagora e la scuola</div>
+          <div class="d">Pitagora arriva da Samo intorno al 530 a.C. e
+            fonda la sua scuola filosofico-scientifica. Kroton diventa
+            capitale intellettuale della Magna Grecia.</div>
+        </div>
+        <div class="step">
+          <div class="y">510 a.C.</div>
+          <div class="t">La distruzione di Sibari</div>
+          <div class="d">Milone di Crotone guida le truppe che sconfiggono
+            la potente Sibari. Kroton raggiunge l'apogeo territoriale ed
+            economico.</div>
+        </div>
+        <div class="step">
+          <div class="y">III sec. a.C.</div>
+          <div class="t">Il dominio romano</div>
+          <div class="d">Dopo la guerra contro Pirro e le guerre puniche,
+            la città entra nell'orbita di Roma. Comincia un lungo declino
+            che dura fino al medioevo.</div>
+        </div>
+        <div class="step">
+          <div class="y">1541</div>
+          <div class="t">Il castello di Carlo V</div>
+          <div class="d">L'imperatore Carlo V fa rafforzare il castello
+            aragonese per difendere la città dalle incursioni saracene.
+            È l'edificio che vediamo ancora oggi.</div>
+        </div>
+        <div class="step">
+          <div class="y">1928–2001</div>
+          <div class="t">Da Cotrone a Crotone (e la Pertusola)</div>
+          <div class="d">Con il fascismo la città riprende il suo nome
+            antico. Nel Novecento diventa un polo industriale con lo
+            stabilimento Pertusola (chiusura 2001), lasciando un'eredità
+            ambientale complessa.</div>
+        </div>
+        <div class="step">
+          <div class="y">Oggi</div>
+          <div class="t">Una città che sta ricominciando</div>
+          <div class="d">Riqualificazione del waterfront, valorizzazione
+            del patrimonio archeologico, turismo culturale in crescita.
+            La direzione è giusta.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CURIOSITÀ -->
+    <section class="card" id="curiosita">
+      <span class="kicker">Cose che (forse) non sapevi</span>
+      <h2>Cinque <em>curiosità</em> pitagoriche</h2>
+
+      <ul class="info-list" style="margin-top:14px">
+        <li><div><b>Il teorema che porta un altro nome.</b><br>
+          Il celebre "teorema di Pitagora" era in realtà già noto ai
+          babilonesi 1.000 anni prima. La scuola crotoniate lo formalizzò
+          e ne diede la prima dimostrazione geometrica rigorosa.</div></li>
+        <li><div><b>Milone e il vitello.</b><br>
+          La leggenda vuole che Milone di Crotone si allenasse portando in
+          spalla un vitello ogni giorno, dalla nascita all'età adulta:
+          quando l'animale era diventato un toro, lui era ancora capace di
+          sollevarlo. Prima forma documentata di "progressive overload".</div></li>
+        <li><div><b>La scuola dei "sentiti".</b><br>
+          I discepoli pitagorici erano divisi in due categorie:
+          <em>mathematikoi</em> (che potevano ascoltare le lezioni e
+          intervenire) e <em>akousmatikoi</em> (che potevano solo
+          ascoltare). Il concetto di "corso preparatorio" nasce qui.</div></li>
+        <li><div><b>La Corona di Hera.</b><br>
+          Nel 1987 fu ritrovata a Capo Colonna una corona d'oro finissima
+          databile al V secolo a.C. — probabilmente offerta votiva al
+          santuario di Hera Lacinia. Custodita al Museo Archeologico
+          della città.</div></li>
+        <li><div><b>Il Cirò e le Olimpiadi.</b><br>
+          Il vino Cirò veniva servito ai vincitori delle Olimpiadi
+          antiche di Olimpia. È probabilmente il vino con la tradizione
+          produttiva più antica d'Europa ancora in attività.</div></li>
+      </ul>
+    </section>
+  </div>
+
+  <aside>
+    <div class="card ode-box">
+      <span class="kicker">Piccolo elogio</span>
+      <h3>Una città <em style="color:#e9c97a">che aspetta</em></h3>
+      <p>
+        Crotone non è una città che si mette in vetrina. Fa la sua vita
+        di provincia, coltiva i suoi ritmi, e lascia che siano i suoi
+        pochi visitatori a fare il lavoro di sorpresa.
+      </p>
+      <p>
+        Chi va con l'idea di trovarsi davanti a Taormina resta deluso.
+        Chi va con l'idea di trovarsi davanti a un pezzo di Grecia
+        antica, un pezzo di Aragona, un pezzo di Mediterraneo profondo
+        — quello torna a casa con qualcosa di importante.
+      </p>
+      <ul>
+        <li><span>Nome antico</span><span>Kroton</span></li>
+        <li><span>Regione</span><span>Calabria</span></li>
+        <li><span>Mare</span><span>Ionio</span></li>
+        <li><span>Età</span><span>~2.740 anni</span></li>
+        <li><span>Anima</span><span>Magno-greca</span></li>
+      </ul>
+    </div>
+
+    <div class="card" id="pratiche">
+      <h3>Info <em>pratiche</em></h3>
+      <ul class="info-list">
+        <li><div><b>Come arrivare.</b><br>Aeroporto di Crotone Sant'Anna
+          (voli nazionali stagionali) o Lamezia Terme (2h di auto). In
+          treno: linea Ionica Reggio-Taranto, stazione Crotone centro.</div></li>
+        <li><div><b>Quando andare.</b><br>Maggio-giugno o settembre-ottobre:
+          mare caldo, poca gente, prezzi umani. Agosto: sole vero,
+          molto affollato.</div></li>
+        <li><div><b>Dove dormire.</b><br>Nel centro storico o sul lungomare
+          per l'atmosfera città; a Le Castella o Isola Capo Rizzuto per
+          la vacanza balneare.</div></li>
+        <li><div><b>Cosa mangiare.</b><br>Pesce spada alla crotonese,
+          pipi e patati, sardella cruciana, formaggi del Marchesato,
+          Cirò classico. Trattorie del centro: cercate quelle senza menu
+          in inglese.</div></li>
+        <li><div><b>Un giorno in più?</b><br>La Riserva delle Dune di
+          Sovereto, il Marchesato interno con Santa Severina, il Parco
+          Nazionale della Sila a un'ora e mezza di macchina.</div></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Perché questa <em>pagina</em></h3>
+      <p style="font-size:13.5px">
+        Il sito ha una sezione "For fun" dove ospito piccoli omaggi
+        editoriali a persone, banche, quartieri, città. Crotone c'entra
+        con niente del mio lavoro: c'entra con qualcosa di più
+        importante, e cioè il fatto che è una città bellissima e
+        troppo poco raccontata.
+      </p>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <div class="row">
+    <div>© 2026 · angelodistani.com</div>
+    <div>For fun · ritratto editoriale · Crotone, luglio 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
