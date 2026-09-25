@@ -324,61 +324,7 @@
           <p class="err" id="err">Password errata.</p>
         </div>
 
-        <!-- Lista mostrata con la password "condivisa" -->
-        <div class="reserved-list" id="listShared">
-          <p class="listtag">Strumenti fiscali</p>
-          <ul>
-            <li><a href="acconto-imposte-dirette-2026.html">
-              Acconto imposte dirette 2026
-              <span class="desc">Acconti IRES, LdB 2025–2026: meccanismo di calcolo del saldo 2025 e dell'acconto 2026 con esempio numerico modificabile</span>
-            </a></li>
-            <li><a href="ravvedimento-operoso.html">
-              Ravvedimento operoso
-              <span class="desc">Calcolatore di sanzioni ridotte e interessi legali post-riforma D.Lgs. 87/2024: scaglioni, esempi e codici tributo</span>
-            </a></li>
-            <li><a href="smart-tax-suite.html">
-              Smart Tax Suite
-              <span class="desc">Dashboard PwC TLS Tax Technology — vista integrata su strumenti, KPI e processi della pratica tax</span>
-            </a></li>
-            <li><a href="cnm-dashboard.html">
-              Dashboard Dichiarazione CNM
-              <span class="desc">Consolidato Nazionale Mondiale — quadro di sintesi del consolidamento fiscale</span>
-            </a></li>
-          </ul>
-          <p class="listtag" style="margin-top:18px;">News banche</p>
-          <ul>
-            <li><a href="news-banche.html">
-              News banche · aggiornamento settimanale
-              <span class="desc">Dashboard in ordine cronologico decrescente. Click sul nome banca per anagrafica (revisore, governance, dipendenti, totale attivo, utile). Rotazione automatica deep dive su 4 banche/settimana.</span>
-            </a></li>
-            <li><a href="excel/banking-news.xlsx">
-              Foglio Excel news banche
-              <span class="desc">Tabella editabile (News + Clienti + Vocabolari) — scarica, aggiorna e ripubblica</span>
-            </a></li>
-            <li><a href="PIANO-BANKING-6M.md">
-              Piano rilascio 6 mesi
-              <span class="desc">Roadmap fasi 1-6: infrastruttura, deep dive, fonti regionali, arricchimento anagrafiche, KPI agente</span>
-            </a></li>
-          </ul>
-          <p class="listtag" style="margin-top:18px;">Ritratti editoriali</p>
-          <ul>
-            <li><a href="banca-csr.html">
-              Quanto è stupenda la Banca CSR
-              <span class="desc">Omaggio editoriale alla Cassa di Sovvenzioni e Risparmio fra il Personale della Banca d'Italia</span>
-            </a></li>
-            <li><a href="sparkasse-bolzano.html">
-              Cassa di Risparmio di Bolzano — Sparkasse
-              <span class="desc">Ritratto editoriale della più antica e indipendente banca dell'Alto Adige — dal 1854, bilingue, radicata nel territorio</span>
-            </a></li>
-            <li><a href="crotone-bellezze.html">
-              Crotone — le bellezze della città di Pitagora
-              <span class="desc">Ritratto editoriale della città calabrese fondata nel 710 a.C.: Capo Colonna, castello di Carlo V, Museo Archeologico, Le Castella, cucina del Marchesato</span>
-            </a></li>
-          </ul>
-          <button type="button" class="signout" onclick="signOut()">Esci</button>
-        </div>
-
-        <!-- Lista mostrata con la TUA password (tue + condivise) -->
+        <!-- Lista mostrata dopo autenticazione (una sola, unificata) -->
         <div class="reserved-list" id="listOwner">
           <p class="listtag">Le tue pagine</p>
           <ul>
@@ -467,9 +413,9 @@
     panel.style.maxHeight = open ? panel.scrollHeight+'px' : '0';
   }
 
-  // --- Password lato client (NON sicura). ---
-  const PWD_SHARED="jointhetaxrevolution"; // pagine riservate condivise
-  const PWD_OWNER ="angelo44";             // tue pagine + condivise
+  // --- Password lato client (NON sicura). Entrambe aprono la stessa lista unificata. ---
+  const PWD_SHARED="jointhetaxrevolution";
+  const PWD_OWNER ="angelo44";
 
   function normalize(v){ return (v||'').trim().toLowerCase().replace(/\s+/g,''); }
 
@@ -479,8 +425,7 @@
     const err=document.getElementById('err');
     let shown=null;
 
-    if(v===PWD_OWNER){ shown=document.getElementById('listOwner'); }
-    else if(v===PWD_SHARED){ shown=document.getElementById('listShared'); }
+    if(v===PWD_OWNER || v===PWD_SHARED){ shown=document.getElementById('listOwner'); }
 
     if(shown){
       gate.style.display='none';
@@ -495,7 +440,7 @@
 
   function signOut(){
     document.getElementById('pwd').value='';
-    document.getElementById('listShared').style.display='none';
+    document.getElementById('listOwner').style.display='none';
     document.getElementById('listOwner').style.display='none';
     document.getElementById('err').style.display='none';
     document.getElementById('gate').style.display='block';
