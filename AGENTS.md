@@ -368,7 +368,8 @@ Area riservata · gate password
 ├── listShared (pwd: jointhetaxrevolution)  — vuoto al momento
 └── listOwner  (pwd: angelo44)
     ├── Vito Pennetta — un amico in Zambon
-    └── Francesco Trivisano — un amico in Deloitte
+    ├── Francesco Trivisano — un amico in Deloitte
+    └── Antonello Scrimieri — un tax professional in Pirola
 ```
 
 Aggiornare questa sezione quando si aggiunge/sposta una pagina.

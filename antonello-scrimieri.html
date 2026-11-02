@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Antonello Scrimieri · ritratto for fun</title>
+<meta name="description" content="Un piccolo omaggio editoriale ad Antonello Scrimieri, Senior Associate di Pirola Pennuto Zei &amp; Associati: fiscalità d'impresa, gruppi nazionali e multinazionali, riorganizzazioni societarie.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,0,700;9..144,1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f5; --paper:#ffffff; --ink:#1f1e1c; --ink-soft:#3d3a35; --muted:#6b675e;
+    --line:#e8e4d8; --line-soft:#f1ede1;
+    --accent:#cc785c; --accent-deep:#a85a40; --accent-soft:#f4e4dc;
+    --warm:#f5f1e6; --warm-deeper:#ede6d3;
+    --gold:#c8a951; --gold-soft:#fbf4dc;
+    --green:#2f5d8a;
+    --green-deep:#1b3a5c;
+    --green-soft:#e1e9f2;
+    --shadow-sm:0 1px 2px rgba(31,30,28,.04);
+    --shadow-md:0 4px 16px -4px rgba(31,30,28,.08), 0 1px 3px rgba(31,30,28,.04);
+    --shadow-lg:0 24px 60px -20px rgba(31,30,28,.18), 0 6px 14px rgba(31,30,28,.05);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .serif{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.01em}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+  a{color:var(--green-deep);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+  a:hover{border-bottom-color:var(--green)}
+
+  nav.top{position:sticky;top:0;z-index:30;backdrop-filter:saturate(1.2) blur(10px);
+    background:rgba(250,249,245,.86);border-bottom:1px solid var(--line)}
+  nav.top .wrap{max-width:1100px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+  nav.top .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:13.5px;color:var(--ink)}
+  nav.top .brand .dot{width:10px;height:10px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,#7fa3c9,var(--green-deep))}
+  nav.top .brand small{display:block;font-weight:400;font-size:11px;color:var(--muted);letter-spacing:.04em}
+  nav.top ul{display:flex;list-style:none;margin:0;padding:0;gap:22px}
+  nav.top a{font-size:13px;color:var(--ink-soft);font-weight:500;border:none}
+  nav.top a:hover{color:var(--green-deep)}
+  @media (max-width:680px){nav.top ul{display:none}}
+
+  .hero{position:relative;overflow:hidden;
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(47,93,138,.18), transparent 60%),
+      radial-gradient(700px 400px at -10% 110%, rgba(200,169,81,.16), transparent 60%),
+      linear-gradient(180deg,#fdfcf7 0%,#faf9f5 100%);
+    border-bottom:1px solid var(--line)}
+  .hero .wrap{max-width:1100px;margin:0 auto;padding:64px 22px 76px;
+    display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}
+  @media (max-width:880px){.hero .wrap{grid-template-columns:1fr;padding:44px 22px 52px;gap:36px}}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11.5px;
+    text-transform:uppercase;letter-spacing:.18em;color:var(--green-deep);font-weight:700;
+    background:var(--green-soft);padding:6px 12px 6px 10px;border-radius:999px;margin-bottom:22px}
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green)}
+  .hero h1{font-family:'Fraunces',Georgia,serif;font-weight:500;
+    font-size:clamp(40px,5.8vw,64px);line-height:1.02;letter-spacing:-.025em;margin:0 0 14px;color:var(--ink)}
+  .hero h1 em{font-style:italic;color:var(--green);font-weight:500}
+  .hero .role{font-size:17px;color:var(--ink-soft);margin:0 0 10px;font-weight:500}
+  .hero .firm{font-size:14px;color:var(--muted);margin:0 0 26px;display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .hero .firm .mark{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--green-deep);
+    background:var(--paper);padding:4px 10px;border-radius:6px;border:1px solid var(--line);font-size:12px;letter-spacing:.04em}
+  .hero .firm .mark::before{content:"";width:4px;height:14px;background:var(--green);border-radius:1px}
+  .hero p.lead{font-size:17px;color:var(--ink-soft);line-height:1.6;max-width:58ch;margin:0 0 28px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;
+    font-size:14px;font-weight:600;border:1px solid transparent;cursor:pointer;transition:transform .12s ease, box-shadow .15s ease}
+  .btn-primary{background:var(--ink);color:#fdfcf7}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 24px -8px rgba(31,30,28,.4)}
+  .btn-ghost{background:transparent;color:var(--ink-soft);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--green);color:var(--green-deep);background:var(--paper)}
+
+  /* emblem */
+  .emblem-wrap{position:relative;justify-self:center;width:100%;max-width:380px}
+  .emblem{aspect-ratio:4/5;border-radius:24px;overflow:hidden;position:relative;
+    box-shadow:var(--shadow-lg);border:1px solid var(--line);background:#1b3a5c}
+  .emblem svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .emblem .frame{position:absolute;inset:14px;border:1px solid rgba(253,252,247,.2);border-radius:14px;pointer-events:none;z-index:3}
+  .emblem .corner{position:absolute;width:14px;height:14px;border:1.5px solid rgba(253,252,247,.55);z-index:3}
+  .emblem .corner.tl{top:18px;left:18px;border-right:none;border-bottom:none}
+  .emblem .corner.tr{top:18px;right:18px;border-left:none;border-bottom:none}
+  .emblem .corner.bl{bottom:18px;left:18px;border-right:none;border-top:none}
+  .emblem .corner.br{bottom:18px;right:18px;border-left:none;border-top:none}
+  .emblem .monogram{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2}
+  .emblem .monogram .mg{font-family:'Fraunces',serif;font-weight:500;font-style:italic;
+    font-size:clamp(110px,16vw,150px);color:#fdfcf7;letter-spacing:-.03em;line-height:1;
+    text-shadow:0 6px 30px rgba(0,0,0,.45)}
+  .emblem .topline{position:absolute;top:30px;left:0;right:0;text-align:center;z-index:3;
+    font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.32em;color:rgba(253,252,247,.72);font-weight:600;text-transform:uppercase}
+  .emblem .signature{position:absolute;bottom:90px;left:0;right:0;text-align:center;z-index:3;
+    font-family:'Fraunces',serif;font-style:italic;font-size:14px;color:rgba(253,252,247,.82)}
+  .emblem .ribbon{position:absolute;left:24px;bottom:24px;right:24px;z-index:3;
+    border-top:1px solid rgba(253,252,247,.2);padding-top:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:10px;color:#fdfcf7}
+  .emblem .ribbon b{font-family:'Fraunces',serif;font-size:14px;font-weight:600;display:block}
+  .emblem .ribbon .meta{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:rgba(253,252,247,.6);margin-top:3px}
+  .emblem .ribbon .num{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(253,252,247,.55);letter-spacing:.1em}
+  .emblem-wrap .stamp{position:absolute;top:-14px;right:-14px;background:var(--gold-soft);color:#7a6320;
+    border:1px solid #e6d390;border-radius:999px;padding:8px 14px;font-size:11px;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;box-shadow:var(--shadow-md);transform:rotate(6deg);z-index:4}
+
+  /* main */
+  main{max-width:1100px;margin:0 auto;padding:50px 22px 24px;display:grid;grid-template-columns:1.4fr .9fr;gap:30px}
+  @media (max-width:880px){main{grid-template-columns:1fr;padding:36px 22px 24px}}
+
+  section.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;
+    padding:28px 30px;box-shadow:var(--shadow-sm);margin-bottom:20px}
+  section.card h2{font-family:'Fraunces',serif;font-weight:500;font-size:26px;
+    margin:0 0 8px;letter-spacing:-.015em;color:var(--ink)}
+  section.card h2 em{font-style:italic;color:var(--green)}
+  section.card .kicker{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.18em;
+    color:var(--green-deep);font-weight:700;margin-bottom:12px}
+  section.card p{margin:0 0 12px;color:var(--ink-soft)}
+  section.card p:last-child{margin-bottom:0}
+
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+  @media (max-width:520px){.facts{grid-template-columns:1fr}}
+  .fact{background:var(--warm);border:1px solid var(--line-soft);border-radius:12px;padding:12px 14px}
+  .fact .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:700;margin-bottom:5px}
+  .fact .val{font-family:'Fraunces',serif;font-weight:500;font-size:15px;color:var(--ink);letter-spacing:-.01em;line-height:1.3}
+
+  .virtues{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+  @media (max-width:520px){.virtues{grid-template-columns:1fr}}
+  .virtue{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 16px;position:relative;overflow:hidden}
+  .virtue::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),var(--gold))}
+  .virtue .ico{font-family:'Fraunces',serif;font-style:italic;font-size:26px;color:var(--green);line-height:1;margin-bottom:6px;display:block}
+  .virtue h4{font-family:'Fraunces',serif;font-weight:600;font-size:15.5px;margin:0 0 4px}
+  .virtue p{font-size:13px;color:var(--muted);margin:0;line-height:1.5}
+
+  blockquote{margin:16px 0 0;padding:16px 20px;border-left:3px solid var(--green);
+    background:var(--green-soft);border-radius:0 14px 14px 0;font-family:'Fraunces',serif;
+    font-style:italic;color:var(--ink-soft);font-size:16px;line-height:1.5}
+  blockquote cite{display:block;margin-top:6px;font-style:normal;font-family:'Inter',sans-serif;font-size:11.5px;letter-spacing:.06em;color:var(--muted);font-weight:500}
+
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .tag{font-size:12px;padding:5px 11px;border-radius:999px;background:var(--green-soft);
+    color:var(--green-deep);font-weight:600;border:1px solid #c6d5e6}
+  .tag.gold{background:var(--gold-soft);color:#7a6320;border-color:#e6d390}
+  .tag.warm{background:var(--accent-soft);color:var(--accent-deep);border-color:#f0d4c5}
+
+  /* aside */
+  aside .card{background:var(--paper);border:1px solid var(--line);border-radius:20px;
+    padding:22px 22px;box-shadow:var(--shadow-sm);margin-bottom:20px}
+  aside .card h3{font-family:'Fraunces',serif;font-weight:500;font-size:19px;margin:0 0 12px;letter-spacing:-.01em}
+  aside .card h3 em{font-style:italic;color:var(--green)}
+
+  aside .card.ode-box{background:linear-gradient(140deg,#1b3a5c 0%,#2a5480 100%);color:#fdfcf7;border:none}
+  .ode-box h3{color:#fdfcf7}
+  .ode-box .kicker{color:#e9d99a;font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:11px;display:block;margin-bottom:10px}
+  .ode-box p{color:rgba(253,252,247,.84);font-size:14px;line-height:1.6;margin:0 0 10px}
+  .ode-box p:last-child{margin:0}
+  .ode-box ul{list-style:none;padding:0;margin:14px 0 0}
+  .ode-box ul li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px dashed rgba(253,252,247,.14);font-size:13px}
+  .ode-box ul li:last-child{border-bottom:none}
+  .ode-box ul li span:first-child{color:rgba(253,252,247,.62);font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+  .ode-box ul li span:last-child{font-family:'Fraunces',serif;font-weight:500}
+
+  footer{padding:34px 22px 58px;text-align:center;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);margin-top:24px;background:#fdfcf7}
+  footer .row{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer a{color:var(--ink-soft)}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <div class="brand">
+      <span class="dot" aria-hidden="true"></span>
+      <div>Un tax professional in Pirola<br><small>For fun · ritratto novembre 2026</small></div>
+    </div>
+    <ul>
+      <li><a href="index.html">&larr; Home</a></li>
+      <li><a href="#perche">Il professionista</a></li>
+      <li><a href="#pirola">Lo studio</a></li>
+      <li><a href="#tratti">Tratti</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Ritratto for fun &middot; fiscalit&agrave; d'impresa</span>
+      <h1><em>Antonello</em><br>Scrimieri</h1>
+      <p class="role">Senior Associate &mdash; Pirola Pennuto Zei &amp; Associati</p>
+      <p class="firm">dottore commercialista dal 2012 &middot; <span class="mark">tax &amp; corporate</span></p>
+      <p class="lead">
+        C'&egrave; un mestiere che non finisce mai sui giornali: far quadrare
+        il fisco dei grandi gruppi, una riorganizzazione alla volta.
+        Antonello lo fa in Pirola Pennuto Zei, uno degli studi tributari
+        indipendenti di riferimento in Italia. Questa &egrave; una pagina
+        leggera, dichiaratamente affettuosa, per dirgli una cosa semplice:
+        <em>bel lavoro</em>.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#perche">Vai al ritratto &rarr;</a>
+        <a class="btn btn-ghost" href="index.html">Torna alla home &nearr;</a>
+      </div>
+    </div>
+
+    <div class="emblem-wrap">
+      <div class="stamp">Per Antonello</div>
+      <div class="emblem" role="img" aria-label="Emblema editoriale per Antonello Scrimieri">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <radialGradient id="bg-a" cx="35%" cy="20%" r="120%">
+              <stop offset="0%" stop-color="#a9c2de"/>
+              <stop offset="30%" stop-color="#2f5d8a"/>
+              <stop offset="65%" stop-color="#1b3a5c"/>
+              <stop offset="100%" stop-color="#0b1a2b"/>
+            </radialGradient>
+            <linearGradient id="vignette-a" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="70%" stop-color="rgba(0,0,0,0)"/>
+              <stop offset="100%" stop-color="rgba(0,0,0,.55)"/>
+            </linearGradient>
+            <pattern id="grain-a" patternUnits="userSpaceOnUse" width="3" height="3">
+              <rect width="3" height="3" fill="rgba(255,255,255,0)"/>
+              <circle cx="1" cy="1" r=".4" fill="rgba(253,252,247,.07)"/>
+              <circle cx="2.2" cy="2.2" r=".3" fill="rgba(0,0,0,.06)"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="500" fill="url(#bg-a)"/>
+          <g opacity=".2" fill="none" stroke="#fdfcf7" stroke-width="3" transform="translate(200 260)">
+            <rect x="-24" y="-90" width="48" height="34" rx="4"/>
+            <path d="M0 -56 V -20 M-90 -20 H 90 M-90 -20 V 10 M0 -20 V 10 M90 -20 V 10"/>
+            <rect x="-114" y="10" width="48" height="34" rx="4"/>
+            <rect x="-24" y="10" width="48" height="34" rx="4"/>
+            <rect x="66" y="10" width="48" height="34" rx="4"/>
+          </g>
+          <rect width="400" height="500" fill="url(#vignette-a)"/>
+          <rect width="400" height="500" fill="url(#grain-a)"/>
+        </svg>
+        <div class="topline">Antonello Scrimieri &middot; in Pirola</div>
+        <div class="monogram"><span class="mg">AS</span></div>
+        <div class="signature">&mdash; gruppi, numeri, riorganizzazioni &mdash;</div>
+        <span class="corner tl"></span>
+        <span class="corner tr"></span>
+        <span class="corner bl"></span>
+        <span class="corner br"></span>
+        <div class="frame"></div>
+        <div class="ribbon">
+          <div>
+            <b>Per Antonello</b>
+            <div class="meta">tax professional &middot; novembre 2026</div>
+          </div>
+          <div class="num">MMXXVI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div>
+
+    <section class="card" id="perche">
+      <span class="kicker">Il professionista</span>
+      <h2>Dalla <em>Puglia</em> ai grandi gruppi fiscali</h2>
+      <p>
+        Pugliese di Grottaglie, Antonello si &egrave; formato all'Universit&agrave;
+        di Bari con un percorso magistrale dedicato alla consulenza
+        professionale per le imprese. Da <strong>giugno 2012</strong> &egrave;
+        abilitato alla professione di <strong>dottore commercialista</strong>.
+      </p>
+      <p>
+        Oggi &egrave; <strong>Senior Associate</strong> in Pirola Pennuto Zei
+        &amp; Associati. Il suo lavoro, come lo descrive lo studio, consiste
+        principalmente nell'assistenza a importanti <strong>gruppi fiscali
+        nazionali e multinazionali</strong>: fiscalit&agrave; d'impresa,
+        profili contabili, operazioni di riorganizzazione societaria.
+      </p>
+      <p>
+        Tra le operazioni pubbliche in cui compare il suo nome c'&egrave;
+        l'assistenza a <strong>Vertis SGR</strong> in un round di investimento
+        di venture capital: il tipo di dossier dove fisco, societario e
+        tempi stretti devono andare d'accordo.
+      </p>
+
+      <div class="tags">
+        <span class="tag">Fiscalit&agrave; d'impresa</span>
+        <span class="tag warm">Gruppi multinazionali</span>
+        <span class="tag gold">Riorganizzazioni</span>
+        <span class="tag">Venture capital</span>
+      </div>
+
+      <div class="facts">
+        <div class="fact"><div class="lbl">Ruolo</div><div class="val">Senior Associate</div></div>
+        <div class="fact"><div class="lbl">Studio</div><div class="val">Pirola Pennuto Zei &amp; Associati</div></div>
+        <div class="fact"><div class="lbl">Abilitazione</div><div class="val">Dottore commercialista &middot; giugno 2012</div></div>
+        <div class="fact"><div class="lbl">Formazione</div><div class="val">Universit&agrave; degli Studi di Bari</div></div>
+      </div>
+    </section>
+
+    <section class="card" id="pirola">
+      <span class="kicker">Dove lavora</span>
+      <h2><em>Pirola Pennuto Zei</em> &mdash; uno studio indipendente</h2>
+      <p>
+        Pirola Pennuto Zei &amp; Associati &egrave; uno degli studi tributari e
+        legali indipendenti pi&ugrave; noti in Italia, con una pratica che va
+        dalla fiscalit&agrave; d'impresa al settore finanziario, fino ai
+        clienti privati.
+      </p>
+      <p>
+        Nel 2026 lo studio &egrave; stato premiato come <strong>Market
+        Leader</strong> ai <em>Legalcommunity Tax Awards</em>, ed &egrave;
+        stabilmente presente nelle classifiche di International Tax Review e
+        Legal 500. Un ambiente dove la competenza tecnica &egrave; la moneta
+        corrente.
+      </p>
+    </section>
+
+    <section class="card" id="tratti">
+      <span class="kicker">Tratti</span>
+      <h2>Quattro cose che <em>servono</em> per fare questo mestiere</h2>
+      <p>
+        Non aneddoti, non confidenze: solo le qualit&agrave; che il lavoro
+        di Antonello richiede ogni giorno, e che chi fa fisco riconosce al volo.
+      </p>
+
+      <div class="virtues">
+        <div class="virtue">
+          <span class="ico">&alpha;</span>
+          <h4>Visione di gruppo</h4>
+          <p>Ragionare per perimetri, consolidati e controllate: il fisco dei gruppi non si guarda mai una societ&agrave; alla volta.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">&beta;</span>
+          <h4>Precisione contabile</h4>
+          <p>Dove bilancio e dichiarazione si parlano, ogni riga conta. Il doppio controllo &egrave; una forma di cortesia.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">&gamma;</span>
+          <h4>Architettura societaria</h4>
+          <p>Fusioni, scissioni, conferimenti: riorganizzare un gruppo &egrave; un lavoro da ingegnere, prima che da fiscalista.</p>
+        </div>
+        <div class="virtue">
+          <span class="ico">&delta;</span>
+          <h4>Ritmo da operazione</h4>
+          <p>Nei deal i tempi li decide il mercato. Saper essere rapidi senza essere approssimativi &egrave; il vero talento.</p>
+        </div>
+      </div>
+
+      <blockquote>
+        &laquo;Il buon fiscalista non &egrave; quello che conosce tutte le norme,
+        ma quello che sa quale serve, e quando.&raquo;
+        <cite>&mdash; Spirito di questa pagina</cite>
+      </blockquote>
+    </section>
+
+  </div>
+
+  <aside>
+    <div class="card ode-box">
+      <span class="kicker">Piccolo elogio</span>
+      <h3>Un professionista <em style="color:#e9d99a">del fisco d'impresa</em></h3>
+      <p>
+        Gruppi nazionali, multinazionali, riorganizzazioni: un mestiere
+        dove i numeri sono grandi e gli errori costano. Serve una
+        disciplina che somiglia molto alla <em>precisione gentile</em>.
+      </p>
+      <p>
+        Questa pagina &egrave; solo un modo per dirgli: bravo. Senza occasioni
+        formali, senza retorica.
+      </p>
+      <ul>
+        <li><span>Ruolo</span><span>Senior Associate</span></li>
+        <li><span>Studio</span><span>Pirola Pennuto Zei</span></li>
+        <li><span>Albo</span><span>Commercialista dal 2012</span></li>
+        <li><span>Origini</span><span>Grottaglie &middot; Puglia</span></li>
+        <li><span>Voto</span><span>&#9733;&#9733;&#9733;&#9733;&#9733;</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Profilo <em>pubblico</em></h3>
+      <p style="font-size:13.5px">
+        Per chi lo vuole raggiungere professionalmente, il profilo sul sito
+        dello studio:
+        <a href="https://pirolapennutozei.it/en/professional/antonello-scrimieri/" target="_blank" rel="noopener">pirolapennutozei.it</a>.
+      </p>
+      <p style="font-size:13px;color:var(--muted);margin-top:8px;line-height:1.55">
+        Ruolo, formazione e aree di attivit&agrave; indicati in pagina sono quelli
+        resi pubblici dall'interessato e dallo studio. Niente informazioni
+        riservate o non gi&agrave; visibili a chiunque.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Pro <em>memoria</em></h3>
+      <p style="font-size:13.5px;color:var(--ink-soft);line-height:1.6">
+        Questa pagina &egrave; interamente affettuosa: niente dati personali,
+        niente recapiti, niente foto. Se domani Antonello preferisce
+        rimuoverla basta un messaggio: viene gi&ugrave; in cinque minuti.
+      </p>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <div class="row">
+    <div>&copy; 2026 &middot; angelodistani.com</div>
+    <div>For fun &middot; ritratto &middot; novembre 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
