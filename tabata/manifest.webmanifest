@@ -1,14 +1,14 @@
 {
-  "name": "Tabata Timer",
-  "short_name": "Tabata",
+  "name": "Tabata con Angelino",
+  "short_name": "Angelino",
   "description": "Timer Tabata e HIIT con segnali acustici che continuano anche a schermo bloccato.",
   "lang": "it",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#faf9f5",
-  "theme_color": "#1f1e1c",
+  "background_color": "#0e0c10",
+  "theme_color": "#0e0c10",
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
