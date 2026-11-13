@@ -357,8 +357,7 @@ News banche                            ← pubblica
 └── Guida operativa Excel → HTML      (excel/banking-news.md)
 
 For fun                                ← pubblica
-├── Quanto è stupenda la Banca CSR
-└── Cassa di Risparmio di Bolzano — Sparkasse
+└── Tabata timer                      (tabata/ — PWA: manifest, sw.js, icone)
 
 Games                                  ← pubblica
 ├── TaxLingo                          (taxlingo.html)

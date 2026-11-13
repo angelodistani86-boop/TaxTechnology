@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Tabata Timer</title>
+<meta name="description" content="Timer Tabata e HIIT da usare sul telefono: lavoro, recupero, round e serie, con segnali acustici che continuano anche a schermo bloccato. Installabile come app.">
+<meta name="theme-color" content="#faf9f5">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Tabata">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,500;9..144,1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f5; --paper:#ffffff; --ink:#1f1e1c; --ink-soft:#3d3a35; --muted:#6b675e;
+    --line:#e8e4d8; --line-soft:#f1ede1;
+    --accent:#cc785c; --accent-deep:#a85a40; --accent-soft:#f4e4dc;
+    --warm:#f5f1e6; --warm-deeper:#ede6d3;
+    --gold:#c8a951; --gold-soft:#fbf4dc;
+    --green:#5a8f6b; --green-soft:#e4ede2;
+    --blue:#5a7a9f; --blue-soft:#e1e8ef;
+    --shadow-sm:0 1px 2px rgba(31,30,28,.04);
+    --shadow-md:0 4px 16px -4px rgba(31,30,28,.08), 0 1px 3px rgba(31,30,28,.04);
+    --shadow-lg:0 24px 60px -20px rgba(31,30,28,.18), 0 6px 14px rgba(31,30,28,.05);
+    --ph:var(--ink); --ph-soft:var(--warm);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:15.5px;line-height:1.5;-webkit-font-smoothing:antialiased;
+    overscroll-behavior:none}
+  body{min-height:100vh;min-height:100dvh;
+    padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+  button{font:inherit;color:inherit;cursor:pointer;border:none;background:none;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+
+  body[data-phase="prep"]{--ph:var(--gold);--ph-soft:var(--gold-soft)}
+  body[data-phase="work"]{--ph:var(--accent);--ph-soft:var(--accent-soft)}
+  body[data-phase="rest"]{--ph:var(--green);--ph-soft:var(--green-soft)}
+  body[data-phase="setrest"]{--ph:var(--blue);--ph-soft:var(--blue-soft)}
+  body[data-phase="done"]{--ph:var(--ink);--ph-soft:var(--warm-deeper)}
+
+  .app{max-width:520px;margin:0 auto;padding:10px 16px 28px}
+
+  header.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0 10px}
+  header.bar a.home{font-size:13px;color:var(--muted);text-decoration:none;font-weight:500;padding:6px 0}
+  body.standalone header.bar a.home{visibility:hidden}
+  header.bar h1{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:20px;margin:0;letter-spacing:-.01em}
+  header.bar h1 em{font-style:italic;color:var(--accent)}
+  .install{font-size:12.5px;font-weight:600;padding:8px 12px;border-radius:999px;
+    background:var(--ink);color:#fdfcf7;display:inline-flex;align-items:center;gap:6px}
+  .install svg{width:14px;height:14px}
+  body.standalone .install{display:none}
+
+  /* timer */
+  .stage{background:var(--paper);border:1px solid var(--line);border-radius:28px;
+    box-shadow:var(--shadow-md);padding:18px 18px 20px;position:relative;overflow:hidden;
+    transition:background-color .4s ease}
+  .stage::before{content:"";position:absolute;inset:0;background:var(--ph-soft);opacity:.55;transition:background-color .4s ease}
+  .stage > *{position:relative}
+  .phase-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:4px}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--ph);background:var(--paper);border:1px solid var(--line);
+    padding:6px 12px;border-radius:999px;transition:color .3s}
+  .pill::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ph)}
+  .counts{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink-soft);text-align:right;line-height:1.35}
+  .counts b{color:var(--ink);font-weight:600}
+
+  .ring-wrap{position:relative;width:min(78vw,330px);aspect-ratio:1;margin:8px auto 4px}
+  .ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .ring-bg{fill:none;stroke:var(--line);stroke-width:14}
+  .ring-fg{fill:none;stroke:var(--ph);stroke-width:14;stroke-linecap:round;transition:stroke .3s}
+  .ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  .time{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:clamp(64px,22vw,96px);
+    letter-spacing:-.04em;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+  .label{font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:22px;color:var(--ph);margin-top:8px;transition:color .3s}
+  .next{font-size:12.5px;color:var(--muted);margin-top:4px;min-height:1.2em}
+
+  .total{margin:12px 2px 0}
+  .total .track{height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+  .total .fill{height:100%;width:0;background:var(--ph);border-radius:99px;transition:background .3s}
+  .total .meta{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted);margin-top:6px}
+
+  .controls{display:flex;justify-content:center;align-items:center;gap:22px;margin-top:16px}
+  .ctl{width:56px;height:56px;border-radius:50%;background:var(--paper);border:1px solid var(--line);
+    display:grid;place-items:center;box-shadow:var(--shadow-sm)}
+  .ctl svg{width:22px;height:22px;fill:var(--ink-soft)}
+  .ctl:disabled{opacity:.35}
+  .play{width:84px;height:84px;border-radius:50%;background:var(--ink);display:grid;place-items:center;
+    box-shadow:0 10px 28px -10px rgba(31,30,28,.55);transition:transform .1s ease}
+  .play:active{transform:scale(.96)}
+  .play svg{width:34px;height:34px;fill:#fdfcf7}
+  .reset{display:block;margin:14px auto 0;font-size:13px;color:var(--muted);font-weight:500;padding:6px 10px}
+  .reset:disabled{opacity:.35}
+
+  /* settings */
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow-sm);padding:18px 16px;margin-top:16px}
+  .card h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:20px;margin:0 0 2px;letter-spacing:-.01em}
+  .card h2 em{font-style:italic;color:var(--accent)}
+  .card .sub{font-size:12.5px;color:var(--muted);margin:0 0 12px}
+  .lock-note{display:none;font-size:12.5px;color:var(--accent-deep);background:var(--accent-soft);border-radius:10px;padding:8px 10px;margin-bottom:10px}
+  body.locked .lock-note{display:block}
+  body.locked .settings{opacity:.45;pointer-events:none}
+
+  .presets{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin:0 -2px 12px;scrollbar-width:none}
+  .presets::-webkit-scrollbar{display:none}
+  .chip{flex:0 0 auto;font-size:12.5px;font-weight:600;padding:8px 12px;border-radius:999px;
+    border:1px solid var(--line);background:var(--warm);color:var(--ink-soft);text-align:left;line-height:1.25}
+  .chip small{display:block;font-weight:500;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10.5px}
+  .chip.on{background:var(--ink);color:#fdfcf7;border-color:var(--ink)}
+  .chip.on small{color:rgba(253,252,247,.7)}
+
+  .row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line-soft)}
+  .row:first-of-type{border-top:none}
+  .row .nm{font-weight:600;font-size:14.5px;display:flex;align-items:center;gap:8px}
+  .row .nm i{width:10px;height:10px;border-radius:3px;display:inline-block}
+  .row .hint{display:block;font-size:11.5px;color:var(--muted);font-weight:400}
+  .stepper{display:flex;align-items:center;gap:6px}
+  .stepper button{width:40px;height:40px;border-radius:12px;background:var(--warm);border:1px solid var(--line);
+    font-size:20px;font-weight:500;color:var(--ink-soft);display:grid;place-items:center}
+  .stepper button:active{background:var(--warm-deeper)}
+  .stepper output{min-width:64px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:600;font-variant-numeric:tabular-nums}
+
+  .sum{display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;padding-top:12px;border-top:1px dashed var(--line)}
+  .sum span{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-weight:600}
+  .sum b{font-family:'JetBrains Mono',monospace;font-size:18px}
+
+  .toggles .row .nm{font-weight:500;font-size:14px}
+  .sw{position:relative;width:48px;height:28px;flex:0 0 auto}
+  .sw input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+  .sw span{position:absolute;inset:0;border-radius:99px;background:var(--line);transition:background .2s}
+  .sw span::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:var(--shadow-sm);transition:transform .2s}
+  .sw input:checked + span{background:var(--green)}
+  .sw input:checked + span::after{transform:translateX(20px)}
+
+  .info{font-size:13px;color:var(--ink-soft)}
+  .info p{margin:0 0 8px}
+  .info p:last-child{margin:0}
+  .info b{color:var(--ink)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:12px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:10px;height:10px;border-radius:3px}
+
+  footer{text-align:center;font-size:11.5px;color:var(--muted);margin-top:22px}
+  footer a{color:var(--ink-soft)}
+
+  /* install sheet */
+  .sheet-bg{position:fixed;inset:0;background:rgba(31,30,28,.4);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+  .sheet{position:fixed;left:0;right:0;bottom:0;z-index:41;background:var(--paper);border-radius:24px 24px 0 0;
+    padding:20px 20px calc(24px + env(safe-area-inset-bottom));max-width:520px;margin:0 auto;
+    transform:translateY(105%);transition:transform .25s ease;box-shadow:var(--shadow-lg)}
+  body.sheet-open .sheet-bg{opacity:1;pointer-events:auto}
+  body.sheet-open .sheet{transform:none}
+  .sheet h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:21px;margin:0 0 6px}
+  .sheet h3 em{font-style:italic;color:var(--accent)}
+  .sheet ol{margin:12px 0 0;padding:0;list-style:none;counter-reset:s}
+  .sheet li{counter-increment:s;display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line-soft);font-size:14px}
+  .sheet li:first-child{border-top:none}
+  .sheet li::before{content:counter(s);flex:0 0 26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent-deep);
+    font-weight:700;font-size:13px;display:grid;place-items:center}
+  .sheet li svg{width:16px;height:16px;vertical-align:-3px;fill:none;stroke:var(--blue);stroke-width:2}
+  .sheet .close{display:block;width:100%;margin-top:14px;padding:13px;border-radius:14px;background:var(--ink);color:#fdfcf7;font-weight:600}
+  .sheet .note{font-size:12.5px;color:var(--muted);margin:10px 0 0}
+
+  @media (min-width:700px){ .app{padding-top:24px} }
+</style>
+</head>
+<body data-phase="idle">
+<div class="app">
+
+  <header class="bar">
+    <a class="home" href="../index.html">&larr; Home</a>
+    <h1>Tabata <em>timer</em></h1>
+    <button class="install" id="installBtn" type="button" aria-label="Installa come app">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+      Installa
+    </button>
+  </header>
+
+  <section class="stage" aria-live="polite">
+    <div class="phase-row">
+      <span class="pill" id="phasePill">Pronto</span>
+      <div class="counts">Round <b id="roundTxt">0/8</b><br>Serie <b id="setTxt">0/1</b></div>
+    </div>
+
+    <div class="ring-wrap">
+      <svg viewBox="0 0 200 200" aria-hidden="true">
+        <circle class="ring-bg" cx="100" cy="100" r="88"/>
+        <circle class="ring-fg" id="ring" cx="100" cy="100" r="88" stroke-dasharray="552.92" stroke-dashoffset="0"/>
+      </svg>
+      <div class="ring-center">
+        <div class="time" id="timeTxt">0:20</div>
+        <div class="label" id="labelTxt">Premi play</div>
+        <div class="next" id="nextTxt"></div>
+      </div>
+    </div>
+
+    <div class="total">
+      <div class="track"><div class="fill" id="totalFill"></div></div>
+      <div class="meta"><span id="elapsedTxt">0:00</span><span id="remainTxt">-4:10</span></div>
+    </div>
+
+    <div class="controls">
+      <button class="ctl" id="prevBtn" type="button" aria-label="Fase precedente">
+        <svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg>
+      </button>
+      <button class="play" id="playBtn" type="button" aria-label="Avvia">
+        <svg viewBox="0 0 24 24" id="playIco"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <button class="ctl" id="nextBtn" type="button" aria-label="Fase successiva">
+        <svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg>
+      </button>
+    </div>
+    <button class="reset" id="resetBtn" type="button">Azzera</button>
+  </section>
+
+  <section class="card">
+    <h2>Il tuo <em>allenamento</em></h2>
+    <p class="sub">Scegli un modello o regola i tempi. Le impostazioni restano salvate sul telefono.</p>
+    <div class="lock-note">Allenamento in corso: premi <b>Azzera</b> per modificare i tempi.</div>
+    <div class="settings">
+      <div class="presets" id="presets"></div>
+      <div id="fields"></div>
+      <div class="sum"><span>Durata totale</span><b id="totalTxt">4:10</b></div>
+    </div>
+  </section>
+
+  <section class="card toggles">
+    <h2>Suoni e <em>schermo</em></h2>
+    <p class="sub">I suoni partono anche con l'interruttore silenzioso attivo.</p>
+    <div class="row">
+      <span class="nm">Conto alla rovescia 3-2-1<span class="hint"></span></span>
+      <label class="sw"><input type="checkbox" id="optCount" checked><span></span></label>
+    </div>
+    <div class="row">
+      <span class="nm">Segnale a met&agrave; del lavoro<span class="hint">utile per intervalli lunghi</span></span>
+      <label class="sw"><input type="checkbox" id="optHalf"><span></span></label>
+    </div>
+    <div class="row">
+      <span class="nm">Tieni lo schermo acceso<span class="hint">se il telefono lo consente</span></span>
+      <label class="sw"><input type="checkbox" id="optWake" checked><span></span></label>
+    </div>
+    <div class="row">
+      <span class="nm">Prova il suono</span>
+      <button type="button" id="testBtn" class="chip">Beep</button>
+    </div>
+  </section>
+
+  <section class="card info">
+    <h2>Come <em>funziona</em></h2>
+    <p>Quando premi play, l'app prepara l'intero allenamento come <b>un'unica traccia audio</b>, con i beep gi&agrave; al loro posto. Il telefono la riproduce come fosse musica: per questo i segnali continuano anche se <b>blocchi lo schermo</b> o passi a un'altra app.</p>
+    <p>Dalla schermata di blocco puoi mettere in pausa e saltare fase. Se ascolti musica con un'altra app, verr&agrave; messa in pausa durante l'allenamento.</p>
+    <div class="legend">
+      <span><i style="background:var(--gold)"></i>Preparazione</span>
+      <span><i style="background:var(--accent)"></i>Lavoro</span>
+      <span><i style="background:var(--green)"></i>Recupero</span>
+      <span><i style="background:var(--blue)"></i>Pausa tra serie</span>
+    </div>
+  </section>
+
+  <footer>Tabata timer &middot; <a href="../index.html">angelodistani.com</a> &middot; for fun</footer>
+</div>
+
+<audio id="track" preload="auto" playsinline></audio>
+
+<div class="sheet-bg" id="sheetBg"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <h3 id="sheetTitle">Aggiungi alla <em>schermata Home</em></h3>
+  <div id="sheetBody"></div>
+  <button class="close" id="sheetClose" type="button">Ho capito</button>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  var RATE = 8000;
+  var TAIL = 2;
+  var PRESETS = [
+    {id:'classic', name:'Tabata classico', prep:10, work:20, rest:10, rounds:8, sets:1, setRest:60},
+    {id:'start',   name:'Principiante',    prep:10, work:15, rest:15, rounds:8, sets:1, setRest:60},
+    {id:'double',  name:'Doppio Tabata',   prep:10, work:20, rest:10, rounds:8, sets:2, setRest:60},
+    {id:'hiit',    name:'HIIT 40/20',      prep:10, work:40, rest:20, rounds:10, sets:1, setRest:60},
+    {id:'long',    name:'Resistenza 45/15',prep:10, work:45, rest:15, rounds:8, sets:3, setRest:90}
+  ];
+  var FIELDS = [
+    {k:'prep',    nm:'Preparazione',     c:'var(--gold)',   min:0,  max:120,  step:5, time:true},
+    {k:'work',    nm:'Lavoro',           c:'var(--accent)', min:5,  max:600,  step:5, time:true},
+    {k:'rest',    nm:'Recupero',         c:'var(--green)',  min:0,  max:600,  step:5, time:true},
+    {k:'rounds',  nm:'Round',            c:'var(--ink)',    min:1,  max:50,   step:1},
+    {k:'sets',    nm:'Serie',            c:'var(--ink)',    min:1,  max:20,   step:1, hint:'ripetizioni dell’intero blocco'},
+    {k:'setRest', nm:'Pausa tra serie',  c:'var(--blue)',   min:0,  max:600,  step:5, time:true}
+  ];
+  var LABEL = {prep:'Preparati', work:'Lavoro', rest:'Recupero', setrest:'Pausa serie', done:'Finito', idle:'Pronto'};
+  var PILL  = {prep:'Preparazione', work:'Lavoro', rest:'Recupero', setrest:'Pausa', done:'Completato', idle:'Pronto'};
+
+  var $ = function(id){ return document.getElementById(id); };
+  var audio = $('track');
+  var cfg = load('tabata.cfg', PRESETS[0]);
+  var opts = load('tabata.opts', {count:true, half:false, wake:true});
+  var plan = null, url = null, dirty = true, started = false, raf = 0, wakeLock = null, lastSeg = -1;
+
+  function load(k, def){
+    try { var v = JSON.parse(localStorage.getItem(k)); if (v && typeof v === 'object') return Object.assign({}, def, v); } catch(e){}
+    return Object.assign({}, def);
+  }
+  function save(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+
+  function fmt(s){
+    s = Math.max(0, Math.round(s));
+    var m = Math.floor(s/60), r = s%60;
+    return m + ':' + (r<10?'0':'') + r;
+  }
+  function fmtCeil(s){ return fmt(Math.ceil(s - 1e-6)); }
+
+  function buildPlan(c){
+    var segs = [], t = 0;
+    function add(type, dur, round, set){ if (dur > 0){ segs.push({type:type, start:t, dur:dur, round:round, set:set}); t += dur; } }
+    add('prep', c.prep, 0, 1);
+    for (var s = 1; s <= c.sets; s++){
+      for (var r = 1; r <= c.rounds; r++){
+        add('work', c.work, r, s);
+        if (r < c.rounds) add('rest', c.rest, r, s);
+      }
+      if (s < c.sets) add('setrest', c.setRest, c.rounds, s);
+    }
+    return {segs:segs, total:t};
+  }
+
+  /* ---- audio: l'intero allenamento come unica traccia WAV ---- */
+  function renderWav(p){
+    var n = Math.ceil((p.total + TAIL) * RATE);
+    var buf = new ArrayBuffer(44 + n);
+    var v = new DataView(buf);
+    function str(o, s){ for (var i=0;i<s.length;i++) v.setUint8(o+i, s.charCodeAt(i)); }
+    str(0,'RIFF'); v.setUint32(4, 36+n, true); str(8,'WAVE'); str(12,'fmt ');
+    v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+    v.setUint32(24,RATE,true); v.setUint32(28,RATE,true); v.setUint16(32,1,true); v.setUint16(34,8,true);
+    str(36,'data'); v.setUint32(40,n,true);
+    var pcm = new Uint8Array(buf, 44, n);
+    pcm.fill(128);
+
+    function beep(at, dur, freq, gain){
+      var s0 = Math.floor(at*RATE), len = Math.floor(dur*RATE), att = Math.floor(.008*RATE), rel = Math.floor(.04*RATE);
+      for (var i=0;i<len;i++){
+        var idx = s0+i; if (idx<0||idx>=n) continue;
+        var env = i<att ? i/att : (i>len-rel ? (len-i)/rel : 1);
+        var ph = 2*Math.PI*freq*i/RATE;
+        var x = Math.sin(ph) + .35*Math.sin(3*ph) + .15*Math.sin(5*ph);
+        var val = pcm[idx] - 128 + x/1.3*gain*env*118;
+        pcm[idx] = Math.max(0, Math.min(255, Math.round(val + 128)));
+      }
+    }
+    p.segs.forEach(function(sg, i){
+      var end = sg.start + sg.dur;
+      if (sg.type === 'work') { beep(sg.start, .55, 1320, 1); }
+      else if (sg.type === 'rest' || sg.type === 'setrest') { beep(sg.start, .55, 660, 1); }
+      else if (sg.type === 'prep') { beep(sg.start, .12, 990, .7); }
+      if (opts.count && sg.dur >= 4) { for (var k=3;k>=1;k--) beep(end-k, .14, 880, .9); }
+      if (opts.half && sg.type === 'work' && sg.dur >= 20) { beep(sg.start + sg.dur/2, .1, 1100, .6); beep(sg.start + sg.dur/2 + .18, .1, 1100, .6); }
+    });
+    for (var j=0;j<3;j++) beep(p.total + j*.3, .22, 1320, 1);
+    return new Blob([buf], {type:'audio/wav'});
+  }
+
+  function prepare(){
+    if (!dirty) return;
+    plan = buildPlan(cfg);
+    if (url) URL.revokeObjectURL(url);
+    url = URL.createObjectURL(renderWav(plan));
+    audio.src = url;
+    audio.load();
+    dirty = false; lastSeg = -1;
+    draw(0);
+  }
+
+  function segAt(t){
+    var s = plan.segs;
+    for (var i=s.length-1;i>=0;i--) if (t >= s[i].start) return i;
+    return 0;
+  }
+
+  /* ---- UI ---- */
+  var ring = $('ring'), C = 2*Math.PI*88;
+  function draw(t){
+    if (!plan) return;
+    var done = t >= plan.total - 1e-3 && started;
+    var i = segAt(t), sg = plan.segs[i];
+    var phase = !started ? 'idle' : (done ? 'done' : sg.type);
+    document.body.setAttribute('data-phase', phase);
+    var left = done ? 0 : (sg.start + sg.dur - t);
+    $('timeTxt').textContent = started ? fmtCeil(left) : fmt(plan.segs[0].dur);
+    $('labelTxt').textContent = started ? LABEL[phase] : 'Premi play';
+    $('phasePill').textContent = PILL[phase];
+    var frac = started && !done ? Math.min(1, (t - sg.start)/sg.dur) : (done ? 1 : 0);
+    ring.style.strokeDashoffset = (C*frac).toFixed(1);
+    $('roundTxt').textContent = (started && !done ? Math.max(sg.round, sg.type==='prep'?0:1) : (done?cfg.rounds:0)) + '/' + cfg.rounds;
+    $('setTxt').textContent = (started ? (done?cfg.sets:sg.set) : 0) + '/' + cfg.sets;
+    var nx = plan.segs[i+1];
+    $('nextTxt').textContent = started && !done ? (nx ? 'poi ' + LABEL[nx.type].toLowerCase() + ' ' + fmt(nx.dur) : 'ultimo sforzo') : '';
+    var tt = Math.min(t, plan.total);
+    $('totalFill').style.width = (100*tt/plan.total).toFixed(2) + '%';
+    $('elapsedTxt').textContent = fmt(tt);
+    $('remainTxt').textContent = '-' + fmt(plan.total - tt);
+    if (i !== lastSeg && started){ lastSeg = i; updateSession(phase, sg); }
+  }
+
+  function loop(){ draw(audio.currentTime); if (!audio.paused) raf = requestAnimationFrame(loop); }
+
+  function setPlaying(on){
+    $('playIco').innerHTML = on ? '<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>' : '<path d="M8 5v14l11-7z"/>';
+    $('playBtn').setAttribute('aria-label', on ? 'Pausa' : 'Avvia');
+    document.body.classList.toggle('locked', started);
+    if ('mediaSession' in navigator) navigator.mediaSession.playbackState = on ? 'playing' : 'paused';
+  }
+
+  function play(){
+    prepare();
+    if (audio.ended || audio.currentTime >= plan.total) { audio.currentTime = 0; }
+    started = true;
+    var pr = audio.play();
+    if (pr && pr.catch) pr.catch(function(){ setPlaying(false); });
+    wake(true);
+  }
+  function pause(){ audio.pause(); }
+  function toggle(){ if (audio.paused) play(); else pause(); }
+  function reset(){
+    audio.pause();
+    try { audio.currentTime = 0; } catch(e){}
+    started = false; lastSeg = -1;
+    setPlaying(false); draw(0); wake(false);
+    document.body.classList.remove('locked');
+  }
+  function jump(dir){
+    if (!plan || !started) return;
+    var t = audio.currentTime, i = segAt(t);
+    var target;
+    if (dir > 0) target = plan.segs[i+1] ? plan.segs[i+1].start : plan.total;
+    else target = (t - plan.segs[i].start > 2 || i === 0) ? plan.segs[i].start : plan.segs[i-1].start;
+    audio.currentTime = target + .001;
+    draw(audio.currentTime);
+  }
+
+  audio.addEventListener('play', function(){ setPlaying(true); cancelAnimationFrame(raf); raf = requestAnimationFrame(loop); });
+  audio.addEventListener('pause', function(){ setPlaying(false); draw(audio.currentTime); });
+  audio.addEventListener('timeupdate', function(){ if (document.hidden) draw(audio.currentTime); });
+  audio.addEventListener('ended', function(){ setPlaying(false); draw(plan.total); wake(false); });
+
+  $('playBtn').addEventListener('click', toggle);
+  $('resetBtn').addEventListener('click', reset);
+  $('prevBtn').addEventListener('click', function(){ jump(-1); });
+  $('nextBtn').addEventListener('click', function(){ jump(1); });
+
+  /* ---- Media Session: comandi dalla schermata di blocco ---- */
+  function updateSession(phase, sg){
+    if (!('mediaSession' in navigator)) return;
+    var title = LABEL[phase] + (sg && sg.round ? ' · round ' + sg.round + '/' + cfg.rounds : '');
+    try {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: title,
+        artist: 'Tabata timer' + (cfg.sets > 1 ? ' · serie ' + sg.set + '/' + cfg.sets : ''),
+        album: cfg.work + 's / ' + cfg.rest + 's × ' + cfg.rounds,
+        artwork: [{src:'icon-512.png', sizes:'512x512', type:'image/png'}]
+      });
+    } catch(e){}
+  }
+  if ('mediaSession' in navigator){
+    var h = {play:play, pause:pause, nexttrack:function(){jump(1);}, previoustrack:function(){jump(-1);}, stop:reset};
+    Object.keys(h).forEach(function(a){ try { navigator.mediaSession.setActionHandler(a, h[a]); } catch(e){} });
+    ['seekbackward','seekforward','seekto'].forEach(function(a){ try { navigator.mediaSession.setActionHandler(a, null); } catch(e){} });
+  }
+
+  /* ---- Wake Lock ---- */
+  function wake(on){
+    if (!('wakeLock' in navigator)) return;
+    if (on && opts.wake && !wakeLock){
+      navigator.wakeLock.request('screen').then(function(l){ wakeLock = l; l.addEventListener('release', function(){ wakeLock = null; }); }).catch(function(){});
+    } else if (!on && wakeLock){ wakeLock.release().catch(function(){}); wakeLock = null; }
+  }
+  document.addEventListener('visibilitychange', function(){
+    if (!document.hidden){ draw(audio.currentTime); if (!audio.paused){ cancelAnimationFrame(raf); raf = requestAnimationFrame(loop); wake(true); } }
+  });
+
+  /* ---- impostazioni ---- */
+  function renderPresets(){
+    $('presets').innerHTML = PRESETS.map(function(p){
+      var on = FIELDS.every(function(f){ return p[f.k] === cfg[f.k]; });
+      return '<button type="button" class="chip' + (on?' on':'') + '" data-p="' + p.id + '">' + p.name +
+        '<small>' + p.work + '/' + p.rest + ' × ' + p.rounds + (p.sets>1?' × ' + p.sets:'') + '</small></button>';
+    }).join('');
+  }
+  function renderFields(){
+    $('fields').innerHTML = FIELDS.map(function(f){
+      return '<div class="row"><span class="nm"><i style="background:' + f.c + '"></i><span>' + f.nm +
+        (f.hint ? '<span class="hint">' + f.hint + '</span>' : '') + '</span></span>' +
+        '<div class="stepper"><button type="button" data-k="' + f.k + '" data-d="-1" aria-label="Diminuisci ' + f.nm + '">−</button>' +
+        '<output id="v_' + f.k + '">' + (f.time ? fmt(cfg[f.k]) : cfg[f.k]) + '</output>' +
+        '<button type="button" data-k="' + f.k + '" data-d="1" aria-label="Aumenta ' + f.nm + '">+</button></div></div>';
+    }).join('');
+  }
+  function changed(){
+    save('tabata.cfg', cfg);
+    FIELDS.forEach(function(f){ $('v_' + f.k).textContent = f.time ? fmt(cfg[f.k]) : cfg[f.k]; });
+    renderPresets();
+    dirty = true;
+    var p = buildPlan(cfg);
+    $('totalTxt').textContent = fmt(p.total);
+    plan = p; draw(0);
+  }
+  function step(k, d){
+    var f = FIELDS.filter(function(x){ return x.k === k; })[0];
+    var st = f.step;
+    if (f.time && d > 0 && cfg[k] >= 60) st = Math.max(st, 15);
+    if (f.time && d < 0 && cfg[k] > 60) st = Math.max(st, 15);
+    cfg[k] = Math.max(f.min, Math.min(f.max, cfg[k] + d*st));
+    changed();
+  }
+  var holdT = 0, holdI = 0;
+  $('fields').addEventListener('pointerdown', function(e){
+    var b = e.target.closest('button[data-k]'); if (!b) return;
+    var k = b.getAttribute('data-k'), d = +b.getAttribute('data-d');
+    step(k, d);
+    holdT = setTimeout(function(){ holdI = setInterval(function(){ step(k, d); }, 90); }, 420);
+  });
+  ['pointerup','pointerleave','pointercancel'].forEach(function(ev){
+    $('fields').addEventListener(ev, function(){ clearTimeout(holdT); clearInterval(holdI); });
+  });
+  $('presets').addEventListener('click', function(e){
+    var b = e.target.closest('[data-p]'); if (!b) return;
+    var p = PRESETS.filter(function(x){ return x.id === b.getAttribute('data-p'); })[0];
+    FIELDS.forEach(function(f){ cfg[f.k] = p[f.k]; });
+    changed();
+  });
+
+  $('optCount').checked = opts.count; $('optHalf').checked = opts.half; $('optWake').checked = opts.wake;
+  ['optCount','optHalf','optWake'].forEach(function(id){
+    $(id).addEventListener('change', function(){
+      opts.count = $('optCount').checked; opts.half = $('optHalf').checked; opts.wake = $('optWake').checked;
+      save('tabata.opts', opts);
+      if (id !== 'optWake' && !started) dirty = true;
+      if (id === 'optWake') wake(opts.wake && !audio.paused);
+    });
+  });
+
+  $('testBtn').addEventListener('click', function(){
+    var test = new Audio();
+    var p2 = buildPlan({prep:0, work:1, rest:0, rounds:1, sets:1, setRest:0});
+    var u = URL.createObjectURL(renderWav(p2));
+    test.src = u; test.play().catch(function(){});
+    test.addEventListener('ended', function(){ URL.revokeObjectURL(u); });
+  });
+
+  /* ---- installazione come app ---- */
+  var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  if (isStandalone) document.body.classList.add('standalone');
+  var deferred = null;
+  window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferred = e; });
+  var ua = navigator.userAgent;
+  var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var shareIco = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11v9h12v-9"/></svg>';
+  var addIco = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg>';
+  function openSheet(){
+    var body;
+    if (isIOS){
+      var inSafari = !/CriOS|FxiOS|EdgiOS|GSA\//.test(ua);
+      body = '<p class="note" style="margin-top:0">Su iPhone l’installazione si fa da Safari, in tre tocchi.</p><ol>' +
+        (inSafari ? '' : '<li><span>Apri questa pagina in <b>Safari</b> (da Chrome: menu → Apri in Safari).</span></li>') +
+        '<li><span>Tocca <b>Condividi</b> ' + shareIco + ' nella barra in basso (o in alto su iPad).</span></li>' +
+        '<li><span>Scorri e scegli <b>Aggiungi alla schermata Home</b> ' + addIco + '.</span></li>' +
+        '<li><span>Conferma con <b>Aggiungi</b>: trovi l’icona Tabata tra le tue app.</span></li></ol>' +
+        '<p class="note">Una volta installata si apre a schermo intero, funziona anche offline e continua a suonare a schermo bloccato.</p>';
+    } else {
+      body = '<ol><li><span>Apri il menu del browser (i tre puntini).</span></li>' +
+        '<li><span>Scegli <b>Installa app</b> o <b>Aggiungi a schermata Home</b>.</span></li></ol>';
+    }
+    $('sheetBody').innerHTML = body;
+    document.body.classList.add('sheet-open');
+  }
+  function closeSheet(){ document.body.classList.remove('sheet-open'); }
+  $('installBtn').addEventListener('click', function(){
+    if (deferred){ deferred.prompt(); deferred.userChoice.finally(function(){ deferred = null; }); }
+    else openSheet();
+  });
+  $('sheetClose').addEventListener('click', closeSheet);
+  $('sheetBg').addEventListener('click', closeSheet);
+
+  if ('serviceWorker' in navigator && location.protocol === 'https:'){
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+  }
+
+  renderPresets(); renderFields(); changed();
+  prepare();
+})();
+</script>
+</body>
+</html>
