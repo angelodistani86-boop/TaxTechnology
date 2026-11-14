@@ -174,6 +174,32 @@
     padding:5px 10px;border-radius:99px;background:rgba(255,255,255,.05);border:1px solid var(--card-line)}
   .legend i{width:8px;height:8px;border-radius:50%}
 
+  .label.ex{font-size:clamp(20px,6.4vw,28px);max-width:78%;line-height:1.15;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .next b{color:var(--tx);font-weight:600}
+  .toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translate(-50%,140%);z-index:30;
+    background:linear-gradient(140deg,var(--work),var(--work2));color:#161616;font-weight:700;font-size:13.5px;
+    padding:12px 18px;border-radius:999px;box-shadow:0 12px 30px -10px var(--work);transition:transform .25s ease;white-space:nowrap}
+  body.need-tap .toast{transform:translate(-50%,0)}
+  .mode{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}
+  .mode button{text-align:left;padding:12px 12px;border-radius:16px;border:1px solid var(--card-line);background:rgba(255,255,255,.04);color:var(--tx-soft);line-height:1.3}
+  .mode button b{display:block;font-size:13.5px;color:var(--tx);margin-bottom:3px}
+  .mode button span{font-size:11.5px;color:var(--tx-mute)}
+  .mode button.on{border-color:transparent;background:linear-gradient(140deg,color-mix(in srgb,var(--work) 30%,transparent),color-mix(in srgb,var(--work2) 18%,transparent));box-shadow:inset 0 0 0 1.5px var(--work)}
+  .mode-note{font-size:12px;color:var(--prep);margin:8px 0 2px;min-height:1em}
+  body.running .mode{opacity:.45;pointer-events:none}
+  .ex-list{display:grid;gap:8px}
+  .ex-row{display:flex;align-items:center;gap:10px}
+  .ex-row span{flex:0 0 28px;height:28px;border-radius:50%;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:800;
+    background:rgba(255,255,255,.07);color:var(--tx-soft)}
+  .ex-row.now span{background:linear-gradient(140deg,var(--work),var(--work2));color:#161616}
+  .ex-row input{flex:1;min-width:0;font:inherit;font-size:16px;color:var(--tx);background:rgba(255,255,255,.05);border:1px solid var(--card-line);
+    border-radius:12px;padding:10px 12px;outline:none}
+  .ex-row input:focus{border-color:var(--work)}
+  .ex-row input::placeholder{color:var(--tx-mute)}
+  .ex-tools{display:flex;gap:8px;margin-top:12px}
+  .ex-tools .chip{font-size:12px}
+
   footer{text-align:center;font-size:11.5px;color:var(--tx-mute);margin-top:24px}
   footer a{color:var(--tx-soft)}
 
@@ -276,9 +302,24 @@
     </div>
   </section>
 
+  <section class="card">
+    <h2>Gli <em>esercizi</em></h2>
+    <p class="sub">Scrivi cosa fare in ogni round: compare grande sul timer durante il lavoro, e prima del via vedi cosa arriva. Valgono per ogni serie.</p>
+    <div class="ex-list" id="exList"></div>
+    <div class="ex-tools">
+      <button type="button" class="chip" id="exSample">Riempi con un esempio</button>
+      <button type="button" class="chip" id="exClear">Svuota</button>
+    </div>
+  </section>
+
   <section class="card toggles">
-    <h2>Suoni e <em>schermo</em></h2>
-    <p class="sub">I suoni partono anche con l'interruttore silenzioso attivo.</p>
+    <h2>Suoni e <em>musica</em></h2>
+    <p class="sub">Scegli come deve comportarsi l'audio. Si cambia solo a timer fermo.</p>
+    <div class="mode" id="modeBox">
+      <button type="button" data-mode="mix"><b>Con la mia musica</b><span>Spotify continua a suonare, i beep si sovrappongono. Tieni lo schermo acceso.</span></button>
+      <button type="button" data-mode="bg"><b>Schermo bloccato</b><span>I beep suonano anche a schermo spento, ma la musica di altre app si ferma.</span></button>
+    </div>
+    <p class="mode-note" id="modeNote"></p>
     <div class="row">
       <span class="nm">Conto alla rovescia 3-2-1</span>
       <label class="sw"><input type="checkbox" id="optCount" checked><span></span></label>
@@ -299,8 +340,9 @@
 
   <section class="card info">
     <h2>Come <em>funziona</em></h2>
-    <p>Quando premi play, l'app prepara l'intero allenamento come <b>un'unica traccia audio</b>, con i beep gi&agrave; al loro posto. Il telefono la riproduce come fosse musica: per questo i segnali continuano anche se <b>blocchi lo schermo</b> o passi a un'altra app.</p>
-    <p>Dalla schermata di blocco puoi mettere in pausa e saltare fase. Se ascolti musica con un'altra app, verr&agrave; messa in pausa durante l'allenamento.</p>
+    <p>Il timer va a <b>orologio</b>: se riduci l'app o passi a un'altra, l'allenamento continua a scorrere e quando torni lo ritrovi esattamente al punto giusto.</p>
+    <p>I beep sono un'unica traccia audio gi&agrave; pronta. In modalit&agrave; <b>Con la mia musica</b> si mescolano a Spotify o a qualsiasi altra app; in modalit&agrave; <b>Schermo bloccato</b> continuano anche a telefono spento, con pausa e salto fase dalla schermata di blocco.</p>
+    <p>Su iPhone una pagina web non pu&ograve; avere entrambe le cose insieme: &egrave; un limite di iOS, non dell'app.</p>
     <div class="legend">
       <span><i style="background:var(--prep)"></i>Preparazione</span>
       <span><i style="background:var(--work)"></i>Lavoro</span>
@@ -313,6 +355,7 @@
 </div>
 
 <audio id="track" preload="auto" playsinline></audio>
+<div class="toast" id="toast">Tocca lo schermo per riattivare i beep</div>
 
 <div class="sheet-bg" id="sheetBg"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
@@ -348,13 +391,20 @@
   var $ = function(id){ return document.getElementById(id); };
   var audio = $('track');
   var cfg = load('tabata.cfg', PRESETS[0]);
-  var opts = load('tabata.opts', {count:true, half:false, wake:true});
-  var plan = null, url = null, dirty = true, started = false, raf = 0, wakeLock = null, lastSeg = -1;
+  var opts = load('tabata.opts', {count:true, half:false, wake:true, mode:'mix'});
+  var ex = loadList('tabata.ex');
+  var plan = null, url = null, dirty = true, started = false, running = false, t0 = 0, pausedAt = 0, finished = false, raf = 0, tick = 0, wakeLock = null, lastSeg = -1;
 
   function load(k, def){
     try { var v = JSON.parse(localStorage.getItem(k)); if (v && typeof v === 'object') return Object.assign({}, def, v); } catch(e){}
     return Object.assign({}, def);
   }
+  function loadList(k){
+    try { var v = JSON.parse(localStorage.getItem(k)); if (Array.isArray(v)) return v.map(String); } catch(e){}
+    return [];
+  }
+  function exFor(sg){ return sg && sg.type === 'work' ? (ex[sg.round-1] || '').trim() : ''; }
+  function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function save(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
 
   function fmt(s){
@@ -448,14 +498,19 @@
     document.body.setAttribute('data-phase', phase);
     var left = done ? 0 : (sg.start + sg.dur - t);
     $('timeTxt').textContent = started ? fmtCeil(left) : fmt(plan.segs[0].dur);
-    $('labelTxt').textContent = started ? LABEL[phase] : 'Premi play';
+    var exNow = started && !done ? exFor(sg) : '';
+    var lb = $('labelTxt');
+    lb.textContent = started ? (exNow || LABEL[phase]) : 'Premi play';
+    lb.classList.toggle('ex', !!exNow);
     $('phasePill').textContent = PILL[phase];
     var frac = started && !done ? Math.min(1, (t - sg.start)/sg.dur) : (done ? 1 : 0);
     ring.style.strokeDashoffset = (C*frac).toFixed(1);
     $('roundTxt').textContent = (started && !done ? Math.max(sg.round, sg.type==='prep'?0:1) : (done?cfg.rounds:0)) + '/' + cfg.rounds;
     $('setTxt').textContent = (started ? (done?cfg.sets:sg.set) : 0) + '/' + cfg.sets;
     var nx = plan.segs[i+1];
-    $('nextTxt').textContent = started && !done ? (nx ? 'poi ' + LABEL[nx.type].toLowerCase() + ' ' + fmt(nx.dur) : 'ultimo sforzo') : '';
+    var nxEx = nx ? exFor(nx) : '';
+    $('nextTxt').innerHTML = started && !done ? (nx ? 'poi ' + (nxEx ? '<b>' + esc(nxEx) + '</b>' : LABEL[nx.type].toLowerCase()) + ' &middot; ' + fmt(nx.dur) : 'ultimo sforzo') : (exFor(plan.segs.filter(function(x){return x.type==='work';})[0]) ? 'si parte con <b>' + esc(exFor(plan.segs.filter(function(x){return x.type==='work';})[0])) + '</b>' : '');
+    markExRow(started && !done && (sg.type === 'work' || (nx && nx.type === 'work')) ? (sg.type === 'work' ? sg.round : nx.round) : 0);
     var tt = Math.min(t, plan.total);
     $('totalFill').style.width = (100*tt/plan.total).toFixed(2) + '%';
     $('elapsedTxt').textContent = fmt(tt);
@@ -469,46 +524,93 @@
     }
   }
 
-  function loop(){ draw(audio.currentTime); if (!audio.paused) raf = requestAnimationFrame(loop); }
+  function elapsed(){ return running ? (Date.now() - t0)/1000 : pausedAt; }
+
+  function frame(){
+    var e = elapsed();
+    if (running && e >= plan.total){ finish(); e = plan.total; }
+    draw(e);
+    if (running) syncAudio(false);
+  }
+  function loop(){ frame(); if (running) raf = requestAnimationFrame(loop); }
+  function startLoops(){
+    cancelAnimationFrame(raf); raf = requestAnimationFrame(loop);
+    clearInterval(tick); tick = setInterval(frame, 250);
+  }
+
+  var playPending = false;
+  function syncAudio(force){
+    if (!running) return;
+    var e = elapsed();
+    if (e >= plan.total + TAIL) return;
+    if (force || Math.abs(audio.currentTime - e) > .35){ try { audio.currentTime = e; } catch(err){} }
+    if (audio.paused && !playPending && (force || !document.body.classList.contains('need-tap'))){
+      playPending = true;
+      var pr = audio.play();
+      if (pr && pr.then) pr.then(function(){ playPending = false; document.body.classList.remove('need-tap'); }, function(){ playPending = false; if (running) document.body.classList.add('need-tap'); });
+      else playPending = false;
+    }
+  }
+
+  function applySession(){
+    if (navigator.audioSession){ try { navigator.audioSession.type = opts.mode === 'bg' ? 'playback' : 'ambient'; } catch(e){} }
+  }
 
   function setPlaying(on){
     $('playIco').innerHTML = on ? '<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>' : '<path d="M8 5v14l11-7z"/>';
     $('playBtn').setAttribute('aria-label', on ? 'Pausa' : 'Avvia');
     document.body.classList.toggle('locked', started);
+    document.body.classList.toggle('running', on);
     if ('mediaSession' in navigator) navigator.mediaSession.playbackState = on ? 'playing' : 'paused';
   }
 
   function play(){
     prepare();
-    if (audio.ended || audio.currentTime >= plan.total) { audio.currentTime = 0; }
-    started = true;
-    var pr = audio.play();
-    if (pr && pr.catch) pr.catch(function(){ setPlaying(false); });
+    if (!started || finished){ pausedAt = 0; finished = false; lastSeg = -1; }
+    started = true; running = true;
+    t0 = Date.now() - pausedAt*1000;
+    applySession();
+    setPlaying(true);
+    syncAudio(true);
+    startLoops();
     wake(true);
   }
-  function pause(){ audio.pause(); }
-  function toggle(){ if (audio.paused) play(); else pause(); }
+  function pause(){
+    if (!running) return;
+    pausedAt = elapsed(); running = false;
+    audio.pause(); clearInterval(tick); cancelAnimationFrame(raf);
+    document.body.classList.remove('need-tap');
+    setPlaying(false); draw(pausedAt);
+  }
+  function finish(){
+    running = false; finished = true; pausedAt = plan.total;
+    clearInterval(tick); cancelAnimationFrame(raf);
+    document.body.classList.remove('need-tap');
+    setPlaying(false); wake(false);
+  }
+  function toggle(){ if (running) pause(); else play(); }
   function reset(){
-    audio.pause();
-    try { audio.currentTime = 0; } catch(e){}
-    started = false; lastSeg = -1;
+    running = false; started = false; finished = false; pausedAt = 0; lastSeg = -1;
+    audio.pause(); try { audio.currentTime = 0; } catch(e){}
+    clearInterval(tick); cancelAnimationFrame(raf);
+    document.body.classList.remove('need-tap');
     setPlaying(false); draw(0); wake(false);
     document.body.classList.remove('locked');
   }
   function jump(dir){
-    if (!plan || !started) return;
-    var t = audio.currentTime, i = segAt(t);
-    var target;
+    if (!plan || !started || finished) return;
+    var t = elapsed(), i = segAt(t), target;
     if (dir > 0) target = plan.segs[i+1] ? plan.segs[i+1].start : plan.total;
     else target = (t - plan.segs[i].start > 2 || i === 0) ? plan.segs[i].start : plan.segs[i-1].start;
-    audio.currentTime = target + .001;
-    draw(audio.currentTime);
+    target += .001;
+    if (running){ t0 = Date.now() - target*1000; syncAudio(true); }
+    else { pausedAt = target; try { audio.currentTime = target; } catch(e){} }
+    frame();
   }
 
-  audio.addEventListener('play', function(){ setPlaying(true); cancelAnimationFrame(raf); raf = requestAnimationFrame(loop); });
-  audio.addEventListener('pause', function(){ setPlaying(false); draw(audio.currentTime); });
-  audio.addEventListener('timeupdate', function(){ if (document.hidden) draw(audio.currentTime); });
-  audio.addEventListener('ended', function(){ setPlaying(false); draw(plan.total); wake(false); });
+  audio.addEventListener('timeupdate', function(){ if (document.hidden && running) frame(); });
+  audio.addEventListener('playing', function(){ document.body.classList.remove('need-tap'); });
+  document.addEventListener('pointerdown', function(){ if (running && audio.paused) syncAudio(true); }, true);
 
   $('playBtn').addEventListener('click', toggle);
   $('resetBtn').addEventListener('click', reset);
@@ -518,7 +620,7 @@
   /* ---- Media Session: comandi dalla schermata di blocco ---- */
   function updateSession(phase, sg){
     if (!('mediaSession' in navigator)) return;
-    var title = LABEL[phase] + (sg && sg.round ? ' · round ' + sg.round + '/' + cfg.rounds : '');
+    var title = (exFor(sg) || LABEL[phase]) + (sg && sg.round ? ' · round ' + sg.round + '/' + cfg.rounds : '');
     try {
       navigator.mediaSession.metadata = new MediaMetadata({
         title: title,
@@ -542,7 +644,7 @@
     } else if (!on && wakeLock){ wakeLock.release().catch(function(){}); wakeLock = null; }
   }
   document.addEventListener('visibilitychange', function(){
-    if (!document.hidden){ draw(audio.currentTime); if (!audio.paused){ cancelAnimationFrame(raf); raf = requestAnimationFrame(loop); wake(true); } }
+    if (!document.hidden && running){ frame(); syncAudio(true); startLoops(); wake(true); }
   });
 
   /* ---- impostazioni ---- */
@@ -564,6 +666,7 @@
   }
   function changed(){
     save('tabata.cfg', cfg);
+    if ($('exList')) renderEx();
     FIELDS.forEach(function(f){ $('v_' + f.k).textContent = f.time ? fmt(cfg[f.k]) : cfg[f.k]; });
     renderPresets();
     dirty = true;
@@ -602,7 +705,7 @@
       opts.count = $('optCount').checked; opts.half = $('optHalf').checked; opts.wake = $('optWake').checked;
       save('tabata.opts', opts);
       if (id !== 'optWake' && !started) dirty = true;
-      if (id === 'optWake') wake(opts.wake && !audio.paused);
+      if (id === 'optWake') wake(opts.wake && running);
     });
   });
 
@@ -612,6 +715,55 @@
     var u = URL.createObjectURL(renderWav(p2));
     test.src = u; test.play().catch(function(){});
     test.addEventListener('ended', function(){ URL.revokeObjectURL(u); });
+  });
+
+  /* ---- esercizi ---- */
+  var SAMPLE = ['Burpees','Squat jump','Mountain climber','Push-up','Jumping jack','Affondi alternati','Plank jack','Skip alto','Crunch','Corsa sul posto'];
+  var exKey = '';
+  function renderEx(){
+    var key = cfg.rounds + '|' + ex.join('|');
+    if (key === exKey) return; exKey = key;
+    var h = '';
+    for (var r=1;r<=cfg.rounds;r++){
+      h += '<div class="ex-row" data-r="' + r + '"><span>' + r + '</span><input type="text" inputmode="text" autocomplete="off" enterkeyhint="next" maxlength="40" data-r="' + r + '" placeholder="Esercizio del round ' + r + '" value="' + esc(ex[r-1] || '') + '"></div>';
+    }
+    $('exList').innerHTML = h;
+  }
+  var exMarked = -1;
+  function markExRow(r){
+    if (r === exMarked) return; exMarked = r;
+    var rows = $('exList').querySelectorAll('.ex-row');
+    for (var k=0;k<rows.length;k++) rows[k].classList.toggle('now', +rows[k].getAttribute('data-r') === r);
+  }
+  $('exList').addEventListener('input', function(e){
+    var r = +e.target.getAttribute('data-r'); if (!r) return;
+    ex[r-1] = e.target.value; exKey = cfg.rounds + '|' + ex.join('|');
+    save('tabata.ex', ex); lastSeg = -1; frame();
+  });
+  $('exList').addEventListener('keydown', function(e){
+    if (e.key !== 'Enter') return;
+    var r = +e.target.getAttribute('data-r'), nxt = $('exList').querySelector('input[data-r="' + (r+1) + '"]');
+    e.preventDefault(); if (nxt) nxt.focus(); else e.target.blur();
+  });
+  $('exSample').addEventListener('click', function(){
+    for (var r=0;r<cfg.rounds;r++) ex[r] = SAMPLE[r % SAMPLE.length];
+    save('tabata.ex', ex); renderEx(); lastSeg = -1; frame();
+  });
+  $('exClear').addEventListener('click', function(){
+    ex = []; save('tabata.ex', ex); renderEx(); lastSeg = -1; frame();
+  });
+
+  /* ---- modalita' audio ---- */
+  function renderMode(){
+    var b = $('modeBox').querySelectorAll('button');
+    for (var k=0;k<b.length;k++) b[k].classList.toggle('on', b[k].getAttribute('data-mode') === opts.mode);
+    $('modeNote').textContent = opts.mode === 'mix'
+      ? 'In questa modalità togli il silenzioso: i beep seguono il volume e l’interruttore laterale, come la musica.'
+      : '';
+  }
+  $('modeBox').addEventListener('click', function(e){
+    var b = e.target.closest('[data-mode]'); if (!b || running) return;
+    opts.mode = b.getAttribute('data-mode'); save('tabata.opts', opts); renderMode(); applySession();
   });
 
   /* ---- installazione come app ---- */
@@ -632,7 +784,7 @@
         '<li><span>Tocca <b>Condividi</b> ' + shareIco + ' nella barra in basso (o in alto su iPad).</span></li>' +
         '<li><span>Scorri e scegli <b>Aggiungi alla schermata Home</b> ' + addIco + '.</span></li>' +
         '<li><span>Conferma con <b>Aggiungi</b>: trovi l’icona Tabata tra le tue app.</span></li></ol>' +
-        '<p class="note">Una volta installata si apre a schermo intero, funziona anche offline e continua a suonare a schermo bloccato.</p>';
+        '<p class="note">Una volta installata si apre a schermo intero, funziona anche offline e non perde il conto se la riduci a icona.</p>';
     } else {
       body = '<ol><li><span>Apri il menu del browser (i tre puntini).</span></li>' +
         '<li><span>Scegli <b>Installa app</b> o <b>Aggiungi a schermata Home</b>.</span></li></ol>';
@@ -652,7 +804,7 @@
     navigator.serviceWorker.register('sw.js').catch(function(){});
   }
 
-  renderPresets(); renderFields(); changed();
+  renderPresets(); renderFields(); changed(); renderEx(); renderMode(); applySession();
   prepare();
 })();
 </script>
