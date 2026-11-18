@@ -357,6 +357,7 @@ News banche                            ← pubblica
 └── Guida operativa Excel → HTML      (excel/banking-news.md)
 
 For fun                                ← pubblica
+├── Generali Italia                   (generali-italia.html)
 └── Tabata con Angelino               (tabata/ — PWA: manifest, sw.js, icone)
 
 Games                                  ← pubblica
