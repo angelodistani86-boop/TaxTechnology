@@ -369,7 +369,8 @@ Area riservata · gate password
 └── listOwner  (pwd: angelo44)
     ├── Vito Pennetta — un amico in Zambon
     ├── Francesco Trivisano — un amico in Deloitte
-    └── Antonello Scrimieri — un tax professional in Pirola
+    ├── Antonello Scrimieri — un tax professional in Pirola
+    └── Listino Tax Dashboard 2026       (listino-tax-dashboard-2026.html)
 ```
 
 Aggiornare questa sezione quando si aggiunge/sposta una pagina.
